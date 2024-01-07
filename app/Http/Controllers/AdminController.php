@@ -34,7 +34,9 @@ class AdminController extends Controller
                     ->leftJoin('positions', 'positions.id', '=', 'teachers.position_id')
                     ->paginate(10);
         $positions = Position::paginate(5);
-        $teaches = Teacher::with('subjects')->get();
+        $teaches = Teacher::whereHas('subjects') // Assumes subjects is the relationship method
+                    ->with('subjects')
+                    ->get();
         // dd($teaches->toArray());
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }

@@ -158,7 +158,9 @@
                                         <td>{{ $teach->name }}</td>
                                         <td>
                                             @foreach ($teach->subjects as $item)
-                                                {{ $item->name }}                                            
+                                                <div class="rounded-pill bg-secondary d-inline text-white py-1 px-2 mx-1">
+                                                    {{ $item->name }}    
+                                                </div>                                            
                                             @endforeach 
                                         </td>
                                         <td>

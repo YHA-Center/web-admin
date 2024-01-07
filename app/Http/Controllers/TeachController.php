@@ -31,12 +31,18 @@ class TeachController extends Controller
             ]);
         }
         // dd(Teach::get()->toArray());
-        return view('admin.teacher')->with(['success' => 'Created Class Successfully!']);
+        return redirect()->route('admin.teacher')->with(['success' => 'Created Class Successfully!']);
     }
 
     // edit teach data page
     public function edit($id){
-
+        $data = Teacher::where('id', $id)
+                    ->whereHas('subjects') // Assumes subjects is the relationship method
+                    ->with('subjects')
+                    ->first();
+        $subjects = Subject::get();
+        // dd($data->toArray());
+        return view('admin.teach.edit', compact('data', 'subjects'));
     }
 
     // update teach data

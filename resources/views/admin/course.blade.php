@@ -136,7 +136,7 @@
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Course</h6>
                     @endif
                     {{-- Pagination  --}}
-                    {{ $courses->appends(request()->query())->links() }}
+                    {{ $courses->links() }}
                     <a href="{{ route('course.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Course</a>
                 </div>
 
@@ -183,7 +183,7 @@
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Subject</h6>
                     @endif
                     {{-- Pagination  --}}
-                    {{ $subjects->appends(request()->query())->links() }}
+                    {{ $subjects->links() }}
                     <a href="{{ route('subject.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Subject</a>
                 </div>
             </div>
