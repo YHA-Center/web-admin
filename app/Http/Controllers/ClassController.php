@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
@@ -12,7 +13,8 @@ class ClassController extends Controller
     public function createPage(){
         $courses = Course::get();
         $subjects = Subject::get();
-        return view('admin.class.create', compact('courses', 'subjects'));
+        $instructors = Teacher::get();
+        return view('admin.class.create', compact('courses', 'subjects', 'instructors'));
     }
 
     // create class
