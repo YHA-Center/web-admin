@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,8 @@ class TeacherController extends Controller
 {
     // direct create new teacher page
     public function createPage(){
-        return view('admin.teacher.create');
+        $positions = Position::get();
+        return view('admin.teacher.create', compact('positions'));
     }
 
     // create new teacher
@@ -23,14 +25,16 @@ class TeacherController extends Controller
             $request->file('image')->storeas('public', $filename);
             $data["image"] = $filename;
         }
+        // dd($data);
         Teacher::create($data);
         return redirect()->route('admin.teacher')->with(['success' => 'Added instructor '.$data['name']]);
     }
 
     // edit teacher
     public function edit($id){
+        $positions = Position::get();
         $teacher = Teacher::where('id', $id)->first();
-        return view('admin.teacher.edit', compact('teacher'));
+        return view('admin.teacher.edit', compact('teacher', 'positions'));
     }
 
     // update teacher
@@ -60,12 +64,13 @@ class TeacherController extends Controller
         return redirect()->route('admin.teacher')->with(['success' => 'Deleted instructor '.$name->name]);
     }
 
+
     // get request data
     private function get_request_data($request){
         $array = [
             'name' => $request->name,
             'age' => $request->age,
-            'position' => $request->position,
+            'position_id' => $request->position_id,
         ];
         return $array;
     }
@@ -74,7 +79,7 @@ class TeacherController extends Controller
         $rule = [
             'name' => 'required|min:3|unique:teachers,name,'.$request->id,
             'age' => 'required',
-            'position' => 'required',
+            'position_id' => 'required',
             'image' => ($mode == 'create') ? 'required|file|mimes:jpg,jpeg,png,webp' : 'file|mimes:jpg,jpeg,png,webp',
         ];
         $message = [
@@ -82,7 +87,7 @@ class TeacherController extends Controller
             'name.min' => 'Instructor name must have upper 3 letters!',
             'name.unique' => 'Instructor name have been taken!',
             'age.required' => 'Instructor age is required',
-            'position.required' => 'Instructor position is required',
+            'position_id.required' => 'Instructor position is required',
         ];
         Validator::make($request->all(), $rule, $message)->validate();
     }

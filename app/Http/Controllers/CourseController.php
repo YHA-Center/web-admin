@@ -47,10 +47,9 @@ class CourseController extends Controller
             $filename = uniqid() .'_'. $request->file('image')->getClientOriginalName(); // filename with unique
             $request->file('image')->storeas('public', $filename);
             $data["image"] = $filename;
-            Course::where('id', $id)->update($data);
-            return redirect()->route('admin.course')->with(['success' => 'Updated instructor '.$request->name.' successfully']);
         }
-        return  redirect()->route('admin.course');
+        Course::where('id', $id)->update($data);
+            return redirect()->route('admin.course')->with(['success' => 'Updated instructor '.$request->name.' successfully']);
         
     }
     // delete course

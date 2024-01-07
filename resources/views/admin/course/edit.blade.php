@@ -24,6 +24,7 @@
                         {{-- Insert image  --}}
                         <form action="{{ route('course.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             {{-- Title  --}}
                             <div class="mb-3 form-group">

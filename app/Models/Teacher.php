@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Subject;
+use App\Models\Position;
+use App\Models\CourseSubjectInstructor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Teacher extends Model
 {
@@ -12,7 +15,12 @@ class Teacher extends Model
     protected $fillable = [
         'name',
         'age',
-        'position',
+        'position_id',
         'image',
     ];
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'teaches', 'teacher_id', 'subject_id');
+    }
 }

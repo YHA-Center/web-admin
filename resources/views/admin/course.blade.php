@@ -21,7 +21,7 @@
             <div class="row mb-2">
                 <h4> <i class="bx bx-book-bookmark fs-3"></i> Class</h4>
                 <div class="col-12">
-                    @if ($classes->count() > 0)
+                    {{-- @if ($classes->count() > 0) --}}
                     <div class="table-responsive text-nowrap bg-light shadow rounded">
                         <table class="table">
                             <thead>
@@ -35,37 +35,51 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($classes as $class)
+                                {{-- @foreach ($classes as $class) --}}
                                     <tr>
-                                        <td>#{{ $class->id }}</td>
-                                        <td>{{ $class->name }}</td>
-                                        <td>{{ $class->name }}</td>
-                                        <td>{{ $class->duration }}</td>
-                                        <td>{{ Str::of($class->description)->limit(50) }}</td>
+                                        <td>#</td>
+                                        <td></td>
+                                        <td> hr</td>
+                                        <td>
+                                            {{-- List of Instructors --}}
+                                            <ul> 
+                                                {{-- @foreach ($subject_list as $subject) --}}
+                                                    <li></li>
+                                                    {{-- Add more details as needed --}}
+                                                {{-- @endforeach --}}
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            {{-- List of Subjects --}}
+                                            {{-- <ul class="unstyled-list d-flex"> --}}
+                                                {{-- @foreach ($instructor_list as $instructor) --}}
+                                                    <li>
+
+                                                    </li>
+                                                    {{-- Add more details as needed --}}
+                                                {{-- @endforeach --}}
+                                            </ul>
+                                        </td>
                                         <td>
                                             <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('course.edit', $class->id) }}"><i
-                                                            class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('course.delete', $class->id) }}"><i
-                                                            class="bx bx-trash me-1"></i> Delete</a>
+                                                    <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    <a class="dropdown-item" href=""><i class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
+
                             </tbody>
                         </table>
                     </div>
-                    @else
+                    {{-- @else
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Class</h6>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
             {{-- Pagination  --}}

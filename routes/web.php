@@ -5,9 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\TeachController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\User\UserController;
 
 
@@ -58,6 +60,24 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [TeacherCOntroller::class, 'edit'])->name('teacher.edit');
             Route::post('/update', [TeacherCOntroller::class, 'update'])->name('teacher.update');
             Route::get('/delete/{id}', [TeacherController::class, 'delete'])->name('teacher.delete');
+        });
+
+        // position section
+        Route::prefix('position')->group(function() {
+            Route::get('/createPage', [PositionController::class, 'createPage'])->name('position.createPage');
+            Route::post('/create', [PositionController::class, 'create'])->name('position.create');
+            Route::get('/edit/{id}', [PositionController::class, 'edit'])->name('position.edit');
+            Route::post('/update', [PositionController::class, 'update'])->name('position.update');
+            Route::get('/delete/{id}', [PositionController::class, 'delete'])->name('position.delete');
+        });
+
+        // teach section
+        Route::prefix('teach')->group(function() {
+            Route::get('/createPage', [TeachController::class, 'createPage'])->name('teach.createPage');
+            Route::post('/create', [TeachController::class, 'create'])->name('teach.create');
+            Route::get('/edit/{id}', [TeachController::class, 'edit'])->name('teach.edit');
+            Route::post('/update', [TeachController::class, 'update'])->name('teach.update');
+            Route::get('/delete/{id}', [TeachController::class, 'delete'])->name('teach.delete');
         });
 
         // for course section

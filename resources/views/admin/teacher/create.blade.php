@@ -60,9 +60,15 @@
                             {{-- Position  --}}
                             <div class="mb-3 form-group">
                                 <label for="position" class="form-label h6 my-2">Position</label>
-                                <input type="text" name="position" value="{{ old('position') }}"
-                                    class="form-control @error('position') is-invalid  @enderror" id="position" placeholder="Instructor Position">
-                                @error('position')
+                                <select name="position_id" id="position" class="form-select @error('position_id')
+                                    is-invalid
+                                @enderror">
+                                    <option value="">Choose Position</option>
+                                    @foreach ($positions as $position)
+                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('position_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

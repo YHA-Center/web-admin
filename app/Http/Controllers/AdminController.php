@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Teach;
 use App\Models\Course;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Welcome;
+use App\Models\Position;
 use App\Models\AboutDesc;
-use App\Models\Course_Detail;
 use Illuminate\Http\Request;
+use App\Models\Course_Detail;
 use App\Models\StudentProject;
+use App\Http\Controllers\Controller;
+use App\Models\CourseSubjectInstructor;
 
 class AdminController extends Controller
 {
@@ -26,17 +30,25 @@ class AdminController extends Controller
 
     // direct teacher main page
     public function teacher(){
-        $teachers = Teacher::paginate(10);
-        return view('admin.teacher', compact('teachers'));
+        $teachers = Teacher::select('positions.name as position', 'teachers.*')
+                    ->leftJoin('positions', 'positions.id', '=', 'teachers.position_id')
+                    ->paginate(10);
+        $positions = Position::paginate(5);
+        $teaches = Teacher::with('subjects')->get();
+        // dd($teaches->toArray());
+        return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
 
     // direct course main page
     // direct course page
-    public function course(){
-        $classes = Course_Detail::get();
-        // dd($classes);
-        $courses = Course::paginate(5);
-        $subjects = Subject::paginate(5);
-        return view('admin.course', compact('courses', 'subjects', 'classes'));
+    public function course()
+    {
+        // dd($classes->toArray());
+    
+        $courses = Course::orderBy('updated_at', 'desc')->paginate(5);
+        $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5);
+    
+        return view('admin.course', compact('courses', 'subjects'));
     }
+    
 }

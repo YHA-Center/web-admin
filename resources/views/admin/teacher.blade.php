@@ -10,6 +10,7 @@
             </div>
         @endif
 
+        {{-- Instructor Data Table  --}}
         {{-- Data Table > Instructor  --}}
         <div class="fs-4 text-bolder mb-2">Instructors</div>
         <div class="row mb-2">
@@ -68,7 +69,7 @@
                     </div>
                 </div>
             @else
-                <div class="fs-6 text-uppercase text-center my-4">No instructor!</div>
+                <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
             @endif
         </div>
         {{-- Pagination  --}}
@@ -77,12 +78,19 @@
         <a href="{{ route('teacher.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Instructor
         </a>
 
-        <div class="fs-4 text-bolder mb-2">Position</div>
-        {{-- Data Table > Position  --}}
+
+
+        {{-- Section  --}}
         <div class="row mb-2">
-            <div class="col-6">
-                @if (count($teachers) > 0)
-                    <div class="table-responsive text-nowrap bg-light shadow rounded">
+
+
+
+
+            {{-- Data Table > Position  --}}
+            <div class="col-md-6">
+                <div class="fs-4 text-bolder mb-2">Position</div>
+                @if (count($positions) > 0)
+                    <div class="table-responsive text-nowrap bg-light shadow rounded my-2">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -92,10 +100,10 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($teachers as $teacher)
+                                @foreach ($positions as $position)
                                     <tr>
-                                        <td>#{{ $teacher->id }}</td>
-                                        <td>{{ $teacher->name }}</td>
+                                        <td>#{{ $position->id }}</td>
+                                        <td>{{ $position->name }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -104,10 +112,10 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('teacher.edit', $teacher->id) }}"><i
+                                                        href="{{ route('position.edit', $position->id) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('teacher.delete', $teacher->id) }}"><i
+                                                        href="{{ route('position.delete', $position->id) }}"><i
                                                             class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -118,14 +126,75 @@
                         </table>
                     </div>
                 @else
-                    <div class="fs-6 text-uppercase text-center my-4">No Position!</div>
+                    <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
+                {{-- Pagination  --}}
+                {{ $positions->appends(request()->query())->links() }}
+                {{-- Button  --}}
+                <a href="{{ route('position.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Position </a>
             </div>
+
+
+
+
+            {{-- Teach Table  --}}
+            <div class="col-md-6">
+                <div class="fs-4 text-bolder mb-2">Teach</div>
+                @if (count($teaches) > 0)
+                    <div class="table-responsive text-nowrap bg-light shadow rounded my-2">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Instructor</th>
+                                    <th>Subjects</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                @foreach ($teaches as $teach)
+                                    <tr>
+                                        <td>#{{ $teach->id }}</td>
+                                        <td>{{ $teach->name }}</td>
+                                        <td>
+                                            @foreach ($teach->subjects as $item)
+                                                {{ $item->name }}                                            
+                                            @endforeach 
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('teach.edit', $teach->id) }}"><i
+                                                            class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('teach.delete', $teach->id) }}"><i
+                                                            class="bx bx-trash me-1"></i> Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
+                @endif
+                {{-- Pagination  --}}
+                {{ $positions->appends(request()->query())->links() }}
+                {{-- Button  --}}
+                <a href="{{ route('teach.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Teach </a>
+            </div>
+
+
         </div>
-        {{-- Pagination  --}}
-        {{ $teachers->appends(request()->query())->links() }}
-        {{-- Button  --}}
-        <a href="{{ route('teacher.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Position </a>
+        
+
 
     </div>
 @endsection

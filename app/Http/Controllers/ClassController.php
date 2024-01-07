@@ -26,10 +26,6 @@ class ClassController extends Controller
         $subjectIds = $request->input('subjects');
         $instructorIds = $request->input('instructors');
 
-        // for($i=0; $i<count($subjectIds); $i++){
-        //     echo $subjectIds[$i];
-        // }
-
         foreach ($subjectIds as $subjectId) {
             foreach ($instructorIds as $instructorId) {
 
@@ -42,7 +38,7 @@ class ClassController extends Controller
                 ]);
             }
         }
-        // return view('admin.course')->with(['success' => 'Created Course Successfully!']);
+        return view('admin.course')->with(['success' => 'Created Class Successfully!']);
     }
 
 }

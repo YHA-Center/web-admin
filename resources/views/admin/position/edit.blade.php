@@ -13,16 +13,16 @@
                 <div class="card my-3 border-warning shadow">
                     {{-- Card Header --}}
                     <div class="card-header border-warning">
-                        <h3 class="h5 text-primary"> <i class="bx bx-book-open fs-3"></i> Edit Subject</h3>
+                        <h3 class="h5 text-primary"> <i class="bx bx-book-open fs-3"></i> Edit Position</h3>
                     </div>
                     <div class="card-body">
 
-                        <form action="{{ route('subject.update') }}" method="POST" >
+                        <form action="{{ route('position.update') }}" method="POST" >
                             @csrf
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             {{-- Title  --}}
                             <div class="mb-3 form-group">
-                                <label for="name" class="form-label h6 my-2">Subject name</label>
+                                <label for="name" class="form-label h6 my-2">Position name</label>
                                 <input type="text" name="name" class="form-control @error('name')
                                     is-invalid
                                 @enderror" value="{{ $data->name }}" id="name" placeholder="Enetr subject name">

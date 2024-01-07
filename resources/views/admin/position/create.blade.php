@@ -8,24 +8,23 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6 ">
 
-                <a href="{{ route('admin.course') }}" class="btn btn-secondary"> <i class="bx bx-left-arrow-alt">    </i> Back</a>
+                <a href="{{ route('admin.teacher') }}" class="btn btn-secondary"> <i class="bx bx-left-arrow-alt">    </i> Back</a>
 
                 <div class="card my-3 border-warning shadow">
-                    {{-- Card Header --}}
+                    {{-- Card Header  --}}
                     <div class="card-header border-warning">
-                        <h3 class="h5 text-primary"> <i class="bx bx-book-open fs-3"></i> Edit Subject</h3>
+                        <h3 class="h5 text-primary"> <i class="bx bx-briefcase fs-3"></i> Add Position</h3>
                     </div>
                     <div class="card-body">
 
-                        <form action="{{ route('subject.update') }}" method="POST" >
+                        <form action="{{ route('position.create') }}" method="POST" >
                             @csrf
-                            <input type="hidden" name="id" value="{{ $data->id }}">
                             {{-- Title  --}}
                             <div class="mb-3 form-group">
-                                <label for="name" class="form-label h6 my-2">Subject name</label>
+                                <label for="name" class="form-label h6 my-2">Position name</label>
                                 <input type="text" name="name" class="form-control @error('name')
                                     is-invalid
-                                @enderror" value="{{ $data->name }}" id="name" placeholder="Enetr subject name">
+                                @enderror" value="{{ old('name') }}" id="name" placeholder="Enetr Position name">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -33,7 +32,7 @@
                                 @enderror
                             </div>
                             
-                            <button class="btn btn-primary mt-3"><i class="bx bx-up-arrow-alt"></i> Update</button>
+                            <button class="btn btn-primary mt-3"><i class="bx bx-down-arrow-alt"></i> Save</button>
 
                         </form>
                     </div>
