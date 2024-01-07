@@ -8,6 +8,7 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Welcome;
 use App\Models\AboutDesc;
+use App\Models\Course_Detail;
 use Illuminate\Http\Request;
 use App\Models\StudentProject;
 
@@ -32,8 +33,10 @@ class AdminController extends Controller
     // direct course main page
     // direct course page
     public function course(){
+        $classes = Course_Detail::get();
+        // dd($classes);
         $courses = Course::paginate(5);
         $subjects = Subject::paginate(5);
-        return view('admin.course', compact('courses', 'subjects'));
+        return view('admin.course', compact('courses', 'subjects', 'classes'));
     }
 }

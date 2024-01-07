@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -75,6 +76,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('subject.edit');
             Route::post('/update', [SubjectController::class, 'update'])->name('subject.update');
             Route::get('/delete/{id}', [SubjectController::class, 'delete'])->name('subject.delete');
+        });
+
+        // for class section
+        Route::prefix('class')->group(function() {
+            Route::get('/createPage', [ClassController::class, 'createPage'])->name('class.createPage');
+            Route::post('/create', [ClassController::class, 'create'])->name('class.create');
+            Route::get('/edit/{id}', [ClassController::class, 'edit'])->name('class.edit');
+            Route::post('/update', [ClassController::class, 'update'])->name('class.update');
+            Route::get('/delete/{id}', [ClassController::class, 'delete'])->name('class.delete');
         });
 
     });

@@ -17,31 +17,31 @@
                     @endif
                 </div>
             </div>
-            {{-- Teacher List  --}}
+            {{-- Class List  --}}
             <div class="row mb-2">
                 <h4> <i class="bx bx-book-bookmark fs-3"></i> Class</h4>
                 <div class="col-12">
-                    @if (count($courses) > 0)
+                    @if ($classes->count() > 0)
                     <div class="table-responsive text-nowrap bg-light shadow rounded">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
+                                    <th>Course</th>
                                     <th>Duration</th>
-                                    <th>Description</th>
+                                    <th>Subjects</th>
+                                    <th>Instructor</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($courses as $course)
+                                @foreach ($classes as $class)
                                     <tr>
-                                        <td>#{{ $course->id }}</td>
-                                        <td>{{ $course->name }}</td>
-                                        <td>{{ $course->name }}</td>
-                                        <td>{{ $course->duration }}</td>
-                                        <td>{{ Str::of($course->description)->limit(50) }}</td>
+                                        <td>#{{ $class->id }}</td>
+                                        <td>{{ $class->name }}</td>
+                                        <td>{{ $class->name }}</td>
+                                        <td>{{ $class->duration }}</td>
+                                        <td>{{ Str::of($class->description)->limit(50) }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -50,10 +50,10 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('course.edit', $course->id) }}"><i
+                                                        href="{{ route('course.edit', $class->id) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('course.delete', $course->id) }}"><i
+                                                        href="{{ route('course.delete', $class->id) }}"><i
                                                             class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -69,8 +69,8 @@
                 </div>
             </div>
             {{-- Pagination  --}}
-            {{ $courses->appends(request()->query())->links() }}
-            <a href="{{ route('course.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i>Class</a>
+            {{-- {{ $classes->appends(request()->query())->links() }} --}}
+            <a href="{{ route('class.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i>Class</a>
 
 
             {{-- Course List & Subjec List  --}}
