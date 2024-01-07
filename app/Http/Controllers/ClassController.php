@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Models\CourseSubjectInstructor;
 
 class ClassController extends Controller
 {
@@ -18,5 +19,30 @@ class ClassController extends Controller
     }
 
     // create class
+    public function create(Request $request){
+        
+        $courseId = $request->courseId;
+        // Attach subjects and instructors to the course
+        $subjectIds = $request->input('subjects');
+        $instructorIds = $request->input('instructors');
+
+        // for($i=0; $i<count($subjectIds); $i++){
+        //     echo $subjectIds[$i];
+        // }
+
+        foreach ($subjectIds as $subjectId) {
+            foreach ($instructorIds as $instructorId) {
+
+                // Create a new CourseSubjectInstructor instance
+                CourseSubjectInstructor::create([
+                    'course_id' => $courseId,
+                    'subject_id' => $subjectId['id'],
+                    'instructor_id' => $instructorId['id'],
+                    // Add other attributes if needed
+                ]);
+            }
+        }
+        // return view('admin.course')->with(['success' => 'Created Course Successfully!']);
+    }
 
 }

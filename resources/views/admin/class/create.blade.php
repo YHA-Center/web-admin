@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body">
                             {{-- Insert image  --}}
-                            <form action="{{ route('teacher.create') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('class.create') }}" method="POST">
                                 @csrf
                                 {{-- Course  --}}
                                 <div class="mb-3 form-group">
@@ -41,6 +41,7 @@
 
                                 {{-- Subject  --}}
                                 <div class="mb-3 form-group">
+                                    <input type="hidden" name="" class="subject_count" value="{{ count($subjects) }}">
                                     <label for="name" class="form-label h6 my-2">Subject</label>
                                     <div class="row subject-group">
                                         {{-- Subject Groups  --}}
@@ -62,6 +63,7 @@
 
                                 {{-- Instructor  --}}
                                 <div class="mb-3 form-group">
+                                    <input type="hidden" name="" class="instructor_count" value="{{ count($instructors) }}">
                                     <label for="name" class="form-label h6 my-2">Instructors</label>
                                     <div class="row instructor-group">
                                         {{-- Subject Groups  --}}
@@ -101,15 +103,39 @@ document.addEventListener('DOMContentLoaded', function () {
     const instructor_container = document.querySelector('.instructor-group');
     const add_instructor_btn = document.querySelector(".instructor_btn");
 
+    let subject_count = document.querySelector('.subject_count').value;
+    let instructor_count = document.querySelector('.instructor_count').value;
+    let subject = 0;  
+    let instructor = 0;
+    
+    // control the subject add button
+    let control_subject = (ele) => {
+        if(ele > subject_count-1){
+            add_subject_btn.classList.add('d-none');
+        }else{
+            add_subject_btn.classList.remove('d-none');
+        }
+    }
+
+    // control the instructor add button
+    let control_instructor = (ele) => {
+        if(ele > instructor_count-1){
+            add_instructor_btn.classList.add('d-none');
+        }else{
+            add_instructor_btn.classList.remove('d-none');
+        }
+    }
+
     // for subject
     add_subject_btn.addEventListener('click', () => {
+        subject++;   // increment the start
         const newSubject = document.createElement('div');
         newSubject.classList.add('col-6', 'mb-2');
         newSubject.innerHTML = `
             {{-- Subjects --}}
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select class="form-select " name="subjectId" aria-label="Default select example">
+                <select class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
                     <option selected>Choose Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
@@ -125,18 +151,25 @@ document.addEventListener('DOMContentLoaded', function () {
         del_subject_btn.addEventListener('click', () => {
             // Handle delete button click here
             container.removeChild(newSubject);
+            subject -= 1;
+            // control the subject button 
+            control_subject(subject);
         });
+
+        // control the subject button 
+        control_subject(subject)
     });
 
 
     add_instructor_btn.addEventListener('click', () => {
-        const newSubject = document.createElement('div');
-        newSubject.classList.add('col-6', 'mb-2');
-        newSubject.innerHTML = `
+        instructor++;
+        const newInstructor = document.createElement('div');
+        newInstructor.classList.add('col-6', 'mb-2');
+        newInstructor.innerHTML = `
             {{-- Subjects --}}
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-user-check"></i></span>
-                <select class="form-select " name="instructorId" aria-label="Default select example">
+                <select class="form-select " name="instructors[${instructor}][id]" aria-label="Default select example">
                     <option selected>Choose Instructor</option>
                     @foreach ($instructors as $instructor)
                         <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
@@ -145,16 +178,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button class="btn btn-outline-danger btn-sm instructor_del" type="button"><i class="bx bx-trash"></i> </button>
             </div>
         `;
-        instructor_container.appendChild(newSubject);
+        instructor_container.appendChild(newInstructor);
 
         // Update the event listener for delete button
-        const del_instructor_btn = newSubject.querySelector(".instructor_del");
+        const del_instructor_btn = newInstructor.querySelector(".instructor_del");
         del_instructor_btn.addEventListener('click', () => {
             // Handle delete button click here
-            instructor_container.removeChild(newSubject);
+            instructor_container.removeChild(newInstructor);
+            instructor--;
+            control_instructor(instructor);
         });
+        control_instructor(instructor);
     });
 });
+
 
     </script>
 @endsection

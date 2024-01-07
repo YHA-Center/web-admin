@@ -70,7 +70,7 @@
                             </div>
 
                             
-                            <button class="btn btn-warning mt-3"><i class="fas fa-download"></i> Save</button>
+                            <button class="btn btn-primary mt-3"><i class="bx bx-down-arrow-alt"></i> Save</button>
 
                         </form>
                     </div>
