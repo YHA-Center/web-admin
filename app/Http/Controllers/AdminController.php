@@ -46,9 +46,8 @@ class AdminController extends Controller
     public function course()
     {
         // dd($classes->toArray());
-    
-        $courses = Course::orderBy('updated_at', 'desc')->paginate(5);
-        $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5);
+        $courses = Course::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'course');
+        $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'subject');
     
         return view('admin.course', compact('courses', 'subjects'));
     }

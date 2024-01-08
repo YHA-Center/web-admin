@@ -17,6 +17,10 @@
                     @endif
                 </div>
             </div>
+
+
+
+
             {{-- Class List  --}}
             <div class="row mb-2">
                 <h4> <i class="bx bx-book-bookmark fs-3"></i> Class</h4>
@@ -89,6 +93,9 @@
 
             {{-- Course List & Subjec List  --}}
             <div class="row mb-2">
+
+
+
                 {{-- Course  --}}
                 <div class="col-md-8 mb-2">
                     <h4> <i class="bx bx-book-alt fs-3"></i> Course</h4>
@@ -136,9 +143,12 @@
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Course</h6>
                     @endif
                     {{-- Pagination  --}}
-                    {{ $courses->links() }}
+                    {{ $courses->appends(['subject' => $subjects->currentPage()])->links() }}
                     <a href="{{ route('course.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Course</a>
                 </div>
+
+
+
 
                 {{-- Subject  --}}
                 <div class="col-md-4 mb-2">
@@ -183,7 +193,7 @@
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Subject</h6>
                     @endif
                     {{-- Pagination  --}}
-                    {{ $subjects->links() }}
+                    {{ $subjects->appends(['course' => $courses->currentPage()])->links() }}
                     <a href="{{ route('subject.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Subject</a>
                 </div>
             </div>
