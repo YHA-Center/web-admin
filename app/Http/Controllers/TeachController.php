@@ -6,6 +6,7 @@ use App\Models\Teach;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TeachController extends Controller
 {
@@ -18,6 +19,7 @@ class TeachController extends Controller
 
     // create teach data
     public function create(Request $request){
+        $this->validation($request);
         $teacherId = $request->teacher_id;
         // Attach subjects and instructors to the course
         $subjectIds = $request->input('subjects');
@@ -52,6 +54,16 @@ class TeachController extends Controller
 
     // delet teach data
     public function delete($id){
-        
+        Teach::where('teacher_id', $id)->delete();
+        return redirect()->route('admin.teacher')->with(['success' => 'Deleted Teach Data Successfully!']);
+    }
+
+
+    // validation
+    private function validation($request){
+        Validator::make($request->all(), [
+            'teacher_id' => 'required',
+            'subject_id' => 'required',
+        ])->validate();
     }
 }

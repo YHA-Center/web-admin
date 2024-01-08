@@ -32,12 +32,12 @@ class AdminController extends Controller
     public function teacher(){
         $teachers = Teacher::select('positions.name as position', 'teachers.*')
                     ->leftJoin('positions', 'positions.id', '=', 'teachers.position_id')
-                    ->paginate(10);
-        $positions = Position::paginate(5);
+                    ->paginate(10, ['*'], 'teacher');
+        $positions = Position::paginate(5, ['*'], 'position');
         $teaches = Teacher::whereHas('subjects') // Assumes subjects is the relationship method
                     ->with('subjects')
                     ->get();
-        // dd($teaches->toArray());
+
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
 

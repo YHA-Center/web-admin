@@ -21,18 +21,20 @@
                                 @csrf
                                 {{-- Course  --}}
                                 <div class="mb-3 form-group">
-                                    <label for="name" class="form-label h6 my-2">Instructor</label>
+                                    <label for="teacher_id" class="form-label h6 my-2">Instructor</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-user-check"></i></span>
-                                        <select class="form-select" name="teacher_id" id=""
+                                        <select class="form-select @error('teacher_id')
+                                            is-invalid
+                                        @enderror" name="teacher_id" id="teacher_id"
                                             aria-label="Default select example">
-                                            <option selected>Choose Instructor</option>
+                                            <option value="" selected>Choose Instructor</option>
                                             @foreach ($teachers as $teach)
-                                                <option value="{{ $teach->id }}">{{ $teach->name }}</option>
+                                                <option value="{{ $teach->id }}" >{{ $teach->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    @error('name')
+                                    @error('teacher_id')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -54,11 +56,6 @@
                                         </div>
                                     </div>
                                     
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
 
                                 <button class="btn btn-primary mt-3"><i class="bx bx-down-arrow-alt"></i> Save</button>
@@ -99,7 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
             {{-- Subjects --}}
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
+                <select class="form-select @error('subjects[${subject}][id]')
+                    is-invalid
+                @enderror" name="subjects[${subject}][id]" aria-label="Default select example">
                     <option selected>Choose Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
@@ -107,6 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 </select>
                 <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
             </div>
+            @error('subjects[${subject}][id]')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         `;
         container.appendChild(newSubject);
 

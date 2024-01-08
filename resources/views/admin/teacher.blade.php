@@ -35,16 +35,18 @@
                                         <td>#{{ $teacher->id }}</td>
                                         <td>
                                             <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                <a href="{{ route('teacher.edit', $teacher->id) }}">
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
                                                     data-bs-placement="top" class="avatar avatar-xs pull-up"
                                                     title="{{ $teacher->name }}">
                                                     <img src="{{ asset('storage/' . $teacher->image) }}" alt="Avatar"
                                                         class="rounded-circle" />
                                                 </li>
+                                                </a>
                                             </ul>
                                         </td>
                                         <td>{{ $teacher->name }}</td>
-                                        <td>{{ $teacher->age }}</td>
+                                        <td>{{ $teacher->age }} yrs</td>
                                         <td>{{ $teacher->position }}</td>
                                         <td>
                                             <div class="dropdown">
@@ -73,7 +75,7 @@
             @endif
         </div>
         {{-- Pagination  --}}
-        {{ $teachers->appends(request()->query())->links() }}
+        {{ $teachers->appends(['position' => $positions->currentPage()])->links() }}
         {{-- Button  --}}
         <a href="{{ route('teacher.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Instructor
         </a>
@@ -129,7 +131,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{-- Pagination  --}}
-                {{ $positions->appends(request()->query())->links() }}
+                {{ $positions->appends(['teacher' => $teachers->currentPage()])->links() }}
                 {{-- Button  --}}
                 <a href="{{ route('position.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Position </a>
             </div>
@@ -158,7 +160,10 @@
                                         <td>{{ $teach->name }}</td>
                                         <td>
                                             @foreach ($teach->subjects as $item)
-                                                <div class="rounded-pill bg-secondary d-inline text-white py-1 px-2 mx-1">
+                                                <div class="rounded-pill d-inline text-white py-1 px-2 mx-1" 
+                                                style=" 
+                                                    background-color: rgba({{ mt_rand(0, 255) }}, {{ mt_rand(0, 255) }}, {{ mt_rand(0, 255) }}, 0.8);
+                                                ">
                                                     {{ $item->name }}    
                                                 </div>                                            
                                             @endforeach 
