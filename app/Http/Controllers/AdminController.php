@@ -36,7 +36,7 @@ class AdminController extends Controller
         $positions = Position::paginate(5, ['*'], 'position');
         $teaches = Teacher::whereHas('subjects') // Assumes subjects is the relationship method
                     ->with('subjects')
-                    ->get();
+                    ->paginate(5, ['*'], 'teach');
 
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }

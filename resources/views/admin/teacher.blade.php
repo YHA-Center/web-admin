@@ -75,7 +75,7 @@
             @endif
         </div>
         {{-- Pagination  --}}
-        {{ $teachers->appends(['position' => $positions->currentPage()])->links() }}
+        {{ $teachers->appends(['position' => $positions->currentPage(), 'teach' => $teaches->currentPage()])->links() }}
         {{-- Button  --}}
         <a href="{{ route('teacher.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Instructor
         </a>
@@ -131,7 +131,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{-- Pagination  --}}
-                {{ $positions->appends(['teacher' => $teachers->currentPage()])->links() }}
+                {{ $positions->appends(['teacher' => $teachers->currentPage(), 'teach' => $teaches->currentPage()])->links() }}
                 {{-- Button  --}}
                 <a href="{{ route('position.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Position </a>
             </div>
@@ -193,7 +193,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{-- Pagination  --}}
-                {{ $positions->appends(request()->query())->links() }}
+                {{ $teaches->appends(['teacher' => $teachers->currentPage(), 'position' => $positions->currentPage()])->links() }}
                 {{-- Button  --}}
                 <a href="{{ route('teach.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Teach </a>
             </div>
