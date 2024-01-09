@@ -10,8 +10,11 @@
         </div>
     @endif
 
+
+
+
     {{-- Welcome section  --}}
-    <div class="container-fluid mb-4">
+    <div class="container-fluid mb-5">
         <div class="row">
             <div class="col-12">
                 {{-- Card  --}}
@@ -78,8 +81,11 @@
         </div>
     </div>
 
+
+
+
     {{-- About Page Section  --}}
-    <div class="container-fluid mb-4">
+    <div class="container-fluid mb-5">
         <div class="row">
             <div class="col-lg-8 mb-4">
                 <div class="card shadow mb-2">
@@ -160,12 +166,18 @@
     </div>
     {{-- END OF ABOUT PAGE SECTION  --}}
 
+
+
+
+
     {{-- Project section  --}}
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
         <div class="row">
             <div class="col">
                 This is welcome page
             </div>
         </div>
     </div>
+
+
 @endsection

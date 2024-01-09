@@ -25,7 +25,7 @@ class AdminController extends Controller
         $about = About::get();
         $about_desc = AboutDesc::get()->first();
         // dd($about->toArray());
-        return view('admin.user_interface.main', compact('welcome', 'about', 'about_desc'));
+        return view('admin.main', compact('welcome', 'about', 'about_desc'));
     }
 
 
