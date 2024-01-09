@@ -54,7 +54,6 @@ class TeachController extends Controller
 
     // update teach data
     public function update(Request $request){
-
         $teacherId = $request->teacher_id;
         $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
 
@@ -74,7 +73,7 @@ class TeachController extends Controller
             ]);
         }
         // dd(Teach::get()->toArray());
-        return redirect()->route('admin.teacher')->with(['success' => 'Update Related Class Successfully!']);
+        return redirect()->route('admin.teacher')->with(['success' => 'Update Related teach Successfully!']);
     }
 
     // delet teach data

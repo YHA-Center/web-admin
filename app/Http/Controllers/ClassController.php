@@ -41,6 +41,40 @@ class ClassController extends Controller
         return redirect()->route('admin.course')->with(['success' => 'Created class successfully!']);
     }
 
+        // edit class
+        public function edit($id){
+            $data = Course::where('id', $id)
+            ->with(['subjects' => function ($query) {
+                $query->select('subjects.*')->distinct();
+            }])
+            ->first();  
+            $subjects = Subject::get();
+            return view('admin.class.edit', compact('data', 'subjects'));
+        }
+
+    // update class
+    public function update(Request $request){
+        $courseId = $request->course_id;
+        $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
+
+        dd($request->all()); 
+
+        // delete all data
+        Course::where('course_id', $courseId)->delete();
+
+        foreach ($subjectIds as $subjectId) { 
+            // Skip 'Choose Subject' value
+            if ($subjectId['id'] === '') {
+                continue;
+            }     
+            Teach::create([
+                'teacher_id' => $courseId,
+                'subject_id' => $subjectId['id'],
+            ]);
+        }
+        return redirect()->route('admin.course')->with(['success' => 'Update Related Class Successfully!']);
+    }
+
     // delete class
     public function delete($id){
         ClassModel::where('course_id', $id)->delete();
