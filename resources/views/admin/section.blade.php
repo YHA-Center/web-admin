@@ -67,7 +67,7 @@
             <div class="col-md-6">
             <span class="fs-4"> <i class="bx bx-hourglass fs-4 mb-1"></i> Section</span>
             @if (count($sections) > 0)                
-                <div class="table-responsive text-nowrap bg-light rounded shadow">
+                <div class="table-responsive text-nowrap bg-light rounded shadow mb-3">
                     <table class="table">
                         <thead>
                             <tr>
@@ -79,12 +79,12 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            {{-- @foreach ($section as $teacher) --}}
+                            @foreach ($sections as $section)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>#{{ $section->id }}</td>
+                                    <td>{{ $section->name }}</td>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s', $section->start)->format('h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s', $section->end)->format('h:i A') }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -93,16 +93,16 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('section.edit') }}"><i
+                                                    href="{{ route('section.edit', $section->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('section.delete') }}"><i
+                                                    href="{{ route('section.delete', $section->id) }}"><i
                                                         class="bx bx-trash me-1"></i> Delete</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
