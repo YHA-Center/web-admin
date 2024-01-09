@@ -82,5 +82,4 @@ class TeachController extends Controller
         Teach::where('teacher_id', $id)->delete();
         return redirect()->route('admin.teacher')->with(['success' => 'Deleted Teach Data Successfully!']);
     }
-
 }

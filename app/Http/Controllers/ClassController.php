@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
 use App\Models\CourseSubjectInstructor;
+use Illuminate\Support\Facades\Validator;
 
 class ClassController extends Controller
 {
@@ -14,31 +16,29 @@ class ClassController extends Controller
     public function createPage(){
         $courses = Course::get();
         $subjects = Subject::get();
-        $instructors = Teacher::get();
-        return view('admin.class.create', compact('courses', 'subjects', 'instructors'));
+        return view('admin.class.create', compact('courses', 'subjects'));
     }
 
     // create class
     public function create(Request $request){
+
+        Validator::make($request->all(), [
+            'courseId' => 'required|unique:class_models,course_id',
+        ])->validate();
         
         $courseId = $request->courseId;
-        // Attach subjects and instructors to the course
-        $subjectIds = $request->input('subjects');
-        $instructorIds = $request->input('instructors');
+        $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
 
+        // dd($request->all());
         foreach ($subjectIds as $subjectId) {
-            foreach ($instructorIds as $instructorId) {
-
-                // Create a new CourseSubjectInstructor instance
-                CourseSubjectInstructor::create([
-                    'course_id' => $courseId,
-                    'subject_id' => $subjectId['id'],
-                    'instructor_id' => $instructorId['id'],
-                    // Add other attributes if needed
-                ]);
-            }
+            // Create a new CourseSubjectInstructor instance
+            ClassModel::create([
+                'course_id' => $courseId,
+                'subject_id' => $subjectId['id'],
+                // Add other attributes if needed
+            ]);
         }
-        return view('admin.course')->with(['success' => 'Created Class Successfully!']);
+        return redirect()->route('admin.course')->with(['success' => 'Created Class Successfully!']);
     }
 
 }

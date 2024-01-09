@@ -24,19 +24,22 @@
                                     <label for="name" class="form-label h6 my-2">Course</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-book"></i></span>
-                                        <select class="form-select" name="courseId" id=""
+                                        <select class="form-select @error('courseId')
+                                            is-invalid
+                                        @enderror" name="courseId" id=""
                                             aria-label="Default select example">
-                                            <option selected>Choose Course</option>
+                                            <option value="" selected>Choose Course</option>
                                             @foreach ($courses as $course)
                                                 <option value="{{ $course->id }}">{{ $course->name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('courseId')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
 
                                 {{-- Subject  --}}
@@ -44,7 +47,9 @@
                                     <input type="hidden" name="" class="subject_count" value="{{ count($subjects) }}">
                                     <label for="name" class="form-label h6 my-2">Subject</label>
                                     <div class="row subject-group">
+
                                         {{-- Subject Groups  --}}
+
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-12">
@@ -54,33 +59,6 @@
                                         </div>
                                     </div>
                                     
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                {{-- Instructor  --}}
-                                <div class="mb-3 form-group">
-                                    <input type="hidden" name="" class="instructor_count" value="{{ count($instructors) }}">
-                                    <label for="name" class="form-label h6 my-2">Instructors</label>
-                                    <div class="row instructor-group">
-                                        {{-- Subject Groups  --}}
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-12">
-                                            <button class="btn btn-outline-primary w-100 instructor_btn" type="button">
-                                                <i class="bx bx-plus"></i> Add
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
 
                                 <button class="btn btn-primary mt-3"><i class="bx bx-down-arrow-alt"></i> Save</button>
@@ -100,13 +78,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.subject-group');
     const add_subject_btn = document.querySelector(".subject_btn");
-    const instructor_container = document.querySelector('.instructor-group');
-    const add_instructor_btn = document.querySelector(".instructor_btn");
-
     let subject_count = document.querySelector('.subject_count').value;
-    let instructor_count = document.querySelector('.instructor_count').value;
     let subject = 0;  
-    let instructor = 0;
     
     // control the subject add button
     let control_subject = (ele) => {
@@ -135,12 +108,17 @@ document.addEventListener('DOMContentLoaded', function () {
             {{-- Subjects --}}
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
+                <select required class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
                     <option selected>Choose Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                     @endforeach
                 </select>
+                @error('name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
             </div>
         `;
@@ -161,35 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    add_instructor_btn.addEventListener('click', () => {
-        instructor++;
-        const newInstructor = document.createElement('div');
-        newInstructor.classList.add('col-6', 'mb-2');
-        newInstructor.innerHTML = `
-            {{-- Subjects --}}
-            <div class="input-group input-group-merge">
-                <span class="input-group-text"><i class="bx bx-user-check"></i></span>
-                <select class="form-select " name="instructors[${instructor}][id]" aria-label="Default select example">
-                    <option selected>Choose Instructor</option>
-                    @foreach ($instructors as $instructor)
-                        <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
-                    @endforeach
-                </select>
-                <button class="btn btn-outline-danger btn-sm instructor_del" type="button"><i class="bx bx-trash"></i> </button>
-            </div>
-        `;
-        instructor_container.appendChild(newInstructor);
-
-        // Update the event listener for delete button
-        const del_instructor_btn = newInstructor.querySelector(".instructor_del");
-        del_instructor_btn.addEventListener('click', () => {
-            // Handle delete button click here
-            instructor_container.removeChild(newInstructor);
-            instructor--;
-            control_instructor(instructor);
-        });
-        control_instructor(instructor);
-    });
+    
 });
 
 

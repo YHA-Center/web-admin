@@ -52,8 +52,14 @@ class AdminController extends Controller
         // dd($classes->toArray());
         $courses = Course::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'course');
         $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'subject');
+
+        $classes = Course::whereHas('subjects.teachers')
+        ->with(['subjects.teachers' => function ($query) {
+            $query->select('teachers.*')->distinct();
+        }])
+        ->paginate(5, ['*'], 'class');
     
-        return view('admin.course', compact('courses', 'subjects'));
+        return view('admin.course', compact('courses', 'subjects', 'classes'));
     }
     
 }

@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show shadow-sm bg-white" role="alert">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -41,7 +41,7 @@
                                                     title="{{ $teacher->name }}">
                                                     <img src="{{ asset('storage/' . $teacher->image) }}" alt="Avatar"
                                                         class="rounded-circle" />
-                                                </li>
+                                                    </li>
                                                 </a>
                                             </ul>
                                         </td>

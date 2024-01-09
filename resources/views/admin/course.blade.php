@@ -25,7 +25,7 @@
             <div class="row mb-2">
                 <h4> <i class="bx bx-book-bookmark fs-3"></i> Class</h4>
                 <div class="col-12">
-                    {{-- @if ($classes->count() > 0) --}}
+                    @if (count($classes) > 0)
                     <div class="table-responsive text-nowrap bg-light shadow rounded">
                         <table class="table">
                             <thead>
@@ -39,29 +39,47 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                {{-- @foreach ($classes as $class) --}}
+                                @foreach ($classes as $class)
                                     <tr>
-                                        <td>#</td>
-                                        <td></td>
-                                        <td> hr</td>
-                                        <td>
+                                        <td>#{{ $class->id }}</td>
+                                        <td>{{ $class->name }}</td>
+                                        <td>{{ $class->duration }} hr</td>
+                                        <td class="w-25">
                                             {{-- List of Instructors --}}
-                                            <ul> 
-                                                {{-- @foreach ($subject_list as $subject) --}}
-                                                    <li></li>
-                                                    {{-- Add more details as needed --}}
-                                                {{-- @endforeach --}}
-                                            </ul>
+                                            @foreach ($class->subjects as $subject)
+                                                <div class="rounded-pill d-inline text-white py-1 px-2 mx-1" 
+                                                style=" 
+                                                    background-color: rgba({{ mt_rand(0, 255) }}, {{ mt_rand(0, 255) }}, {{ mt_rand(0, 255) }}, 0.8);
+                                                ">
+                                                    {{ $subject->name }}    
+                                                </div>
+                                            @endforeach
                                         </td>
                                         <td>
-                                            {{-- List of Subjects --}}
-                                            {{-- <ul class="unstyled-list d-flex"> --}}
-                                                {{-- @foreach ($instructor_list as $instructor) --}}
-                                                    <li>
-
-                                                    </li>
-                                                    {{-- Add more details as needed --}}
-                                                {{-- @endforeach --}}
+                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                {{-- List of Teachers (Distinct) for each class --}}
+                                                @php
+                                                    $distinctTeachers = collect();
+                                        
+                                                    foreach ($class->subjects as $subject) {
+                                                        $distinctTeachers = $distinctTeachers->merge($subject->teachers);
+                                                    }
+                                        
+                                                    $distinctTeachers = $distinctTeachers->unique('id');
+                                                @endphp
+                                        
+                                                @foreach ($distinctTeachers as $teacher)
+                                                    <a href="{{ route('teacher.edit', $teacher->id) }}">
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                            title="{{ $teacher->name }}">
+                                                            <img src="{{ asset('storage/' . $teacher->image) }}" alt="Avatar"
+                                                                class="rounded-circle shadow" />
+                                                        </li>
+                                                    </a>
+                                                @endforeach
+                                            </ul>
+                                            
                                             </ul>
                                         </td>
                                         <td>
@@ -71,19 +89,19 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item" href=""><i class="bx bx-trash me-1"></i> Delete</a>
+                                                    <a class="dropdown-item" href="{{ route('class.delete', $class->id) }}"><i class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
 
                             </tbody>
                         </table>
                     </div>
-                    {{-- @else
+                    @else
                         <h6 class="text-center text-secondary mt-3 text-uppercase">No Class</h6>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
             {{-- Pagination  --}}
