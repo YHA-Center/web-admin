@@ -26,11 +26,6 @@
                                         <span class="input-group-text"><i class="bx bx-user-check"></i></span>
                                         <input type="text" value="{{ $data->name }}" class="form-control" disabled>
                                     </div>
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
 
                                 {{-- Subject  --}}
@@ -108,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {{-- Subjects --}}
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
+                <select required class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
                     <option selected>Choose Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>

@@ -19,17 +19,21 @@ class TeachController extends Controller
 
     // create teach data
     public function create(Request $request){
-        $this->validation($request);
-        $teacherId = $request->teacher_id;
-        // Attach subjects and instructors to the course
-        $subjectIds = $request->input('subjects');
+        Validator::make($request->all(), [
+            'teacher_id' => 'required|unique:teaches,teacher_id',
+        ])->validate();
 
-        foreach ($subjectIds as $subjectId) {
-            // Create a new CourseSubjectInstructor instance
+        $teacherId = $request->teacher_id;
+        $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
+
+        foreach ($subjectIds as $subjectId) { 
+            // Skip 'Choose Subject' value
+            if ($subjectId['id'] === '') {
+                continue;
+            }     
             Teach::create([
                 'teacher_id' => $teacherId,
                 'subject_id' => $subjectId['id'],
-                // Add other attributes if needed
             ]);
         }
         // dd(Teach::get()->toArray());
@@ -39,8 +43,9 @@ class TeachController extends Controller
     // edit teach data page
     public function edit($id){
         $data = Teacher::where('id', $id)
-                    ->whereHas('subjects') // Assumes subjects is the relationship method
-                    ->with('subjects')
+                    ->with(['subjects' => function ($query) {
+                        $query->select('subjects.*')->distinct();
+                    }])
                     ->first();
         $subjects = Subject::get();
         // dd($data->toArray());
@@ -49,7 +54,25 @@ class TeachController extends Controller
 
     // update teach data
     public function update(Request $request){
+        Validator::make($request->all(), [
+            'teacher_id' => 'required|unique:teaches,teacher_id',
+        ])->validate();
 
+        $teacherId = $request->teacher_id;
+        $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
+
+        foreach ($subjectIds as $subjectId) { 
+            // Skip 'Choose Subject' value
+            if ($subjectId['id'] === '') {
+                continue;
+            }     
+            Teach::create([
+                'teacher_id' => $teacherId,
+                'subject_id' => $subjectId['id'],
+            ]);
+        }
+        // dd(Teach::get()->toArray());
+        return redirect()->route('admin.teacher')->with(['success' => 'Created Class Successfully!']);
     }
 
     // delet teach data
@@ -58,12 +81,4 @@ class TeachController extends Controller
         return redirect()->route('admin.teacher')->with(['success' => 'Deleted Teach Data Successfully!']);
     }
 
-
-    // validation
-    private function validation($request){
-        Validator::make($request->all(), [
-            'teacher_id' => 'required',
-            'subject_id' => 'required',
-        ])->validate();
-    }
 }

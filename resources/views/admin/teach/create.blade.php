@@ -33,12 +33,13 @@
                                                 <option value="{{ $teach->id }}" >{{ $teach->name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('teacher_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('teacher_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
 
                                 {{-- Subject  --}}
@@ -88,45 +89,66 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // for subject
-    add_subject_btn.addEventListener('click', () => {
-        subject++;   // increment the start
-        const newSubject = document.createElement('div');
-        newSubject.classList.add('col-6', 'mb-2');
-        newSubject.innerHTML = `
-            {{-- Subjects --}}
-            <div class="input-group input-group-merge">
-                <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select class="form-select @error('subjects[${subject}][id]')
-                    is-invalid
-                @enderror" name="subjects[${subject}][id]" aria-label="Default select example">
-                    <option selected>Choose Subject</option>
-                    @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                    @endforeach
-                </select>
-                <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
-            </div>
-            @error('subjects[${subject}][id]')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        `;
-        container.appendChild(newSubject);
-
-        // Update the event listener for delete button
-        const del_subject_btn = newSubject.querySelector(".subject_del");
-        del_subject_btn.addEventListener('click', () => {
-            // Handle delete button click here
-            container.removeChild(newSubject);
-            subject -= 1;
-            // control the subject button 
-            control_subject(subject);
-        });
-
-        // control the subject button 
-        control_subject(subject)
+    // Restore previous subjects from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedSubjects = JSON.parse(localStorage.getItem('subjects')) || [];
+    savedSubjects.forEach(savedSubject => {
+        addSubject(savedSubject);
     });
+});
+
+add_subject_btn.addEventListener('click', () => {
+    subject++;
+    const newSubject = createSubjectElement(subject);
+    container.appendChild(newSubject);
+    updateLocalStorage();
+});
+
+function createSubjectElement(subjectIndex) {
+    const newSubject = document.createElement('div');
+    newSubject.classList.add('col-6', 'mb-2');
+    newSubject.innerHTML = `
+        {{-- Subjects --}}
+        <div class="input-group input-group-merge">
+            <span class="input-group-text"><i class="bx bx-file"></i></span>
+            <select required class="form-select @error('subjects[${subjectIndex}][id]') is-invalid @enderror" name="subjects[${subjectIndex}][id]" aria-label="Default select example">
+                <option value="" selected>Choose Subject</option>
+                @foreach ($subjects as $subject)
+                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                @endforeach
+            </select>
+            @error('subjects[${subjectIndex}][id]')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+            <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
+        </div>
+    `;
+
+    // Update the event listener for delete button
+    const del_subject_btn = newSubject.querySelector(".subject_del");
+    del_subject_btn.addEventListener('click', () => {
+        container.removeChild(newSubject);
+        updateLocalStorage();
+    });
+
+    return newSubject;
+}
+
+function updateLocalStorage() {
+    const subjects = Array.from(container.children).map(subjectElement => {
+        const selectElement = subjectElement.querySelector('select');
+        const selectedValue = selectElement ? selectElement.value : null;
+
+        return {
+            id: selectedValue, // Extract the subject ID or any other relevant information
+            // Add more properties as needed
+        };
+    });
+
+    localStorage.setItem('subjects', JSON.stringify(subjects));
+}
 
 });
 

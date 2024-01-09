@@ -34,9 +34,12 @@ class AdminController extends Controller
                     ->leftJoin('positions', 'positions.id', '=', 'teachers.position_id')
                     ->paginate(10, ['*'], 'teacher');
         $positions = Position::paginate(5, ['*'], 'position');
-        $teaches = Teacher::whereHas('subjects') // Assumes subjects is the relationship method
-                    ->with('subjects')
-                    ->paginate(5, ['*'], 'teach');
+
+        // unique teacher with no duplicate subject
+        $teaches = Teacher::with(['subjects' => function ($query) {
+            $query->select('subjects.*')->distinct();
+        }])
+        ->paginate(5, ['*'], 'teach');
 
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
