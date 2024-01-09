@@ -53,9 +53,16 @@ class AdminController extends Controller
         $courses = Course::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'course');
         $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'subject');
 
+        // fetch -> distinct teachers and subjects by courses table
         $classes = Course::whereHas('subjects.teachers')
-        ->with(['subjects.teachers' => function ($query) {
-            $query->select('teachers.*')->distinct();
+        ->with(['subjects' => function ($query) {
+            $query->select('subjects.*')
+                ->distinct()
+                ->selectRaw('subjects.id, subjects.name, subjects.created_at, subjects.updated_at');
+        }, 'subjects.teachers' => function ($query) {
+            $query->select('teachers.*')
+                ->distinct()
+                ->selectRaw('teachers.id, teachers.name, teachers.image, teachers.created_at, teachers.updated_at');
         }])
         ->paginate(5, ['*'], 'class');
     
