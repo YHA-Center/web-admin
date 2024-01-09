@@ -54,12 +54,14 @@ class TeachController extends Controller
 
     // update teach data
     public function update(Request $request){
-        Validator::make($request->all(), [
-            'teacher_id' => 'required|unique:teaches,teacher_id',
-        ])->validate();
 
         $teacherId = $request->teacher_id;
         $subjectIds = $request->input('subjects'); // Attach subjects and instructors to the course
+
+        // dd($request->all()); 
+
+        // delete all data
+        Teach::where('teacher_id', $teacherId)->delete();
 
         foreach ($subjectIds as $subjectId) { 
             // Skip 'Choose Subject' value
@@ -72,7 +74,7 @@ class TeachController extends Controller
             ]);
         }
         // dd(Teach::get()->toArray());
-        return redirect()->route('admin.teacher')->with(['success' => 'Created Class Successfully!']);
+        return redirect()->route('admin.teacher')->with(['success' => 'Update Related Class Successfully!']);
     }
 
     // delet teach data

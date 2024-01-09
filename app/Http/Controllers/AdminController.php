@@ -36,7 +36,8 @@ class AdminController extends Controller
         $positions = Position::paginate(5, ['*'], 'position');
 
         // unique teacher with no duplicate subject
-        $teaches = Teacher::with(['subjects' => function ($query) {
+        $teaches = Teacher::whereHas('subjects')
+        ->with(['subjects' => function ($query) {
             $query->select('subjects.*')->distinct();
         }])
         ->paginate(5, ['*'], 'teach');

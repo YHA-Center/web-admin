@@ -19,6 +19,7 @@
                             {{-- Insert image  --}}
                             <form action="{{ route('teach.update') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="teacher_id" value="{{ $data->id }}">
                                 {{-- Course  --}}
                                 <div class="mb-3 form-group">
                                     <label for="name" class="form-label h6 my-2">Instructor</label>
@@ -34,11 +35,12 @@
                                     <label for="name" class="form-label h6 my-2">Subject</label>
                                     <div class="row subject-group">
                                         {{-- Subject Groups  --}}
+                                        <input type="hidden" id="sub_count" name="" value="{{ count($data->subjects) }}">
                                         @foreach ($data->subjects as $item)
                                         <div class="col-6 mb-2">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                                                <select class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
+                                                <select class="form-select " name="subjects[{{ $item->id }}][id]" aria-label="Default select example">
                                                     <option selected>Choose Subject</option>
                                                     @foreach ($subjects as $subject)
                                                         <option value="{{ $subject->id }}" @if ($subject->id == $item->id)
@@ -83,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.subject-group');
     const add_subject_btn = document.querySelector(".subject_btn");
     let subject_count = document.querySelector('.subject_count').value;
-    let subject = 0;  
+    let subject = document.querySelector('#sub_count').value;  
     
     // control the subject add button
     let control_subject = (ele) => {
