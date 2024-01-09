@@ -126,7 +126,7 @@
             <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-file"></i></span>
                 <select required class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
-                    <option selected>Choose Subject</option>
+                    <option value="" selected>Choose Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                     @endforeach
