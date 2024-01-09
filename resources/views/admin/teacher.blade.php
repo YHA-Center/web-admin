@@ -87,8 +87,8 @@
 
 
 
-
-            {{-- Data Table > Position  --}}
+            
+            {{-- Position Table  --}}
             <div class="col-md-6">
                 <div class="fs-4 text-bolder mb-2">Position</div>
                 @if (count($positions) > 0)
@@ -197,6 +197,7 @@
                 {{-- Button  --}}
                 <a href="{{ route('teach.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i> Teach </a>
             </div>
+
 
 
         </div>

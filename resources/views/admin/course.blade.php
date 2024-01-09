@@ -20,7 +20,6 @@
 
 
 
-
             {{-- Class List  --}}
             <div class="row mb-2">
                 <h4> <i class="bx bx-book-bookmark fs-3"></i> Class</h4>
@@ -111,9 +110,10 @@
             <a href="{{ route('class.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i>Class</a>
 
 
+
+
             {{-- Course List & Subjec List  --}}
             <div class="row mb-2">
-
 
 
                 {{-- Course  --}}
@@ -169,7 +169,6 @@
 
 
 
-
                 {{-- Subject  --}}
                 <div class="col-md-4 mb-2">
                     <h4> <i class="bx bx-book-open fs-3"></i> Subject</h4>
@@ -216,6 +215,9 @@
                     {{ $subjects->appends(['course' => $courses->currentPage()])->links() }}
                     <a href="{{ route('subject.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Subject</a>
                 </div>
+
+
+
             </div>
 
     </main>

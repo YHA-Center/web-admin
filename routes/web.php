@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TeachController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PositionController;
@@ -23,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/home/admin', [AdminController::class, 'user_interface'])->name('admin.home');
         Route::get('/teacher', [AdminController::class, 'teacher'])->name('admin.teacher');
         Route::get('/course', [AdminController::class, 'course'])->name('admin.course');
+        Route::get('/section', [AdminController::class, 'section'])->name('admin.section');
 
         // welcome section
         Route::prefix('home')->group(function () {
@@ -105,6 +107,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [ClassController::class, 'edit'])->name('class.edit');
             Route::post('/update', [ClassController::class, 'update'])->name('class.update');
             Route::get('/delete/{id}', [ClassController::class, 'delete'])->name('class.delete');
+        });
+
+        // for section page
+        Route::prefix('section')->group(function() {
+            Route::get('/createPage', [SectionController::class, 'createPage'])->name('section.createPage');
+            Route::post('/create', [SectionController::class, 'create'])->name('section.create');
+            Route::get('/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
+            Route::post('/update', [SectionController::class, 'update'])->name('section.update');
+            Route::get('/delete/{id}', [SectionController::class, 'delete'])->name('section.delete');
         });
 
     });

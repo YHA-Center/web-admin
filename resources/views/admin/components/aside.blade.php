@@ -32,8 +32,8 @@
             </ul>
         </li> --}}
         <!-- User Interface -->
-        <li class="menu-item">
-            <a href="{{ route('admin.home') }}" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.home') ? 'active' : '' }}">
+            <a href="{{ route('admin.home') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-color-fill"></i>
                 <div data-i18n="userInterface">User Interface</div>
             </a>
@@ -46,22 +46,22 @@
             </a>
         </li>
         <!-- Course -->
-        <li class="menu-item">
-            <a href="{{ route('admin.course') }}" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.course') ? 'active' : '' }}">
+            <a href="{{ route('admin.course') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-book-reader"></i>
                 <div data-i18n="Dashboards">Course</div>
             </a>
         </li>
         <!-- Section -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.section') ? 'active' : '' }}">
+            <a href="{{ route('admin.section') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-hourglass"></i>
                 <div data-i18n="Dashboards">Section</div>
             </a>
         </li>
         <!-- Teacher -->
-        <li class="menu-item">
-            <a href="{{ route('admin.teacher') }}" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.teacher') ? 'active' : '' }}">
+            <a href="{{ route('admin.teacher') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-user-check"></i>
                 <div data-i18n="Dashboards">Instructor</div>
             </a>

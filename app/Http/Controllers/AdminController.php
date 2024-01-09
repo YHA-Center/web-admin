@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Teach;
 use App\Models\Course;
+use App\Models\Section;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Welcome;
@@ -20,13 +21,15 @@ class AdminController extends Controller
 {
     // return admin home page
     public function user_interface(){
-        $welcome = Welcome::orderBy('updated_at')->paginate(5);
+        $welcome = Welcome::orderBy('updated_at')->paginate(5, ['*'], 'welcome');
         $about = About::get();
         $about_desc = AboutDesc::get()->first();
-        $projects = StudentProject::orderBy('updated_at', 'desc')->paginate(6);
         // dd($about->toArray());
-        return view('admin.user_interface.main', compact('welcome', 'about', 'about_desc', 'projects'));
+        return view('admin.user_interface.main', compact('welcome', 'about', 'about_desc'));
     }
+
+
+
 
     // direct teacher main page
     public function teacher(){
@@ -45,10 +48,11 @@ class AdminController extends Controller
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
 
+
+
     // direct course main page
     // direct course page
-    public function course()
-    {
+    public function course(){
         // dd($classes->toArray());
         $courses = Course::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'course');
         $subjects = Subject::orderBy('updated_at', 'desc')->paginate(5, ['*'], 'subject');
@@ -67,6 +71,14 @@ class AdminController extends Controller
         ->paginate(5, ['*'], 'class');
     
         return view('admin.course', compact('courses', 'subjects', 'classes'));
+    }
+
+
+
+    // direct section page
+    public function section(){
+        $sections = Section::paginate(5);
+        return view('admin.section', compact('sections'));
     }
     
 }
