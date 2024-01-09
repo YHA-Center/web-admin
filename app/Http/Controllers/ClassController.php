@@ -38,7 +38,13 @@ class ClassController extends Controller
                 // Add other attributes if needed
             ]);
         }
-        return redirect()->route('admin.course')->with(['success' => 'Created Class Successfully!']);
+        return redirect()->route('admin.course')->with(['success' => 'Created class successfully!']);
+    }
+
+    // delete class
+    public function delete($id){
+        ClassModel::where('course_id', $id)->delete();
+        return redirect()->route('admin.course')->with(['success' => 'Deleted class successfully!']);
     }
 
 }

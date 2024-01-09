@@ -38,6 +38,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
+
+                            {{-- Data Table  --}}
                             <tbody class="table-border-bottom-0">
                                 @foreach ($classes as $class)
                                     <tr>
