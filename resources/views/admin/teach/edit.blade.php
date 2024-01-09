@@ -38,11 +38,13 @@
                                         {{-- Subject Groups  --}}
                                         <input type="hidden" id="sub_count" name=""
                                             value="{{ count($data->subjects) }}">
+
+                                        <?php $count = 0 ?>
                                         @foreach ($data->subjects as $item)
                                             <div class="col-6 mb-2">
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i class="bx bx-file"></i></span>
-                                                    <select class="form-select " name="subjects[{{ $item->id }}][id]"
+                                                    <select class="form-select " name="subjects[{{ $count }}][id]"
                                                         aria-label="Default select example">
                                                         <option selected>Choose Subject</option>
                                                         @foreach ($subjects as $subject)
@@ -56,6 +58,7 @@
                                                             class="bx bx-trash"></i> </button>
                                                 </div>
                                             </div>
+                                            <?php $count++ ?>
                                         @endforeach
                                     </div>
                                     <div class="row my-2">
@@ -103,7 +106,7 @@
             const container = document.querySelector('.subject-group');
             const add_subject_btn = document.querySelector(".subject_btn");
             let subject_count = document.querySelector('.subject_count').value;
-            let subject = document.querySelector('#sub_count').value;
+            let subject = document.querySelector('#sub_count').value - 1;
 
             // control the subject add button
             let control_subject = (ele) => {
