@@ -59,7 +59,7 @@
                     </table>
                 </div>
 
-                <a href="{{ route('section.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i class="bx bx-plus"></i> Class Section</a>
+                <a href="{{ route('course.section.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i class="bx bx-plus"></i> Class Section</a>
             </div>
 
 

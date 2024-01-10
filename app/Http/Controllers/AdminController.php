@@ -77,8 +77,9 @@ class AdminController extends Controller
 
     // direct section page
     public function section(){
+        $courseSections = CourseSection::paginate(7, ['*'], 'course_section');
         $sections = Section::orderBy('start', 'asc')->paginate(5, ['*'], 'section');
-        return view('admin.section', compact('sections'));
+        return view('admin.section', compact('sections', 'courseSections'));
     }
     
 }

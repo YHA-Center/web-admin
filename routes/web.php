@@ -12,6 +12,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\CourseSectionController;
 
 
 Route::middleware(['auth'])->group(function () {
@@ -73,7 +74,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{id}', [PositionController::class, 'delete'])->name('position.delete');
         });
 
-        // teach section
+        // teach section  (teachers <----> subjects)
         Route::prefix('teach')->group(function() {
             Route::get('/createPage', [TeachController::class, 'createPage'])->name('teach.createPage');
             Route::post('/create', [TeachController::class, 'create'])->name('teach.create');
@@ -100,7 +101,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{id}', [SubjectController::class, 'delete'])->name('subject.delete');
         });
 
-        // for class section
+        // for class section (course <---> subject)
         Route::prefix('class')->group(function() {
             Route::get('/createPage', [ClassController::class, 'createPage'])->name('class.createPage');
             Route::post('/create', [ClassController::class, 'create'])->name('class.create');
@@ -116,6 +117,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
             Route::post('/update', [SectionController::class, 'update'])->name('section.update');
             Route::get('/delete/{id}', [SectionController::class, 'delete'])->name('section.delete');
+        });
+
+        // for couse_section page (course <----> section)
+        Route::prefix('course/section')->group(function() {
+            Route::get('/createPage', [CourseSectionController::class, 'createPage'])->name('course.section.createPage');
+            Route::post('/create', [CourseSectionController::class, 'create'])->name('course.section.create');
+            Route::get('/edit/{id}', [CourseSectionController::class, 'edit'])->name('course.section.edit');
+            Route::post('/update', [CourseSectionController::class, 'update'])->name('course.section.update');
+            Route::get('/delete/{id}', [CourseSectionController::class, 'delete'])->name('course.section.delete');
         });
 
     });
