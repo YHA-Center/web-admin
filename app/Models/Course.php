@@ -22,4 +22,8 @@ class Course extends Model
     {
         return $this->belongsToMany(Subject::class, 'class_models', 'course_id', 'subject_id');
     }
+
+    public function sections(){
+        return $this->belongsToMany(Section::class, 'sections', 'course_id', 'section_id');
+    }
 }

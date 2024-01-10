@@ -14,4 +14,8 @@ class Section extends Model
         'start',
         'end',
     ];
+
+    public function courses(){
+        return $this->belongsToMany(Course::class, 'section_id', 'course_id');
+    }
 }
