@@ -110,7 +110,7 @@
                 <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
             @endif
             {{-- Pagination  --}}
-            {{-- {{ $teachers->appends(['section' => $positions->currentPage()])->links() }} --}}
+            {{ $sections->links() }}
             {{-- Button  --}}
             <a href="{{ route('section.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i class="bx bx-plus"></i> Section</a>
             </div>
