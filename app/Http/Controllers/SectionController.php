@@ -30,4 +30,13 @@ class SectionController extends Controller
     }
 
 
+    // delete section
+    public function delete($id){
+        $section = Section::where('id', $id)->first();
+        // dd($section->toArray());
+        Section::where('id', $id)->delete();
+        return redirect()->route('admin.section')->with(['success'=> 'Deleted section ' . $section->name . " successfully!"]);
+    }
+
+
 }
