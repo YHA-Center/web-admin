@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Section;
+use App\Rules\UniqueTime;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -15,9 +16,13 @@ class SectionController extends Controller
     // create section
     public function create(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required|string|min:5',
-            'start' => 'required|date_format:H:i',
-            'end' => 'required|date_format:H:i|after:start_time',
+            'name' => 'required|string|max:255',
+            'start' => [
+                'required',
+                'date_format:H:i',
+                new UniqueTime($request), // Pass the request data to the rule
+            ],
+            'end' => 'required|date_format:H:i|after:start',
         ]);
         // dd($validatedData);
         Section::create($validatedData);

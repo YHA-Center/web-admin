@@ -36,14 +36,28 @@
                                 <label for="html5-date-input" class="col-md-3 col-form-label">Start Time</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-stopwatch"></i></span>
-                                    <input type="time" name="start" class="form-control" placeholder="Start Time">
+                                    <input type="time" name="start" class="form-control @error('start')
+                                        is-invalid
+                                    @enderror" placeholder="Start Time">
+                                    @error('start')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="html5-date-input" class="col-md-3 col-form-label">End Time</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-stopwatch"></i></span>
-                                    <input type="time" name="end" class="form-control" placeholder="End Time">
+                                    <input type="time" name="end" class="form-control @error('end')
+                                    is-invalid
+                                @enderror" placeholder="End Time">
+                                    @error('start')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
     
