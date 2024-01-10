@@ -21,19 +21,19 @@
                                 @csrf
                                 {{-- Course  --}}
                                 <div class="mb-3 form-group">
-                                    <label for="course" class="form-label h6 my-2">Course</label>
+                                    <label for="course_id" class="form-label h6 my-2">Course</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-book"></i></span>
-                                        <select class="form-select @error('course')
+                                        <select class="form-select @error('course_id')
                                             is-invalid
-                                        @enderror" name="course" id="course"
+                                        @enderror" name="course_id" id="course_id"
                                             aria-label="Default select example">
                                             <option value="" selected>Choose Course</option>
                                             @foreach ($courses as $course)
                                                 <option value="{{ $course->id }}" >{{ $course->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('course')
+                                        @error('course_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -43,19 +43,19 @@
 
                                 {{-- Section  --}}
                                 <div class="mb-3 form-group">
-                                    <label for="section" class="form-label h6 my-2">Section</label>
+                                    <label for="section_id" class="form-label h6 my-2">Section</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-hourglass"></i></span>
-                                        <select class="form-select @error('section')
+                                        <select class="form-select @error('section_id')
                                             is-invalid
-                                        @enderror" name="section" id="section"
+                                        @enderror" name="section_id" id="section_id"
                                             aria-label="Default select example">
                                             <option value="" selected>Choose Section</option>
                                             @foreach ($sections as $section)
                                                 <option value="{{ $section->id }}" >{{ $section->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('section')
+                                        @error('section_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

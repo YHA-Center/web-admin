@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Section;
 use App\Models\Subject;
 use App\Models\CourseSubjectInstructor;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,8 @@ class Course extends Model
         return $this->belongsToMany(Subject::class, 'class_models', 'course_id', 'subject_id');
     }
 
-    public function sections(){
-        return $this->belongsToMany(Section::class, 'sections', 'course_id', 'section_id');
+    public function sections()
+    {
+        return $this->belongsToMany(Section::class, 'course_sections', 'course_id', 'section_id');
     }
 }

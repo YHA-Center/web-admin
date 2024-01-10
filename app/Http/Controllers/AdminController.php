@@ -13,6 +13,7 @@ use App\Models\Position;
 use App\Models\AboutDesc;
 use Illuminate\Http\Request;
 use App\Models\Course_Detail;
+use App\Models\CourseSection;
 use App\Models\StudentProject;
 use App\Http\Controllers\Controller;
 use App\Models\CourseSubjectInstructor;
@@ -77,7 +78,8 @@ class AdminController extends Controller
 
     // direct section page
     public function section(){
-        $courseSections = CourseSection::paginate(7, ['*'], 'course_section');
+        $courseSections = CourseSection::with('course', 'section')
+                ->paginate(5, ['*'], 'course_section');
         $sections = Section::orderBy('start', 'asc')->paginate(5, ['*'], 'section');
         return view('admin.section', compact('sections', 'courseSections'));
     }
