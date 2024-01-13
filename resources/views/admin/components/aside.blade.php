@@ -68,7 +68,7 @@
         </li>
         <!-- Student -->
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
+            <a href="{{ route('admin.student') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Dashboards">Student</div>
             </a>

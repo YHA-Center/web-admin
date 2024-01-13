@@ -51,6 +51,7 @@ class AdminController extends Controller
 
 
 
+
     // direct course main page
     // direct course page
     public function course(){
@@ -75,7 +76,8 @@ class AdminController extends Controller
     }
 
 
-    
+
+
     // direct section page
     public function section(){
         $courseSections = CourseSection::orderBy('course_id')
@@ -83,6 +85,13 @@ class AdminController extends Controller
                 ->paginate(5, ['*'], 'course_section');
         $sections = Section::orderBy('start', 'asc')->paginate(5, ['*'], 'section');
         return view('admin.section', compact('sections', 'courseSections'));
+    }
+
+
+
+    // direct student page
+    public function student(){
+        return view('admin.student');
     }
     
 }

@@ -48,7 +48,7 @@ class CourseSectionController extends Controller
 
     // update the section class
     public function update(Request $request){
-        dd($request->all());
+        // dd($request->all());
         Validator::make($request->all(), [
             'section_id' => [
                 'required',
@@ -57,6 +57,7 @@ class CourseSectionController extends Controller
                 }),
             ],
         ])->validate();
+        $id = $request->course_id;
         $data = [
             'section_id' => $request->section_id,
         ];

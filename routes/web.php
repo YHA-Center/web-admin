@@ -8,6 +8,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TeachController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PositionController;
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/teacher', [AdminController::class, 'teacher'])->name('admin.teacher');
         Route::get('/course', [AdminController::class, 'course'])->name('admin.course');
         Route::get('/section', [AdminController::class, 'section'])->name('admin.section');
+        Route::get('/student', [AdminController::class, 'student'])->name('admin.student');
 
         // welcome section
         Route::prefix('home')->group(function () {
@@ -128,8 +130,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{id}', [CourseSectionController::class, 'delete'])->name('course.section.delete');
         });
 
-    });
+        // for student
+        Route::prefix('student')->group(function() {
+            Route::get('/createPage', [StudentController::class, 'createPage'])->name('student.createPage');
+            Route::post('/create', [StudentController::class, 'create'])->name('student.create');
+            Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
+            Route::post('/update', [StudentController::class, 'update'])->name('student.update');
+            Route::get('/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
+        });
 
+    });
 
     // user
     Route::group(['middleware' => 'user_auth'], function(){
