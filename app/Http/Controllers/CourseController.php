@@ -73,6 +73,8 @@ class CourseController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'duration' => $request->duration,
+            'normal_price' => $request->normal_price,
+            'special_price' => $request->special_price,
         ];
         return $array;
     }
@@ -83,15 +85,20 @@ class CourseController extends Controller
             'description' => 'required|min:5',
             'image' => ($mode == 'create') ? 'required|file|mimes:jpg,png,jpeg,webp' : 'file|mimes:jpg,png,jpeg,webp',
             'duration' => 'required|min:2',
+            'normal_price' => 'required|min:4',
+            'special_price' => 'required|min:4',
         ];
         $message = [
             'name.required' => 'Course name is required',
+            'normal_price.required' => 'Course normal price is required',
+            'special_price.required' => 'Course special price is required',
             'description.required' => 'Course description is required',
             'image.required' => 'Course image is required',
             'duration.required' => 'Course duration is required',
             'name.min' => 'Course name must have minimum 5 letters',
             'description.min' => 'Course description must have minimun 5 letters',
             'duration.min' => 'Course duration must have minimum 2 letters',
+            'special_price.min' => 'Course special price must have minimum 4 number',
         ];
         Validator::make($request->all(), $rule, $message)->validate();
     }

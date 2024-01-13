@@ -8,7 +8,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6 ">
 
-                <a href="{{ route('admin.course') }}" class="btn btn-secondary"> <i class="bx bx-left-arrow-alt">    </i> Back</a>
+                <a href="{{ route('admin.teacher') }}" class="btn btn-secondary"> <i class="bx bx-left-arrow-alt">    </i> Back</a>
 
                 <div class="card my-3 border-warning shadow">
                     {{-- Card Header --}}

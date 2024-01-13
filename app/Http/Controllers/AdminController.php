@@ -75,7 +75,7 @@ class AdminController extends Controller
     }
 
 
-
+    
     // direct section page
     public function section(){
         $courseSections = CourseSection::orderBy('course_id')

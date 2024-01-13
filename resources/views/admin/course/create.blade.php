@@ -56,7 +56,28 @@
                                 @enderror
                             </div>
 
-
+                            {{-- normal_price  --}}
+                            <div class="mb-3 form-group">
+                                <label for="normal_price" class="form-label h6 my-2">Normal Price</label>
+                                <input type="number" name="normal_price" value="{{ old('normal_price') }}"
+                                    class="form-control @error('normal_price') is-invalid  @enderror" id="normal_price" placeholder="normal_price">
+                                @error('normal_price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            {{-- special_price  --}}
+                            <div class="mb-3 form-group">
+                                <label for="special_price" class="form-label h6 my-2">Special Price</label>
+                                <input type="number" name="special_price" value="{{ old('special_price') }}"
+                                    class="form-control @error('special_price') is-invalid  @enderror" id="special_price" placeholder="special_price">
+                                @error('special_price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             {{-- Image  --}}
                             <div class="mb-3 form-group">

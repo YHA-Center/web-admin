@@ -126,8 +126,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Normal Price</th>
+                                    <th>Special Price</th>
                                     <th>Duration</th>
-                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -136,8 +137,9 @@
                                     <tr>
                                         <td>#{{ $course->id }}</td>
                                         <td>{{ Str::of($course->name)->limit(20) }}</td>
-                                        <td>{{ $course->duration }} min</td>
-                                        <td>{{ Str::of($course->description)->limit(30) }}</td>
+                                        <td>{{ $course->normal_price }} MMK</td>
+                                        <td>{{ $course->special_price }} MMK</td>
+                                        <td>{{ $course->duration }} hr</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
