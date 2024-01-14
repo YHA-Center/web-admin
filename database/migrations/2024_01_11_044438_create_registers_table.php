@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->date('register_date');
             $table->date('enroll_date');
-            $table->date('end_date');
             $table->string('father_name');
             $table->string('mother_name');
             $table->string('phone', 15);
