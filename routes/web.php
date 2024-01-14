@@ -130,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{id}', [CourseSectionController::class, 'delete'])->name('course.section.delete');
         });
 
-        // for student
+        // for student 
         Route::prefix('student')->group(function() {
             Route::get('/createPage', [StudentController::class, 'createPage'])->name('student.createPage');
             Route::post('/create', [StudentController::class, 'create'])->name('student.create');

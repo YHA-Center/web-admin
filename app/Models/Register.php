@@ -10,19 +10,18 @@ class Register extends Model
     use HasFactory;
 
     protected $fillable = [
-        'course_id',
+        'course_id', 
         'section_id',
         'name',
         'register_date',
         'enroll_date',
-        'end_date',
         'father_name',
         'mother_name',
         'phone',
         'email',
         'city',
         'township',
-        'date_of_birth',
+        'date_of_birth', 
         'nrc',
         'gender',
         'image',
