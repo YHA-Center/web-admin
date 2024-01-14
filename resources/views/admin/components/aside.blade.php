@@ -39,8 +39,8 @@
             </a>
         </li>
         <!-- TimeTable -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.timetable') ? 'active' : '' }}">
+            <a href="{{ route('admin.timetable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Dashboards">TimeTable</div>
             </a>
@@ -67,10 +67,17 @@
             </a>
         </li>
         <!-- Student -->
-        <li class="menu-item">
+        <li class="menu-item {{ request()->routeIs('admin.student') ? 'active' : '' }}">
             <a href="{{ route('admin.student') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Dashboards">Student</div>
+            </a>
+        </li>
+        <!-- Project -->
+        <li class="menu-item {{ request()->routeIs('admin.student') ? 'active' : '' }}">
+            <a href="{{ route('admin.student') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div data-i18n="Dashboards">Project</div>
             </a>
         </li>
         <!-- Admin List  -->

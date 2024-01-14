@@ -93,5 +93,13 @@ class AdminController extends Controller
     public function student(){
         return view('admin.student');
     }
+
+
+
+
+    // direct timetable page
+    public function timetable(){
+        return view('admin.timetable');
+    }
     
 }

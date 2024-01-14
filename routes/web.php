@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CourseSectionController;
 
@@ -28,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/course', [AdminController::class, 'course'])->name('admin.course');
         Route::get('/section', [AdminController::class, 'section'])->name('admin.section');
         Route::get('/student', [AdminController::class, 'student'])->name('admin.student');
+        Route::get('/timetable', [AdminController::class, 'timetable'])->name('admin.timetable');
 
         // welcome section
         Route::prefix('home')->group(function () {
@@ -137,6 +140,20 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
             Route::post('/update', [StudentController::class, 'update'])->name('student.update');
             Route::get('/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
+        });
+
+        // for timetable 
+        Route::prefix('timetable')->group(function() {
+            Route::get('/createPage', [TimeTableController::class, 'createPage'])->name('timetable.createPage');
+            Route::post('/create', [TimeTableController::class, 'create'])->name('timetable.create');
+            Route::get('/edit/{id}', [TimeTableController::class, 'edit'])->name('timetable.edit');
+            Route::post('/update', [TimeTableController::class, 'update'])->name('timetable.update');
+            Route::get('/delete/{id}', [TimeTableController::class, 'delete'])->name('timetable.delete');
+        });
+
+        // for timetable 
+        Route::prefix('ajax')->group(function() {
+            Route::get('/course/list', [AjaxController::class, 'courseList'])->name('ajax.courseList');
         });
 
     });
