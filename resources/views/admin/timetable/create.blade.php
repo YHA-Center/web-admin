@@ -39,7 +39,6 @@
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-file"></i></span>
                                         <select class="form-select" id="subjects" aria-label="Default select example">
-                                            <option value="" selected>Open this select menu</option>
                                             {{-- More option goes here  --}}
                                         </select>
                                     </div>
@@ -51,7 +50,6 @@
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-hourglass"></i></span>
                                         <select class="form-select" id="sections" aria-label="Default select example">
-                                            <option value="" selected>Open this select menu</option>
                                             {{-- more section option goes here  --}}
                                         </select>
                                     </div>

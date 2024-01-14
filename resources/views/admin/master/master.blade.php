@@ -121,6 +121,11 @@
     <script>
 
       $(document).ready(function() {
+
+        // at first section the select option to default
+        $('#subjects').append('<option value="" selected>Open this selected menu</option>')
+        $('#sections').append('<option value="" selected>Open this selected menu</option>')
+
         $('#course').change(function() {
             value = $('#course').val();
             $.ajax({
@@ -131,31 +136,43 @@
                     status: value  // form data to controller
                 },
                 success: function(response) { // if success, continue
-                  subject = '';
-                  section = '';
+                  subject = ''; // declare subject variable
+                  section = ''; // declare section variable
 
-                  subjects = response[0].subjects;
-                  sections = response[0].sections;
+                  $('#subjects').empty();
+                  $('#sections').empty();
 
-                  console.log("subject " + subjects.length);
-                  console.log("section " + sections.length);
+                  // at first append the choose option
+                  $('#subjects').append('<option value="" selected>Open this selected menu</option>')
+                  $('#sections').append('<option value="" selected>Open this selected menu</option>')
+
+                  subjects = response[0].subjects;  // get the selected subjects that related to course 
+                  sections = response[0].sections; // get the selected sections that related to course
+
+                  console.log("subject " + subjects.length);  // get subject array length
+                  console.log("section " + sections.length); // get section array length
 
                   for(let i=0; i<subjects.length; i++){
-                      subject += `
+                    // add subject to options at a time
+                      subject += `  
                         <option value="${subjects[i].id}">${subjects[i].name}</option>
                       `;
                   }
-                  $('#subjects').append(subject);
+                  $('#subjects').append(subject); // append the subject array to contianer
 
                   for(let i=0; i<sections.length; i++){
+                    // add section sto options at a time
                       section += `
                         <option value="${sections[i].id}">${sections[i].name}</option>
                       `;
                   }
-                  $('#sections').append(section);
+                  $('#sections').append(section); // append the section array to container
+                  subject = [];
+                  section = [];
                 }
             });
         });
+
       });
   </script>
 
