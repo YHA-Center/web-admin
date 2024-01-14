@@ -117,5 +117,35 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+      console.log('ready')
+      $(document).ready(function() {
+        subject = '';
+        $('#course').change(function() {
+            value = $('#course').val();
+            console.log(value);
+            $.ajax({
+                type: 'get',   // http method
+                url: 'http://127.0.0.1:8000/ajax/course/list', // specific url
+                dataType: 'json', // format
+                data: {
+                    status: value  // form data to controller
+                },
+                success: function(response) { // if success, continue
+                  count = response[0].subjects;
+                  console.log(count.length);
+                  for(let i=0; i<count.length; i++){
+                      subject += `
+                        <option value="${count[i].id}">${count[i].name}</option>
+                      `;
+                  }
+                  $('#subjects').append(subject);
+                }
+            });
+        });
+      });
+  </script>
+
   </body>
 </html>
