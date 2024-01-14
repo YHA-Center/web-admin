@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Section;
+use App\Models\Register;
+
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -17,11 +19,18 @@ class StudentController extends Controller
 
     // create new student
     public function create(Request $request){
-        dd($request->all());
+        //dd($request->all());
+
+        $request->merge([
+            'register_date' => now(),
+        ]);
+
+        Register::create($request->all());
+
         return redirect()->route('admin.student')->with(['success' => 'Added new student successfully!']);
     }
 
-    // get request data
+    // get request data 
     private function get_request_data($request){
         return [
             'name' => $request->name,
