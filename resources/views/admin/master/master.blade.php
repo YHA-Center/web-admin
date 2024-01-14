@@ -120,14 +120,9 @@
 
     <script>
 
-      function isRemain(data){
-        if()
-      }
-
       $(document).ready(function() {
         $('#course').change(function() {
             value = $('#course').val();
-            subject = '';
             $.ajax({
                 type: 'get',   // http method
                 url: 'http://127.0.0.1:8000/ajax/course/list', // specific url
@@ -136,16 +131,28 @@
                     status: value  // form data to controller
                 },
                 success: function(response) { // if success, continue
+                  subject = '';
+                  section = '';
 
+                  subjects = response[0].subjects;
+                  sections = response[0].sections;
 
-                  count = response[0].subjects;
-                  console.log(count.length);
-                  for(let i=0; i<count.length; i++){
+                  console.log("subject " + subjects.length);
+                  console.log("section " + sections.length);
+
+                  for(let i=0; i<subjects.length; i++){
                       subject += `
-                        <option value="${count[i].id}">${count[i].name}</option>
+                        <option value="${subjects[i].id}">${subjects[i].name}</option>
                       `;
                   }
                   $('#subjects').append(subject);
+
+                  for(let i=0; i<sections.length; i++){
+                      section += `
+                        <option value="${sections[i].id}">${sections[i].name}</option>
+                      `;
+                  }
+                  $('#sections').append(section);
                 }
             });
         });

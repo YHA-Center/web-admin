@@ -50,11 +50,9 @@
                                     <label for="" class="form-label">Section</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="bx bx-hourglass"></i></span>
-                                        <select class="form-select" id="" aria-label="Default select example">
+                                        <select class="form-select" id="sections" aria-label="Default select example">
                                             <option value="" selected>Open this select menu</option>
-                                            @foreach ($sections as $section)
-                                                <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                            @endforeach
+                                            {{-- more section option goes here  --}}
                                         </select>
                                     </div>
                                 </div>
