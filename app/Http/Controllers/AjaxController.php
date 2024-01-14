@@ -14,13 +14,6 @@ class AjaxController extends Controller
         $data = Course::where('id', $course_id)
                 ->with('subjects', 'sections')
                 ->get();
-        // if($request->status == 'asc'){
-        //     // $data = Product::orderBy('created_at', 'asc')->get();
-        // }
-        // if($request->status == 'desc'){
-        //     // $data = Product::orderBy('created_at', 'desc')->get();
-        // }
-        // return $data;
         return $data;
     }
 }
