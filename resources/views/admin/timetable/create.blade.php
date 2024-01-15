@@ -40,6 +40,24 @@
                                     </div>
                                 </div>
 
+                                <!-- student  -->
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Student</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text"><i class="bx bx-file"></i></span>
+                                        <select class="form-select @error('student_id')
+                                          is-invalid
+                                        @enderror" name="student_id" id="students" aria-label="Default select example">
+                                            {{-- More option goes here  --}}
+                                        </select>
+                                        @error('student_id')
+                                          <div class="invalid-feedback">
+                                            {{ $message }}
+                                          </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <!-- Subject  -->
                                 <div class="mb-3">
                                     <label for="" class="form-label">Subject</label>
@@ -95,7 +113,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- Teacher    -->
+                                <!-- Teacher  assistant  -->
                                 <div class="mb-3">
                                     <label for="" class="form-label">Assistance Teacher</label>
                                     <div class="input-group input-group-merge">

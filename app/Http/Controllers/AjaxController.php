@@ -14,6 +14,7 @@ class AjaxController extends Controller
         $data = Course::where('id', $course_id)
                 ->with('subjects', 'sections')
                 ->get();
+        
         return $data;
     }
 }

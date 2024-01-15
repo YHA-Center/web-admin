@@ -58,7 +58,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    
                                 </div>
 
                                 <button class="btn btn-primary mt-3"><i class="bx bx-down-arrow-alt"></i> Save</button>
@@ -74,74 +73,68 @@
     </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.subject-group');
+            const add_subject_btn = document.querySelector(".subject_btn");
+            let subject_count = document.querySelector('.subject_count').value;
+            let subject = 0;  
+            
+            // control the subject add button
+            let control_subject = (ele) => {
+                if(ele > subject_count-1){
+                    add_subject_btn.classList.add('d-none');
+                }else{
+                    add_subject_btn.classList.remove('d-none');
+                }
+            }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.subject-group');
-    const add_subject_btn = document.querySelector(".subject_btn");
-    let subject_count = document.querySelector('.subject_count').value;
-    let subject = 0;  
-    
-    // control the subject add button
-    let control_subject = (ele) => {
-        if(ele > subject_count-1){
-            add_subject_btn.classList.add('d-none');
-        }else{
-            add_subject_btn.classList.remove('d-none');
-        }
-    }
+            // control the instructor add button
+            let control_instructor = (ele) => {
+                if(ele > instructor_count-1){
+                    add_instructor_btn.classList.add('d-none');
+                }else{
+                    add_instructor_btn.classList.remove('d-none');
+                }
+            }
 
-    // control the instructor add button
-    let control_instructor = (ele) => {
-        if(ele > instructor_count-1){
-            add_instructor_btn.classList.add('d-none');
-        }else{
-            add_instructor_btn.classList.remove('d-none');
-        }
-    }
-
-    // for subject
-    add_subject_btn.addEventListener('click', () => {
-        subject++;   // increment the start
-        const newSubject = document.createElement('div');
-        newSubject.classList.add('col-6', 'mb-2');
-        newSubject.innerHTML = `
-            {{-- Subjects --}}
-            <div class="input-group input-group-merge">
-                <span class="input-group-text"><i class="bx bx-file"></i></span>
-                <select required class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
-                    <option selected>Choose Subject</option>
-                    @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                    @endforeach
-                </select>
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+            // for subject
+            add_subject_btn.addEventListener('click', () => {
+                subject++;   // increment the start
+                const newSubject = document.createElement('div');
+                newSubject.classList.add('col-6', 'mb-2');
+                newSubject.innerHTML = `
+                    {{-- Subjects --}}
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text"><i class="bx bx-file"></i></span>
+                        <select required class="form-select " name="subjects[${subject}][id]" aria-label="Default select example">
+                            <option selected>Choose Subject</option>
+                            @foreach ($subjects as $subject)
+                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
                     </div>
-                @enderror
-                <button class="btn btn-outline-danger btn-sm subject_del" type="button"><i class="bx bx-trash"></i> </button>
-            </div>
-        `;
-        container.appendChild(newSubject);
+                `;
+                container.appendChild(newSubject);
 
-        // Update the event listener for delete button
-        const del_subject_btn = newSubject.querySelector(".subject_del");
-        del_subject_btn.addEventListener('click', () => {
-            // Handle delete button click here
-            container.removeChild(newSubject);
-            subject -= 1;
-            // control the subject button 
-            control_subject(subject);
+                // Update the event listener for delete button
+                const del_subject_btn = newSubject.querySelector(".subject_del");
+                del_subject_btn.addEventListener('click', () => {
+                    // Handle delete button click here
+                    container.removeChild(newSubject);
+                    subject -= 1;
+                    // control the subject button 
+                    control_subject(subject);
+                });
+
+                // control the subject button 
+                control_subject(subject)
+            });
         });
-
-        // control the subject button 
-        control_subject(subject)
-    });
-
-
-    
-});
-
-
     </script>
 @endsection

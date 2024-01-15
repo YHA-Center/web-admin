@@ -25,6 +25,7 @@ class StudentController extends Controller
             'register_date' => now(),
         ]);
 
+        // dd($request->all()); 
         Register::create($request->all());
 
         return redirect()->route('admin.student')->with(['success' => 'Added new student successfully!']);
@@ -48,7 +49,6 @@ class StudentController extends Controller
             'gender' => $request->gender,
             'date_of_birth' => $request->date_of_birth,
             'register_date' => $request->register_date,
-            'end_date' => $request->end_date,
             'city' => $request->city,
             'township' => $request->township,
             'education' => $request->education,

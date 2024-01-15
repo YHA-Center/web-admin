@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Section;
 use App\Models\Subject;
+use App\Models\Register;
 use App\Models\CourseSubjectInstructor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
