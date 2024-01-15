@@ -3,6 +3,10 @@
 @section('content')
     <div class="container-fluid">
 
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Search by Name" id="searchInput">
+        </div>
+
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <strong>Success!</strong> {{ session('success') }}
@@ -30,17 +34,24 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Course</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="table-border-bottom-0">
-                                {{-- @foreach ($courseSections as $section) --}}
-                                    {{-- {{ dd($courseSections->toArray()) }} --}}
-                                    <tr>
-                                        <td># </td>
-                                        <td></td>
-                                        <td> </td>
-                                        <td> </td>
+                            <tbody class="table-border-bottom-0" id="studentTableBody">
+                                @foreach ($students as $student)
+                                    {{-- dd($students->toArray()) --}}
+                                    <tr class="student-row">
+                                        <td>{{ $student->id }}</td>
+
+                                        <td>
+                                            <img src="{{ asset('storage/uploads' . $student->image) }}" alt="Image">
+                                        </td>
+                                                                               
+                                        <td class="student-name">{{ $student->name }}</td>
+                                        <td class="student-phone">{{ $student->email }}</td>
+                                        <td class="student-email">{{ $student->phone }}</td>
+                                        <td>{{ $student->course_id }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -49,21 +60,21 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href=""><i
+                                                        href="{{ route('student.edit', ['id' => $student->id]) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
                                                     <a class="dropdown-item"
-                                                        href=""><i
+                                                        href="{{ route('student.delete', ['id' => $student->id]) }}"><i
                                                             class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                               @endforeach 
                             </tbody>
                         </table>
                     </div>
                 {{-- @else --}}
-                    <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
+                    {{-- <div class="fs-6 text-uppercase text-center my-4">No Record!</div> --}}
                 {{-- @endif --}}
                 {{-- {{ $courseSections->appends(['section' => $sections->currentPage()])->links() }} --}}
                 <a href="{{ route('student.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
@@ -72,9 +83,34 @@
 
 
         </div>
-
-
-
-
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const studentTableBody = document.getElementById('studentTableBody');
+    
+            searchInput.addEventListener('input', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                const studentRows = studentTableBody.getElementsByClassName('student-row');
+    
+                Array.from(studentRows).forEach(function (row) {
+                    const studentName = row.querySelector('.student-name').textContent.toLowerCase();
+                    const studentPhone = row.querySelector('.student-phone').textContent.toLowerCase();
+                    const studentEmail = row.querySelector('.student-email').textContent.toLowerCase();
+    
+                    // Check if any of the criteria match the search term
+                    if (studentName.includes(searchTerm) || studentPhone.includes(searchTerm) || studentEmail.includes(searchTerm)) {
+                        row.style.display = ''; // Show the row if it matches any criteria
+                    } else {
+                        row.style.display = 'none'; // Hide the row if it doesn't match any criteria
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
+
+
 @endsection

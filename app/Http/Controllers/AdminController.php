@@ -10,7 +10,9 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Welcome;
 use App\Models\Position;
+use App\Models\Register;
 use App\Models\AboutDesc;
+use App\Models\TimeTable;
 use Illuminate\Http\Request;
 use App\Models\Course_Detail;
 use App\Models\CourseSection;
@@ -91,7 +93,9 @@ class AdminController extends Controller
 
     // direct student page
     public function student(){
-        return view('admin.student');
+        $students = Register::all();
+        
+        return view('admin.student', ['students' => $students]);
     }
 
 
@@ -99,7 +103,17 @@ class AdminController extends Controller
 
     // direct timetable page
     public function timetable(){
-        return view('admin.timetable');
+        $timetables = TimeTable::select('subjects.name as subject', 'registers.name as student', 
+                        'sections.name as section', 'teachers.name as teacher', 'courses.name as course',
+                        'date', 'time_tables.id as id')
+                        ->leftJoin('courses', 'time_tables.course_id', '=', 'courses.id')
+                        ->leftJoin('subjects', 'time_tables.subject_id', '=', 'subjects.id')
+                        ->leftJoin('sections', 'time_tables.section_id', '=', 'sections.id')
+                        ->leftJoin('teachers', 'time_tables.teacher_id', '=', 'teachers.id')
+                        ->leftJoin('registers', 'time_tables.student_id', '=', 'registers.id')
+                        ->get();
+        // dd($timetables->toArray());
+        return view('admin.timetable', compact('timetables'));
     }
     
 }

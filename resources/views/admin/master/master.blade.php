@@ -138,7 +138,7 @@
                     success: function(response) { // if success, continue
                         subject = ''; // declare subject variable
                         section = ''; // declare section variable
-                        subject = ''; // declare subject variable
+                        student = ''; // declare subject variable
 
                         console.log(response);
                         
@@ -154,19 +154,20 @@
                         $('#students').append(
                             '<option value="" selected>Open this selected menu</option>')
 
-                        subjects = response[0]
+                        subjects = response[0][0]
                         .subjects; // get the selected subjects that related to course 
-                        sections = response[0]
+                        sections = response[0][0]
                         .sections; // get the selected sections that related to course
-                        //sections = response[0].subjects; // get the selected sections that related to course
+                        students = response[1]; // get the selected sections that related to course
 
                         console.log("subject " + subjects.length); // get subject array length
                         console.log("section " + sections.length); // get section array length
+                        console.log("studnet " + students.length); // get section array length
 
                         for (let i = 0; i < subjects.length; i++) {
                             // add subject to options at a time
                             subject += `  
-                        <option value="${subjects[i].id}">${subjects[i].name}</option>
+                        <option value="${subjects[i].id}" >${subjects[i].name}</option>
                       `;
                         }
                         $('#subjects').append(subject); // append the subject array to contianer
@@ -178,6 +179,14 @@
                       `;
                         }
                         $('#sections').append(section); // append the section array to container
+
+                        for (let i = 0; i < students.length; i++) {
+                            // add section sto options at a time
+                            student += `
+                        <option value="${students[i].id}">${students[i].name}</option>
+                      `;
+                        }
+                        $('#students').append(student); // append the section array to container
 
                     }
                 });

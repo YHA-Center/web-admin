@@ -16,6 +16,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CourseSectionController;
+use App\Http\Controllers\FrontendSectionController;
 
 
 Route::middleware(['auth'])->group(function () {
@@ -31,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/section', [AdminController::class, 'section'])->name('admin.section');
         Route::get('/student', [AdminController::class, 'student'])->name('admin.student');
         Route::get('/timetable', [AdminController::class, 'timetable'])->name('admin.timetable');
-
+        
         // welcome section
         Route::prefix('home')->group(function () {
             Route::get('/create', [HomeController::class, 'createWelcome'])->name('welcome.create');
@@ -138,7 +139,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/createPage', [StudentController::class, 'createPage'])->name('student.createPage');
             Route::post('/create', [StudentController::class, 'create'])->name('student.create');
             Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
-            Route::post('/update', [StudentController::class, 'update'])->name('student.update');
+            Route::post('/update/{id}', [StudentController::class, 'update'])->name('student.update');
             Route::get('/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
         });
 
@@ -147,7 +148,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/createPage', [TimeTableController::class, 'createPage'])->name('timetable.createPage');
             Route::post('/create', [TimeTableController::class, 'create'])->name('timetable.create');
             Route::get('/edit/{id}', [TimeTableController::class, 'edit'])->name('timetable.edit');
-            Route::post('/update', [TimeTableController::class, 'update'])->name('timetable.update');
+            Route::post('/update/{id}', [TimeTableController::class, 'update'])->name('timetable.update');
             Route::get('/delete/{id}', [TimeTableController::class, 'delete'])->name('timetable.delete');
         });
 
@@ -171,3 +172,9 @@ Route::middleware(['admin_auth'])->group(function(){
     Route::get('registerPage', [AuthController::class, 'register'])->name('registerPage');
 });
 
+
+Route::prefix('yha')->group(function () {
+    Route::get('/', [FrontendSectionController::class, 'index'])->name('index');
+    Route::get('/student_signup', [FrontendSectionController::class, 'student_signup'])->name('student_signup');
+    Route::post('/student_signup', [FrontendSectionController::class, 'student_signup_process'])->name('signup.student_signup_process');
+});

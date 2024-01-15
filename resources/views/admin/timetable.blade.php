@@ -18,27 +18,30 @@
             <div class="fs-4 mb-4"> <i class="bx bx-table fs-3 mb-1"></i>TimeTable</div>
 
             <div class="col-12 mb-5">
-                {{-- @if (count($courseSections) > 0) --}}
+                @if (count($timetables) > 0)
                     <div class="table-responsive text-nowrap bg-light rounded shadow mb-3">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
+                                    <th>Course</th>
+                                    <th>Section</th>
+                                    <th>Teacher</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                {{-- @foreach ($courseSections as $section) --}}
-                                    {{-- {{ dd($courseSections->toArray()) }} --}}
+                                @foreach ($timetables as $data)
+                                    {{-- {{ dd($timetables->toArray()) }} --}}
                                     <tr>
-                                        <td># </td>
-                                        <td></td>
-                                        <td> </td>
-                                        <td> </td>
+                                        <td> {{ $data->student }} </td>
+                                        <td> {{ $data->course }}</td>
+                                        <td>{{ $data->section }} </td>
+                                        <td> {{ $data->teacher }}</td>
+                                        <td> {{ $data->subject }}</td>
+                                        <td> {{ $data->date }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -47,23 +50,23 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href=""><i
+                                                        href="{{ route('timetable.edit', $data->id) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
                                                     <a class="dropdown-item"
-                                                        href=""><i
+                                                        href="{{ route('timetable.delete', $data->id) }}"><i
                                                             class="bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                {{-- @else --}}
+                @else
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
-                {{-- @endif --}}
-                {{-- {{ $courseSections->appends(['section' => $sections->currentPage()])->links() }} --}}
+                @endif
+                {{-- {{ $timetables->links() }} --}}
                 <a href="{{ route('timetable.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Add TimeTable</a>
             </div>
