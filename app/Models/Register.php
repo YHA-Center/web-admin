@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Register extends Model
 {
-    use HasFactory;
+    use HasFactory; 
 
     protected $fillable = [
         'course_id', 
@@ -18,6 +18,7 @@ class Register extends Model
         'father_name',
         'mother_name',
         'phone',
+        'viber_phone',
         'email',
         'city',
         'township',

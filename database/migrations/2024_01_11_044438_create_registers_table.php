@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('father_name');
             $table->string('mother_name');
             $table->string('phone', 15);
+            $table->string('viber_phone', 15);
             $table->string('email');
             $table->string('city');
             $table->string('township');
