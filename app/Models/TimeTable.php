@@ -13,21 +13,10 @@ class TimeTable extends Model
         'section_id',
         'course_id',
         'subject_id',
+        'student_id',
         'teacher_id',
         'assistant_id',
         'date',
         'description',
     ];
-
-    public function Courses(){
-        return $this->belongsTo('App\Models\Course');
-    }
-
-    public function Subject(){
-        return $this->belongsTo('App\Models\Subject');
-    }
-
-    public function Sections(){
-        return $this->belongsTo('App\Models\Section');
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Register;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -14,6 +15,9 @@ class AjaxController extends Controller
         $data = Course::where('id', $course_id)
                 ->with('subjects', 'sections')
                 ->get();
-        return $data;
+        $students = Register::where('course_id', $course_id)
+                    ->get();
+        
+        return [$data, $students];
     }
 }

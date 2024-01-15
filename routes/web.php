@@ -148,7 +148,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/createPage', [TimeTableController::class, 'createPage'])->name('timetable.createPage');
             Route::post('/create', [TimeTableController::class, 'create'])->name('timetable.create');
             Route::get('/edit/{id}', [TimeTableController::class, 'edit'])->name('timetable.edit');
-            Route::post('/update', [TimeTableController::class, 'update'])->name('timetable.update');
+            Route::post('/update/{id}', [TimeTableController::class, 'update'])->name('timetable.update');
             Route::get('/delete/{id}', [TimeTableController::class, 'delete'])->name('timetable.delete');
         });
 

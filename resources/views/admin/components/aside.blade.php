@@ -74,9 +74,9 @@
             </a>
         </li>
         <!-- Project -->
-        <li class="menu-item {{ request()->routeIs('admin.student') ? 'active' : '' }}">
+        <li class="menu-item ">
             <a href="{{ route('admin.student') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div data-i18n="Dashboards">Project</div>
             </a>
         </li>

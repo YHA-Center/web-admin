@@ -19,32 +19,15 @@ class StudentController extends Controller
         return view('admin.student.create', compact('courses', 'sections'));
     }
 
+    // create new student
+    public function create(Request $request){
+        //dd($request->all());
 
-public function create(Request $request){
-    $request->merge([
-        'register_date' => now(),
-    ]);
-    
-    // Handle image upload
-if ($request->hasFile('image')) {
-    $request->validate([
-        'image' => 'required|image|mimes:jfif,jpeg,png,jpg,gif|max:2048',
-    ]);
+        $request->merge([
+            'register_date' => now(),
+        ]);
 
-    $image = $request->file('image');
-    $imageName = 'image_' . uniqid() . '.' . $image->extension();
-
-    // Store the image in the specified directory on the 'public' disk
-    $image->storeAs('uploads', $imageName, 'public');
-
-    // Update the request data with the image path
-    $request->merge(['image' => 'uploads/' . $imageName]);
-}
-
-    
-
-    // Create the record after handling the image
-    Register::create($request->all());
+        Register::create($request->all());
 
     return redirect()->route('admin.student')->with(['success' => 'Added new student successfully!']);
 }
@@ -68,7 +51,6 @@ if ($request->hasFile('image')) {
             'gender' => $request->gender,
             'date_of_birth' => $request->date_of_birth,
             'register_date' => $request->register_date,
-            'end_date' => $request->end_date,
             'city' => $request->city,
             'township' => $request->township,
             'education' => $request->education,
