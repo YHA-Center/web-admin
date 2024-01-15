@@ -14,6 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>YHA | @yield('title')</title>
+    <link rel="shortcut icon" href="{{asset("image/logo/logo.png")}}" type=""/>
 
     <meta name="description" content="" />
 
@@ -45,6 +46,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('admin/assets/js/config.js') }}"></script>
   </head>
+
 
   <body>
     <!-- Layout wrapper -->

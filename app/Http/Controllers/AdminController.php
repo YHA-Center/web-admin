@@ -17,6 +17,7 @@ use App\Models\CourseSection;
 use App\Models\StudentProject;
 use App\Http\Controllers\Controller;
 use App\Models\CourseSubjectInstructor;
+use App\Models\Register;
 
 class AdminController extends Controller
 {
@@ -91,7 +92,9 @@ class AdminController extends Controller
 
     // direct student page
     public function student(){
-        return view('admin.student');
+        $students = Register::all();
+        
+        return view('admin.student', ['students' => $students]);
     }
 
 
