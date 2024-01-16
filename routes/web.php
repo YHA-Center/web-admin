@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TeachController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/section', [AdminController::class, 'section'])->name('admin.section');
         Route::get('/student', [AdminController::class, 'student'])->name('admin.student');
         Route::get('/timetable', [AdminController::class, 'timetable'])->name('admin.timetable');
+        Route::get('/project', [AdminController::class, 'project'])->name('admin.project');
         
         // welcome section
         Route::prefix('home')->group(function () {
@@ -54,12 +56,12 @@ Route::middleware(['auth'])->group(function () {
         });
 
         // student project section
-        Route::prefix('student_project')->group(function () {
-            Route::get('/post', [HomeController::class, 'postProject'])->name('student_project.home');
-            Route::post('/create', [HomeController::class, 'createProject'])->name('student_project.create');
-            Route::get('/delete/{id}', [HomeController::class, 'deleteProject'])->name('student_project.delete');
-            Route::get('/edit/{id}', [HomeController::class, 'editProject'])->name('student_project.edit');
-            Route::post('/update', [HomeController::class, 'updateProject'])->name('student_project.update');
+        Route::prefix('project')->group(function () {
+            Route::get('/createPage', [ProjectController::class, 'createPage'])->name('project.createPage');
+            Route::post('/create', [ProjectController::class, 'create'])->name('project.create');
+            Route::get('/delete/{id}', [ProjectController::class, 'delete'])->name('project.delete');
+            Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('project.edit');
+            Route::post('/update/{id}', [ProjectController::class, 'update'])->name('project.update');
         });
 
         // teacher section

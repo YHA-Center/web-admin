@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Teach;
 use App\Models\Course;
+use App\Models\Project;
 use App\Models\Section;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -98,6 +99,15 @@ class AdminController extends Controller
         return view('admin.student', ['students' => $students]);
     }
 
+
+
+    // direct project page
+    public function project(){
+        $projects = Project::select('projects.*', 'courses.name as course')
+                    ->leftJoin('courses', 'projects.course_id', '=', 'courses.id')
+                    ->paginate(5);
+        return view('admin.project', compact('projects'));
+    }
 
 
 
