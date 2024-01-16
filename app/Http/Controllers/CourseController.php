@@ -49,7 +49,7 @@ class CourseController extends Controller
             $data["image"] = $filename;
         }
         Course::where('id', $id)->update($data);
-            return redirect()->route('admin.course')->with(['success' => 'Updated instructor '.$request->name.' successfully']);
+        return redirect()->route('admin.course')->with(['success' => 'Updated instructor '.$request->name.' successfully']);
         
     }
     // delete course
