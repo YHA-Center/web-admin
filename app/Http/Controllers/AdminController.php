@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Teach;
 use App\Models\Course;
+use App\Models\Gallery;
 use App\Models\Project;
 use App\Models\Section;
 use App\Models\Subject;
@@ -32,9 +33,6 @@ class AdminController extends Controller
         return view('admin.main', compact('welcome', 'about', 'about_desc'));
     }
 
-
-
-
     // direct teacher main page
     public function teacher(){
         $teachers = Teacher::select('positions.name as position', 'teachers.*')
@@ -51,9 +49,6 @@ class AdminController extends Controller
 
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
-
-
-
 
     // direct course main page
     // direct course page
@@ -78,9 +73,6 @@ class AdminController extends Controller
         return view('admin.course', compact('courses', 'subjects', 'classes'));
     }
 
-
-
-
     // direct section page
     public function section(){
         $courseSections = CourseSection::orderBy('course_id')
@@ -90,16 +82,12 @@ class AdminController extends Controller
         return view('admin.section', compact('sections', 'courseSections'));
     }
 
-
-
     // direct student page
     public function student(){
         $students = Register::all();
         
         return view('admin.student', ['students' => $students]);
     }
-
-
 
     // direct project page
     public function project(){
@@ -109,7 +97,11 @@ class AdminController extends Controller
         return view('admin.project', compact('projects'));
     }
 
-
+    // direct gallery page
+    public function gallery(){
+        $gallerys = Gallery::paginate(10);
+        return view('admin.gallery', compact('gallerys'));
+    }
 
     // direct timetable page
     public function timetable(){

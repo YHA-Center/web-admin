@@ -80,6 +80,13 @@
                 <div data-i18n="Dashboards">Project</div>
             </a>
         </li>
+        <!-- Project -->
+        <li class="menu-item {{ request()->routeIs('admin.gallery') ? 'active' : '' }}">
+            <a href="{{ route('admin.gallery') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-image"></i>
+                <div data-i18n="Dashboards">Gallery</div>
+            </a>
+        </li>
         <!-- Admin List  -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link">
