@@ -74,10 +74,17 @@
             </a>
         </li>
         <!-- Project -->
-        <li class="menu-item ">
-            <a href="{{ route('admin.student') }}" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('admin.project') ? 'active' : '' }}">
+            <a href="{{ route('admin.project') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div data-i18n="Dashboards">Project</div>
+            </a>
+        </li>
+        <!-- Project -->
+        <li class="menu-item {{ request()->routeIs('admin.gallery') ? 'active' : '' }}">
+            <a href="{{ route('admin.gallery') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-image"></i>
+                <div data-i18n="Dashboards">Gallery</div>
             </a>
         </li>
         <!-- Admin List  -->
