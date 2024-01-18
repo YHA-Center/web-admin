@@ -6,7 +6,7 @@ use App\Models\About;
 use App\Models\Teach;
 use App\Models\Course;
 use App\Models\Section;
-use App\Models\Subject;
+use App\Models\Subject; 
 use App\Models\Teacher;
 use App\Models\Welcome;
 use App\Models\Position;
