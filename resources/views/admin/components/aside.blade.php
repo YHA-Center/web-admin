@@ -34,7 +34,7 @@
         <!-- User Interface -->
         <li class="menu-item">
             <a href="{{ route('admin.home') }}" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-graph"></i>
+                <i class="menu-icon tf-icons bx bx-chart"></i>
                 <div data-i18n="userInterface">Dashboard</div>
             </a>
         </li>
@@ -50,6 +50,13 @@
             <a href="{{ route('admin.timetable') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Dashboards">TimeTable</div>
+            </a>
+        </li>
+        <!-- Attendance -->
+        <li class="menu-item">
+            <a href="{{ route('admin.timetable') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+                <div data-i18n="Dashboards">Attendance</div>
             </a>
         </li>
         <!-- Course -->
