@@ -32,6 +32,13 @@
             </ul>
         </li> --}}
         <!-- User Interface -->
+        <li class="menu-item">
+            <a href="{{ route('admin.home') }}" class="menu-link ">
+                <i class="menu-icon tf-icons bx bx-graph"></i>
+                <div data-i18n="userInterface">Dashboard</div>
+            </a>
+        </li>
+        <!-- User Interface -->
         <li class="menu-item {{ request()->routeIs('admin.home') ? 'active' : '' }}">
             <a href="{{ route('admin.home') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-color-fill"></i>
