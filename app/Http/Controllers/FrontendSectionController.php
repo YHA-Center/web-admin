@@ -29,6 +29,13 @@ class FrontendSectionController extends Controller
     }
 
 
+    // pos
+    public function pos(){
+        return view("print.pos");
+    }
+    public function invoice(Request $request){
+        return view("print.invoice");
+    }
 
 
     public function student_signup(){
@@ -87,8 +94,6 @@ class FrontendSectionController extends Controller
             return redirect()->route('signup.student_signup_process')->with('error', 'Invalid phone number or password');
         }
     }
-
-
-    }
+}
 
     

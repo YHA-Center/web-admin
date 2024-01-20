@@ -186,6 +186,7 @@ Route::middleware(['admin_auth'])->group(function(){
 }); 
 
 
+
 Route::prefix('yha')->group(function () {
     Route::get('/fronthome', [FrontendSectionController::class, 'fronthome'])->name('fronthome');
     Route::get('/courses', [FrontendSectionController::class, 'courses'])->name('courses');
@@ -193,11 +194,13 @@ Route::prefix('yha')->group(function () {
     Route::get('/gallery', [FrontendSectionController::class, 'gallery'])->name('gallery');
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('event');
     Route::get('/course', [FrontendSectionController::class, 'course'])->name('course');
+    // pos
+    Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
+    Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
 
     Route::get('/student_signup', [FrontendSectionController::class, 'student_signup'])->name('student_signup');
     Route::post('/student_signup', [FrontendSectionController::class, 'student_signup_process'])->name('signup.student_signup_process');
     Route::post('/student_signup', [FrontendSectionController::class, 'student_login_process'])->name('signup.student_signup_process');
-
 
 });
  

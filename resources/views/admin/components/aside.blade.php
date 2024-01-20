@@ -94,6 +94,13 @@
                 <div data-i18n="Dashboards">Staff</div>
             </a>
         </li>
+        {{-- POS List --}}
+        <li class="menu-item">
+            <a href="{{ route('pos') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Dashboards">POS</div>
+            </a>
+        </li>
 
 
     </ul>
