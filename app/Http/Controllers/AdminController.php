@@ -8,7 +8,7 @@ use App\Models\Course;
 use App\Models\Gallery;
 use App\Models\Project;
 use App\Models\Section;
-use App\Models\Subject;
+use App\Models\Subject; 
 use App\Models\Teacher;
 use App\Models\Welcome;
 use App\Models\Position;

@@ -1,0 +1,36 @@
+
+/* courses section start */
+
+#courses_menu{
+    width: 100%;
+    position: absolute;
+    right: 0;
+    background-color: var(--ab_bg);
+    display: none;
+    z-index: 99;
+    text-align: center;
+    transition: .5s ease;
+}
+#courses_menu a{
+    color: rgb(99, 99, 99);
+    font-size: 15px;
+    margin: 3px 0px;
+}
+#courses_menu .col-xl-3{
+    height: auto;
+    padding: 10px;
+}
+#courses_menu a:hover{
+    color: var(--maincolor);
+}
+#courses_menu .courses{
+    height: auto;
+    display: flex;
+    flex-direction: column; 
+}
+#courses_menu .courses h6{
+    border-bottom: 1px solid var(--maincolor);
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+}
+ 

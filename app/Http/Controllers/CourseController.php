@@ -81,12 +81,12 @@ class CourseController extends Controller
     // validation
     private function validation($request, $mode){
         $rule = [
-            'name' => 'required|min:5|unique:courses,name,'.$request->id,
-            'description' => 'required|min:5',
+            'name' => 'required|min:1|unique:courses,name,'.$request->id,
+            'description' => 'required|min:1',
             'image' => ($mode == 'create') ? 'required|file|mimes:jpg,png,jpeg,webp' : 'file|mimes:jpg,png,jpeg,webp',
-            'duration' => 'required|min:2',
-            'normal_price' => 'required|min:4',
-            'special_price' => 'required|min:4',
+            'duration' => 'required|min:1',
+            'normal_price' => 'required|min:1',
+            'special_price' => 'required|min:1',
         ];
         $message = [
             'name.required' => 'Course name is required',
