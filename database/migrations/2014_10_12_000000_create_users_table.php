@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('confirm_password')->default('')->nullable();
             $table->string('phone',15)->nullable();
-            $table->string('role');
+            $table->string('role')->default('user');
             $table->timestamps();
             
         });

@@ -51,14 +51,14 @@
                     <h4>YHA <br> Computer Training Center</h4>
                 </div>
                 <div class="col-xl-7 col-lg-7 col-md-2 col-sm-2 col-2"> 
-                    <a id="disp" href="{{ route("fronthome")}}">Home</a>
-                    <a class="disp" href="{{ route("courses")}}" id="courses">Courses</a>
-                    <a id="disp" href="{{ route("project")}}">Projects</a>
+                    <a id="disp" href="{{ route("user.home")}}">Home</a>
+                    <a class="disp" href="{{ route("user.course")}}" id="courses">Courses</a>
+                    <a id="disp" href="{{ route("user.project")}}">Projects</a>
                     <a id="disp" href="gallery">Photo-Gallery</a>
-                    <a id="disp" href="{{ route("event")}}">Events</a>
-                    <a id="disp" href="{{ route("signup.student_signup_process")}}">
+                    <a id="disp" href="{{ route("user.event")}}">Events</a>
+                    <a id="disp" href="{{ route("user.signup")}}">
                         <div class="login">
-                            <a class="disp" href="login1.php"><i class="fa-solid fa-user"></i></a>
+                            <i class="fa-solid fa-user"></i>
                             <!-- <span>Login <span style="color: orangered;">/</span> Signup</span> -->
                         </div>
                     </a>
