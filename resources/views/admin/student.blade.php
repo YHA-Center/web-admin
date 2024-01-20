@@ -45,7 +45,7 @@
                                         <td>{{ $student->id }}</td>
 
                                         <td>
-                                            <img src="{{ asset('storage/uploads' . $student->image) }}" alt="Image">
+                                            <img src="{{ asset('storage/' . $student->image) }}" width="45" alt="Image">
                                         </td>
                                                                                
                                         <td class="student-name">{{ $student->name }}</td>

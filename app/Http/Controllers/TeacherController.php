@@ -60,6 +60,11 @@ class TeacherController extends Controller
     // delete teacher
     public function delete($id){
         $name = Teacher::where('id', $id)->first();
+        $old = Teacher::select('image')->where('id', $id)->first()->toArray();
+        $old = $old['image'];
+        if($old != null){
+            Storage::delete('public/'.$old);
+        }
         Teacher::where('id', $id)->delete();
         return redirect()->route('admin.teacher')->with(['success' => 'Deleted instructor '.$name->name]);
     }

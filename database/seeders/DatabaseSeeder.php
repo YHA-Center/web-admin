@@ -26,10 +26,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'phone' => '234232443',
-            'city' => 'yangon',
-            'township' => 'hlaing',
             'role' => 'admin',
-            'gender' => 'male',
             'password' => Hash::make('admin123'),
         ]);
     }
