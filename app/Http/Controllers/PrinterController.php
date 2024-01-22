@@ -9,14 +9,14 @@ class PrinterController extends Controller
 {
     public function invoice(Request $request)
     { 
-        return view('invoice');
+        return view('admin/POS/invoice');
     }
 
 
 
     public function print_form(Request $request)
     {
-        return view('print_form');
+        return view('admin/POS/print_form');
     }
 
     public function datasend(Request $request){
@@ -31,6 +31,6 @@ class PrinterController extends Controller
     }
 
     public function prnpriview(){
-        return view('invoice');
+        return view('admin/POS/invoice');
     }
 }

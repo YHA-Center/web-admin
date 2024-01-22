@@ -19,14 +19,15 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CourseSectionController;
 use App\Http\Controllers\FrontendSectionController;
+use App\Http\Controllers\PrinterController;
 
 
 Route::middleware(['auth'])->group(function () {
     
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
-    // admin
-    Route::middleware(['admin_auth'])->group(function(){
+    // admin middleware with admin prefix
+    Route::middleware(['admin_auth'])->prefix('admin')->group(function(){
 
         Route::get('/home/admin', [AdminController::class, 'user_interface'])->name('admin.home');
         Route::get('/teacher', [AdminController::class, 'teacher'])->name('admin.teacher');
@@ -170,11 +171,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/course/list', [AjaxController::class, 'courseList'])->name('ajax.courseList');
         });
 
+        // pos
+        Route::prefix('system')->group(function() {
+            Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
+            Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
+        });
     });
 
     // user
-    Route::group(['middleware' => 'user_auth'], function(){
-        Route::get('/home/user', [UserController::class, 'home'])->name('user.home');
+    Route::group(['middleware' => 'user_auth', 'prefix' => 'student'], function(){
+        // Route::get('/home/user', [UserController::class, 'home'])->name('user.home');
+
     });
 
 });
@@ -194,20 +201,18 @@ Route::prefix('yha')->group(function () {
     Route::get('/gallery', [FrontendSectionController::class, 'gallery'])->name('gallery');
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('event');
     Route::get('/course', [FrontendSectionController::class, 'course'])->name('course');
-    // pos 
+    // pos
     Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
     Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
 
     Route::get('/student_signup', [FrontendSectionController::class, 'student_signup'])->name('student_signup');
     Route::post('/student_signup', [FrontendSectionController::class, 'student_signup_process'])->name('signup.student_signup_process');
-    // Route::post('/student_signup', [FrontendSectionController::class, 'student_login_process'])->name('signup.student_signup_process');
+    Route::post('/student_signup', [FrontendSectionController::class, 'student_login_process'])->name('signup.student_signup_process');
 
 });
+ 
 
-
-
-// for pos printer =-------------------------------------
+// for printer pos-----------------------------------
 Route::any('/invoice', [PrinterController::class, 'invoice'])->name('invoice');
 Route::get('/print_form', [PrinterController::class, 'print_form'])->name('print_form');
 Route::post('/datasend', [PrinterController::class, 'datasend'])->name('datasend');
- 

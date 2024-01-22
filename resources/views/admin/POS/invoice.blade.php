@@ -174,7 +174,7 @@
             @endphp
 
             <div class="print">
-                <img width="76px" src="{{ asset('imgs/logo2.jpg') }}" alt="">
+                <img width="76px" src="{{ asset('image/logo/logo2.jpg') }}" alt="">
                 <span id="head">No.29, Heldan Insein Road, <br> Giordano Upper Floor(6th) Kamaryut</span>
                 <span style="margin-top: 3px; font-weight:bold; letter-spacing: 0.5px;">09-760464143</span>
 
@@ -237,6 +237,12 @@
         <p>No tableData received</p>
     @endif
 
+    <script>
+    
 
+$(document).ready(function () {
+    window.print();
+})
+</script>
 
 @endsection
