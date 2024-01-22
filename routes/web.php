@@ -194,13 +194,20 @@ Route::prefix('yha')->group(function () {
     Route::get('/gallery', [FrontendSectionController::class, 'gallery'])->name('gallery');
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('event');
     Route::get('/course', [FrontendSectionController::class, 'course'])->name('course');
-    // pos
+    // pos 
     Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
     Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
 
     Route::get('/student_signup', [FrontendSectionController::class, 'student_signup'])->name('student_signup');
     Route::post('/student_signup', [FrontendSectionController::class, 'student_signup_process'])->name('signup.student_signup_process');
-    Route::post('/student_signup', [FrontendSectionController::class, 'student_login_process'])->name('signup.student_signup_process');
+    // Route::post('/student_signup', [FrontendSectionController::class, 'student_login_process'])->name('signup.student_signup_process');
 
 });
+
+
+
+// for pos printer =-------------------------------------
+Route::any('/invoice', [PrinterController::class, 'invoice'])->name('invoice');
+Route::get('/print_form', [PrinterController::class, 'print_form'])->name('print_form');
+Route::post('/datasend', [PrinterController::class, 'datasend'])->name('datasend');
  

@@ -177,11 +177,6 @@
            }
             
   
-        
-    
-
-       
-
 
     $(document).ready(function () {
         $('#phoneNumber').on('input', function () {
@@ -198,8 +193,7 @@
                     nameInput.val(response.name);
 
                     if (response.name === 'Name not found') {
-                        
-                        signupButton.prop('disabled', true); // Disable the submit button
+                        signupButton.prop('disabled', true);
                     } else {
                         signupButton.prop('disabled', false);
                     }
