@@ -175,38 +175,31 @@
             // show and hide password
             var a = 1;
             let show = document.querySelectorAll("#show");
-        
-           for(let i = 0; i< show.length; i++){
-            show[i].innerHTML = `<i id="show1" class="fa-solid fa-eye"></i>`;
-            var a = 0;
-            show[i].addEventListener("click", function(){
-                if(a == 0){
-                    show[i].innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
-                    let password = document.querySelectorAll("#password")
-                    password[i].type = 'text'; 
-                    a = 1;
-                } else{
-                    show[i].innerHTML = `<i class="fa-solid fa-eye"></i>`;
-                    let password = document.querySelectorAll("#password")
-                    password[i].type = 'password'; 
-                    a = 0;
-                }
-                
-                
-            } 
-            )
-           }
-            
-  
-        
-    
 
-       
+            for (let i = 0; i < show.length; i++) {
+                show[i].innerHTML = `<i id="show1" class="fa-solid fa-eye"></i>`;
+                var a = 0;
+                show[i].addEventListener("click", function() {
+                    if (a == 0) {
+                        show[i].innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+                        let password = document.querySelectorAll("#password")
+                        password[i].type = 'text';
+                        a = 1;
+                    } else {
+                        show[i].innerHTML = `<i class="fa-solid fa-eye"></i>`;
+                        let password = document.querySelectorAll("#password")
+                        password[i].type = 'password';
+                        a = 0;
+                    }
 
 
-    $(document).ready(function () {
-        $('#phoneNumber').on('input', function () {
-            var phoneNumber = $(this).val();
+                })
+            }
+
+
+            $(document).ready(function() {
+                $('#phoneNumber').on('input', function() {
+                    var phoneNumber = $(this).val();
 
                     $.ajax({
                         url: '{{ route('user.signup.process') }}',
@@ -221,18 +214,19 @@
 
                             nameInput.val(response.name);
 
-                    if (response.name === 'Name not found') {
-                        
-                        signupButton.prop('disabled', true); // Disable the submit button
-                    } else {
-                        signupButton.prop('disabled', false);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        });
+                            if (response.name === 'Name not found') {
+
+                                signupButton.prop('disabled',
+                                    true); // Disable the submit button
+                            } else {
+                                signupButton.prop('disabled', false);
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
 
             });
 
