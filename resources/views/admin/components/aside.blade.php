@@ -1,4 +1,14 @@
 
+<style>
+    .menu-item:hover{
+        background: rgb(241, 241, 241);
+   }
+    .dropdown-menu a:hover{
+        background-color: #ff6c0f;
+        color: white;
+    }
+</style>
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="index.html" class="app-brand-link">
@@ -17,7 +27,7 @@
 
     <ul class="menu-inner py-1">
          <li class="menu-item">
-            <a href="{{ route('admin.home') }}" class="menu-link ">
+            <a href="{{ route('admin.home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-chart"></i>
                 <div data-i18n="userInterface">Dashboard</div>
             </a>
@@ -95,7 +105,7 @@
         {{-- POS List --}}
         <li class="menu-item dropdown">
             <a href="#" class="menu-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="menu-icon tf-icons bx bx-group"></i>
+                <i class="fa-solid fa-file-invoice-dollar mr-4"></i>
                 <div data-i18n="Dashboards">POS</div>
             </a>
             <div class="dropdown-menu">

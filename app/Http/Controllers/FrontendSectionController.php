@@ -107,8 +107,6 @@ class FrontendSectionController extends Controller
 
     public function insertData(Request $request)
     {
-        
-        
         try {
 
             if (!$request->has('tableData')) {
@@ -126,9 +124,9 @@ class FrontendSectionController extends Controller
                 'subtotal' => 'required|numeric',
                 'balance' => 'required|numeric',
                 'voucher_no' => 'required|numeric',
+                'status' => 'required',
             ]);
-    
-            // Create a payment record
+ 
             Payment::create([
                 'voucher_no' => $validatedData['voucher_no'],
                 'total_amu' => $validatedData['totalPrice'],
@@ -136,10 +134,11 @@ class FrontendSectionController extends Controller
                 'balance' => $validatedData['balance'],
                 'paid' => $validatedData['subtotal'],
                 'vou_date' => now(),
+                'status' => $validatedData['status'],
             ]);
-    
+           
             $tableData = $request->input('tableData');
-
+            
             $voucherDataTableData = [];
             foreach ($tableData as $row) {
                 $voucherDataTableData[] = [
@@ -178,7 +177,7 @@ class FrontendSectionController extends Controller
         }
     }
 
-
+ 
 
     public function income_list(){
         $payment = Payment::paginate(10);
@@ -225,8 +224,14 @@ class FrontendSectionController extends Controller
 
 
     public function final_pay_print(Request $request, $voucherNo){
-        // $payment = Payment::where('voucher_no', $voucherNo)->get();
-        // $voucher = voucher::where('voucher_no', $voucherNo)->get();
+        $payment = Payment::where('voucher_no', $voucherNo)->get();
+        $voucher = voucher::where('voucher_no', $voucherNo)->get();
+
+        return view('admin.POS.final_pay_print', [
+            'voucherNo' => $voucherNo,
+            'payment' => $payment,
+            'voucher' => $voucher,
+        ]);
 
         return view('admin.POS.final_pay_print', ['voucherNo' => $voucherNo]);
     }

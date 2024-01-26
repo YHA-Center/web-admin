@@ -2,6 +2,18 @@
 
 @section('content')
 
+<style>
+    #change_Ui{
+        background-color: #ff6c0f;
+        border: 2px solid #ff6c0f;
+        color: white;
+    }
+    #change_Ui:hover{
+        color: #ff6c0f;
+        background: none;
+    }
+</style>
+
 <body>
 
     @if(Session::has('success'))
@@ -11,26 +23,26 @@
     @endif
 
     <div class="container mt-4">
-        <h2>Final Pay</h2>
+        <h2>Final Payment</h2>
     
         <form action="{{ route('final_pay') }}" method="GET" class="mb-3">
             <div class="form-group">
                 <label for="voucher_no">Voucher No:</label>
-                <input type="text" class="form-control" id="voucher_no" name="voucher_no" placeholder="Enter Voucher No">
+                <input required type="text" class="form-control" id="voucher_no" name="voucher_no" placeholder="Enter Voucher No">
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button id="change_Ui" type="submit" class="btn">Search</button>
         </form>
     @if(isset($payment))
         <form action="{{ route('process_final_pay') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="vou_no">Voucher No:</label>
-                <input type="text" class="form-control" id="vou_no" name="vou_no" value="{{ $payment->voucher_no }}" readonly>
+                <input required type="text" class="form-control" id="vou_no" name="vou_no" value="{{ $payment->voucher_no }}" readonly>
             </div>
 
             <div class="form-group">
                 <label for="balance">Balance:</label>
-                <input type="text" class="form-control" id="balance" name="balance" value="{{ $payment->balance }}" readonly>
+                <input required type="text" class="form-control" id="balance" name="balance" value="{{ $payment->balance }}" readonly>
             </div>
         @elseif(isset($error))
 
@@ -43,15 +55,15 @@
 
             <div class="form-group">
                 <label for="f_paid">Final Paid:</label>
-                <input type="text" class="form-control" id="f_paid" name="f_paid" value="" >
+                <input required type="text" class="form-control" id="f_paid" name="f_paid" value="" >
             </div>
 
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" name="status" value="">
+                <input required type="text" class="form-control" id="status" name="status" value="">
             </div>
             
-            <input type="submit" class="btn btn-success" value="Save">
+            <input id="change_Ui" required type="submit" class="btn" value="Save">
         </form>
     
 

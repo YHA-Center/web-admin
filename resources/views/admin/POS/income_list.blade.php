@@ -33,24 +33,21 @@
       box-shadow: 2px 2px 7px rgba(223, 223, 223, 0.884);
     }
     #clearFilters{
-      padding: 5px 10px;
-      background-color: #ff6c0f;
-      color: white;
-      font-weight: bold;
-      outline: none;
-      border: none;
-      border-radius: 7px; 
-      transition: all ease .3s;
+        background-color: #ff6c0f;
+        border: 2px solid #ff6c0f;
+        color: white;
     }
     #clearFilters:hover{
-      background: none;
-      border: 2px solid #ff6c0f;
-      color: #ff6c0f;
+        color: #ff6c0f;
+        background: none;
     }
     select{
       padding: 5px 10px;
       border: none;
       outline: none;
+    }
+    option:nth-child(1):hover{
+      background-color: red;
     }
   </style>
 </head>
@@ -64,10 +61,10 @@
 <label style="color: #ff6c0f;" for="endDate">End Date:</label>
 <input type="date" id="endDate">
 
-<button id="clearFilters">Clear Date</button>
+<button class="btn" id="clearFilters">Clear Date</button>
 
 <select id="statusFilter">
-  <option value="all">All Records</option>
+  <option id="op1" value="all">All Records</option>
   <option value="remaining">Remain Balance</option>
   <option value="paid">Paid Records</option>
 </select>

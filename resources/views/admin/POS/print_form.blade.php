@@ -10,7 +10,7 @@
     <script type="text/javascript" src="http://www.position-absolute.com/creation/print/jquery.printPage.js"></script>
     <title>Voucher Printing Form</title>
 </head>
-
+ 
 
 <style>
     .cancel_btn{
@@ -39,6 +39,15 @@
     }
     .cellClass_id{
         display: none;
+    }
+    #change_Ui{
+        background-color: #ff6c0f;
+        border: 2px solid #ff6c0f;
+        color: white;
+    }
+    #change_Ui:hover{
+        color: #ff6c0f;
+        background: none;
     }
 </style>
 <body>
@@ -118,11 +127,11 @@
                             </div>
                             <!-- Submit Button -->
                             <div class="form-group">
-                                <button type="button" style="background:#ff6c0f; color:white; float: right;" class="btn" onclick="generateTable()">Add Voucher Record</button>
+                                <button id="change_Ui" type="button" style="float: right;" class="btn" onclick="generateTable()">Add Voucher Record</button>
                             </div>
                         </div>
                         
-                    </form>
+                    </form> 
                 </div>
             </div>
         </div>
@@ -176,13 +185,18 @@
                         <label for="Balance">Balance:</label>
                         <input required type="text" id="balance" class="form-control b w-50" readonly>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center mb-1 form-group col-md-12">
+                        <label for="status">Status:</label>
+                        <input required type="text" id="status" name="status" class="form-control b w-50" value="0">
+                    </div>
+                    
                 </div>
             </div>
             <div style="float: left;" class="form-group">
-                <button type="button" id="submitButton" class="btn btn-primary">Save To Database</button>
+                <button id="change_Ui" type="button" id="submitButton" class="btn">Save To Database</button>
             </div>
             <div style="float: right;" class="form-group">
-                <a href="{{route('invoice')}}" class="btnpri btn btn-primary">Print</a>
+                <a id="change_Ui" href="{{route('invoice')}}" class="btnpri btn">Print</a>
             </div>
             {{-- <button type="button" style="background:#ff6c0f; color:white; float: right;" class="btn" onclick="sendTableDataToController()">Send Table Data</button> --}}
 
@@ -250,6 +264,21 @@ function generateTable(){
     var voucherNumber_value = voucherNumber.value;
     var voucher_no = document.getElementById('voucher_no');
     voucher_no.innerText = voucherNumber_value;
+
+
+}
+
+function update_status(){
+    let status = document.querySelector('#status');
+    let balance = document.querySelector('#balance');
+
+    if( balance.value == 0.00 ){
+        // console.log('balance is 0');
+        status.value = '1';
+    } else{
+        // console.log('balance is not 0');
+        status.value = '0';
+    }
 }
 
 function updateTotalPrice() {
@@ -273,6 +302,9 @@ function updateTotalPrice() {
 
     balanceInput.value = balance.toFixed(2);
     totalPriceInput.value = totalFee.toFixed(2);
+
+    update_status();
+
 }
 
 function updatePrice() {
@@ -287,7 +319,9 @@ function updatePrice() {
 
         classPriceInput.value = classPrice;
 
-        document.getElementById("classid").value = selectedOption.value;        
+        document.getElementById("classid").value = selectedOption.value;     
+        
+
     }
 
 
@@ -310,11 +344,9 @@ function sendTableDataToController() {
             'discount': document.querySelector("#discount").value,
             'subtotal': document.querySelector("#subtotal").value,
             'balance': document.querySelector("#balance").value,
-
             'studentNames': [row.querySelector(".cellname").textContent] // Wrap the name in an array
         };
         tableData.push(rowData);
-        console.log(tableData);
     });
 
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -326,6 +358,7 @@ function sendTableDataToController() {
             headers: {
                 'X-CSRF-TOKEN': csrfToken
             },
+            
             data: { tableData: tableData },
             success: function(response) {
                 //console.log("Response here:", response);
@@ -343,7 +376,7 @@ $(document).ready(function () {
         sendTableDataToController();
     });
 });
-
+ 
 
 
 </script>
@@ -365,6 +398,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
     let discount = parseFloat(document.getElementById("discount").value) || 0;
     let subtotal = parseFloat(document.getElementById("subtotal").value) || 0;
     let balance = parseFloat(document.getElementById("balance").value) || 0;
+    let status = parseFloat(document.getElementById("status").value) || 0;
 
     // Gather table data
     let tableRows = document.getElementById("myTable").getElementsByTagName('tr');
@@ -400,6 +434,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
         discount: discount.toFixed(2),
         subtotal: subtotal.toFixed(2),
         balance: balance.toFixed(2),
+        status : status,
         tableData: tableData,
         classid: classid
     };
