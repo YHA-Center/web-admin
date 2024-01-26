@@ -1,3 +1,4 @@
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="index.html" class="app-brand-link">
@@ -5,7 +6,7 @@
                 <img src="{{ asset('Logo-png-.png') }}" width="70" alt="" class="">
             </span>
             <span class="app-brand-text demo menu-text fw-bold ms-2 text-uppercase">YHA</span>
-        </a>
+        </a> 
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -15,24 +16,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        {{-- <!-- Dashboards -->
-        <li class="menu-item ">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
-                <div class="badge bg-danger rounded-pill ms-auto">5</div>
-            </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Statictisc one</div>
-                    </a>
-                </li>
-            </ul>
-        </li> --}}
-        <!-- User Interface -->
-        <li class="menu-item">
+         <li class="menu-item">
             <a href="{{ route('admin.home') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-chart"></i>
                 <div data-i18n="userInterface">Dashboard</div>
@@ -109,14 +93,20 @@
             </a>
         </li>
         {{-- POS List --}}
-        <li class="menu-item">
-            <a href="{{ route('pos') }}" class="menu-link">
+        <li class="menu-item dropdown">
+            <a href="#" class="menu-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Dashboards">POS</div>
             </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('pos') }}">Invoice</a>
+                <a class="dropdown-item" href="{{ route('income_list') }}">Income List</a>
+                <a class="dropdown-item" href="{{ route('final_pay') }}">Final Payment</a>
+            </div>
         </li>
-
+        
 
     </ul>
-</aside>
+</aside> 
+
 <!-- / Menu -->

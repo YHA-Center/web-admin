@@ -5,6 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Register; 
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Payment;
+use App\Models\Voucher;
+use App\Models\finalPay;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 
 class FrontendSectionController extends Controller
 {
@@ -28,13 +36,28 @@ class FrontendSectionController extends Controller
         return view("frontend_section.course");
     }
 
+    // public function datasend(Request $request){
+    //     $tableData = $request->input('tableData');
+    //     $tableDataJson = json_encode($tableData); 
+
+    //     $token = md5(uniqid());
+    //     Session::put('tableData_' . $token, $tableDataJson);
+
+    //     // Return the token in the response
+    //     return response()->json(['token' => $token]);
+    // }
+
+
 
     // pos
     public function pos(){
-        return view("print.pos");
-    }
+        $courses = Course::all();
+
+        return view('admin.POS.print_form', ['courses' => $courses]);
+    } 
+
     public function invoice(Request $request){
-        return view("print.invoice");
+        return view("admin.POS.invoice");
     }
 
 
@@ -52,6 +75,8 @@ class FrontendSectionController extends Controller
         } else {
             return response()->json(['name' => 'Name not found']); // Return an empty name if not found
         }
+
+        
 
         $validator = $request->validate([ 
             'name' => 'required|string|max:255',
@@ -80,6 +105,64 @@ class FrontendSectionController extends Controller
         }
     }
 
+    public function insertData(Request $request)
+    {
+        
+        
+        try {
+
+            if (!$request->has('tableData')) {
+                return response()->json(['error' => 'tableData is missing in the request.'], 400);
+            }
+    
+            $validatedData = $request->validate([
+                'studentNames' => 'required|array',
+                'classStartDate' => 'required|date|date_format:Y-m-d',
+                'className' => 'required|string',
+                'classid' => 'required|string',
+                'classPrice' => 'required|numeric',
+                'totalPrice' => 'required|numeric',
+                'discount' => 'required|numeric',
+                'subtotal' => 'required|numeric',
+                'balance' => 'required|numeric',
+                'voucher_no' => 'required|numeric',
+            ]);
+    
+            // Create a payment record
+            Payment::create([
+                'voucher_no' => $validatedData['voucher_no'],
+                'total_amu' => $validatedData['totalPrice'],
+                'discount' => $validatedData['discount'],
+                'balance' => $validatedData['balance'],
+                'paid' => $validatedData['subtotal'],
+                'vou_date' => now(),
+            ]);
+    
+            $tableData = $request->input('tableData');
+
+            $voucherDataTableData = [];
+            foreach ($tableData as $row) {
+                $voucherDataTableData[] = [
+                    'voucher_no' => $validatedData['voucher_no'],
+                    'stu_name' => $row['studentName'],
+                    'course_id' => $row['classid'],
+                    'enroll_date' => $row['classStartDate'],
+                    'fees' => $row['classPrice'],
+                    'vou_date' => now(),
+                ];
+            }
+            Voucher::insert($voucherDataTableData);
+    
+            return response()->json(['message' => 'Data inserted successfully']);
+        } catch (QueryException $e) {
+            return response()->json([
+                'message' => 'Error inserting data',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    // 
+
 
     public function student_login_process(Request $request){
         $phoneNumber = $request->input('phno');
@@ -94,6 +177,60 @@ class FrontendSectionController extends Controller
             return redirect()->route('signup.student_signup_process')->with('error', 'Invalid phone number or password');
         }
     }
+
+
+
+    public function income_list(){
+        $payment = Payment::paginate(10);
+        
+        return view('admin.POS.income_list', ['payment' => $payment]);
+    }
+
+    // public function final_pay(){
+    //     return view('admin.POS.final_pay');
+    // }
+
+    public function final_pay(Request $request){
+        $voucherNo = $request->input('voucher_no');
+
+        $payment = Payment::where('voucher_no', $voucherNo)->first();
+
+        if ($payment) {
+            return view('admin.POS.final_pay', ['payment' => $payment]);
+        } else {
+            return view('admin.POS.final_pay')->with('error', 'Payment not found for Voucher No: ' . $voucherNo);
+        }
+    }
+
+    public function process_final_pay(Request $request)
+    {
+        $status = $request->input('status');
+        $vou_no = $request->input('vou_no');
+        $f_paid = $request->input('f_paid');
+        $vou_date = now()->toDateTimeString();
+
+        finalPay::create([
+            'vou_no' => $vou_no,
+            'f_paid' => $f_paid,
+            'vou_date' => $vou_date,
+        ]);
+
+        DB::table('payment')->where('voucher_no', $vou_no)->update(['status' => $status]);
+        Session::flash('success', 'Paid Successfully');
+        Session::flash('voucher_no', $vou_no);
+        return redirect()->route('final_pay_print', ['voucher_no' => $vou_no]);
+
+        // return view('admin.POS.final_pay');
+    }
+
+
+    public function final_pay_print(Request $request, $voucherNo){
+        // $payment = Payment::where('voucher_no', $voucherNo)->get();
+        // $voucher = voucher::where('voucher_no', $voucherNo)->get();
+
+        return view('admin.POS.final_pay_print', ['voucherNo' => $voucherNo]);
+    }
+
 }
 
     

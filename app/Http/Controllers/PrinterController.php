@@ -21,7 +21,7 @@ class PrinterController extends Controller
 
     public function datasend(Request $request){
         $tableData = $request->input('tableData');
-        $tableDataJson = json_encode($tableData);
+        $tableDataJson = json_encode($tableData); 
 
         $token = md5(uniqid());
         Session::put('tableData_' . $token, $tableDataJson);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Teach;
-use App\Models\Course;
+use App\Models\Course; 
 use App\Models\Gallery;
 use App\Models\Project;
 use App\Models\Section;

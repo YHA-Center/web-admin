@@ -58,7 +58,7 @@
 
 <div class="container-fluid px-5">
     <div style="background-color: #ff6c0f; color:white; padding: 10px;" class="card-header p-0 d-flex align-items-center justify-content-center">
-        <h4>YHA POS System</h4>
+        <h4>YHA PwefwfwOS System</h4>
         <img width="90px" src="{{ asset('image/logo/logo.png') }}" alt="">
     </div>
     <div class="row justify-content-center mt-3">

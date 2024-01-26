@@ -1,9 +1,4 @@
-{{-- @extends('admin.master.master');
 
-@section('content') --}}
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,19 +11,8 @@
     <title>Voucher Printing Form</title>
 </head>
 
+
 <style>
-    .cellname{
-        color: red;
-    }
-    .class_date{
-        color: blue;
-    }
-    .cellclass{
-        color: #ff6c0f;
-    }
-    .cellPrice{
-        color: purple;
-    }
     .cancel_btn{
         background: #ff6c0f;
         color: white;
@@ -53,7 +37,9 @@
         font-size: 18px;
         color: black;
     }
-
+    .cellClass_id{
+        display: none;
+    }
 </style>
 <body>
 
@@ -63,7 +49,7 @@
         <img width="90px" src="{{ asset('image/logo/logo.png') }}" alt="">
     </div>
     <div class="row justify-content-center mt-3">
-        <div class="col-xl-6 col-12">
+        <div class="col-xl-4 col-12">
             <div class="card">
                 
                 <div class="card-body">
@@ -81,7 +67,7 @@
                         </div>
                         <!-- Student Names -->
                         <div class="form-group mb-3">
-                            <label for="studentNames">Student Names (comma-separated):</label>
+                            <label for="studentNames">Student Names</label>
                             <input required type="text" id="studentNames" class="form-control">
                         </div>
 
@@ -89,11 +75,29 @@
                         <div class="form-group mb-3">
                             <label for="classSelect">Select Course:</label>
                             <select id="classSelect" class="form-control" onchange="updatePrice()">
-                                <option value="math">Math Class</option>
-                                <option value="science">Science Class</option>
-                                <option value="history">History Class</option>
-                                <!-- Add more class options as needed -->
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}" data-normal-price="{{ $course->normal_price }}" data-special-price="{{ $course->special_price }}">
+                                        {{ $course->name }}
+                                    </option>
+                                @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group mb-3 d-none">
+                            <label for="studentNames">Course Id</label>
+                            <input required type="text" id="classid" class="form-control">
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="category" id="category1" value="normal" checked onchange="updatePrice()">
+                            <label class="form-check-label" for="category1">
+                                Normal Fees
+                            </label>
+                        
+                            <input style="margin-left: 10px;" class="form-check-input" type="radio" name="category" id="category2" value="special" onchange="updatePrice()">
+                            <label style="margin-left: 30px;" class="form-check-label" for="category2">
+                                Special Fees
+                            </label>
                         </div>
 
                         <!-- Class Start Date -->
@@ -105,12 +109,12 @@
                         <!-- Class Price -->
                         <div class="form-group mb-3">
                             <label for="classPrice">Course Fee:</label>
-                            <input required type="text" id="classPrice" class="form-control" readonly>
+                            <input required type="number" id="classPrice" class="form-control">
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <div class="form-group">
-                                <a href=""><button type="button" style="border: 1px solid #ff6c0f; color: #ff6c0f" class="btn">Back</button></a>
+                                <a href="{{ route('admin.home') }}"><button type="button" style="border: 1px solid #ff6c0f; color: #ff6c0f" class="btn">Back</button></a>
                             </div>
                             <!-- Submit Button -->
                             <div class="form-group">
@@ -122,21 +126,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-12">
+       
+        <div class="col-xl-8 col-12">
+            <form id="form1" method="POST">
+                @csrf
             <div class="vou d-flex align-items-center justify-content-between mb-3">
                 <div class="voucher_show">
                     <span>Voucher:</span>
-                    <span id="voucher_no">8889</span>
+                    <span id="voucher_no">0</span>
                 </div>
                 <div class="voucher_date_show">
                     <span>Voucher Date:</span>
-                    <span id="voucher_date">1/12/2024</span>
+                    <span class="vouc_date" id="voucher_date"></span>
                 </div>
             </div>
-           
-            <!-- Table to Display Student Info -->
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="myTable">
                     <thead>
                         <tr>
                             <th class="fs-5 text-black">Student Name</th>
@@ -148,13 +153,12 @@
                         
                     </thead>
                     <tbody id="tableBody">
-                        <!-- Existing table body content or leave it empty -->
+
                     </tbody>
                 </table>
             </div>
 
             <div class="balance d-flex justify-content-end mb-3">
-                <!-- Total Price, Discount, and Subtotal -->
                 <div class="form-row d-inline-block">
                     <div class="d-flex justify-content-between align-items-center mb-1 form-group col-md-12">
                         <label for="totalPrice">Total Fee:</label>
@@ -174,12 +178,15 @@
                     </div>
                 </div>
             </div>
+            <div style="float: left;" class="form-group">
+                <button type="button" id="submitButton" class="btn btn-primary">Save To Database</button>
+            </div>
             <div style="float: right;" class="form-group">
                 <a href="{{route('invoice')}}" class="btnpri btn btn-primary">Print</a>
             </div>
             {{-- <button type="button" style="background:#ff6c0f; color:white; float: right;" class="btn" onclick="sendTableDataToController()">Send Table Data</button> --}}
 
-            
+        </form>
 
         </div>
     </div>
@@ -208,7 +215,7 @@ function generateTable(){
         cellName.classList.add("cellname");
         cellName.textContent = name.trim();
         row.appendChild(cellName);
-
+        
         var class_date = document.createElement("td");
         class_date.classList.add("class_date");
         class_date.textContent = classStartDate_value.trim();
@@ -227,6 +234,10 @@ function generateTable(){
         var cancel = document.createElement("button");
         cancel.innerText = "Cancel";
         cancel.classList.add("cancel_btn");
+        cancel.addEventListener("click", function () {
+            // Remove the row when the "Cancel" button is clicked
+            row.remove();
+        });
         row.appendChild(cancel);
 
         tableBody.appendChild(row);
@@ -267,30 +278,20 @@ function updateTotalPrice() {
 function updatePrice() {
         var classSelect = document.getElementById("classSelect");
         var classPriceInput = document.getElementById("classPrice");
-        var totalPriceInput = document.getElementById("totalPrice");
-        var classPrice = 0;
+        var selectedOption = classSelect.options[classSelect.selectedIndex];
+        var selectedCategory = document.querySelector('input[name="category"]:checked').value;
 
-        switch (classSelect.value) {
-            case "math":
-                classPrice = 100;
-                break;
-            case "science":
-                classPrice = 120;
-                break;
-            case "history":
-                classPrice = 90;
-                break;
-            // Add more cases for other classes as needed
-        }
+        var priceAttribute = (selectedCategory === 'normal') ? 'data-normal-price' : 'data-special-price';
+
+        var classPrice = selectedOption.getAttribute(priceAttribute) || 0;
 
         classPriceInput.value = classPrice;
+
+        document.getElementById("classid").value = selectedOption.value;        
     }
 
 
 // Function to update total fee
-
-
-
 function sendTableDataToController() {
     var csrfToken = '{{ csrf_token() }}';
     var rows = document.querySelectorAll("#tableBody tr");
@@ -302,13 +303,15 @@ function sendTableDataToController() {
             'classDate': row.querySelector(".class_date").textContent,
             'className': row.querySelector(".cellclass").textContent,
             'classPrice': row.querySelector(".cellPrice").textContent,
-            'voucher_no' : document.querySelector("#voucher_no").textContent,
-            'voucher_date' : document.querySelector("#voucher_date").textContent,
+            'voucher_no': document.querySelector("#voucher_no").textContent,
+            'voucher_date': document.querySelector("#voucher_date").textContent,
 
-            'totalPrice' : document.querySelector("#totalPrice").value,
-            'discount' : document.querySelector("#discount").value,
-            'subtotal' : document.querySelector("#subtotal").value,
-            'balance' : document.querySelector("#balance").value
+            'totalPrice': document.querySelector("#totalPrice").value,
+            'discount': document.querySelector("#discount").value,
+            'subtotal': document.querySelector("#subtotal").value,
+            'balance': document.querySelector("#balance").value,
+
+            'studentNames': [row.querySelector(".cellname").textContent] // Wrap the name in an array
         };
         tableData.push(rowData);
         console.log(tableData);
@@ -333,8 +336,8 @@ function sendTableDataToController() {
             }
         });
     });
-   
 }
+
 $(document).ready(function () {
     $('.btnpri').on('click', function () {
         sendTableDataToController();
@@ -342,4 +345,109 @@ $(document).ready(function () {
 });
 
 
+
 </script>
+
+<script>
+// inserting into database
+var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+document.getElementById('submitButton').addEventListener('click', function () {
+    let studentNames = [document.getElementById("studentNames").value];
+    let classSelect = document.getElementById("classSelect");
+    let classPrice = parseFloat(document.getElementById("classPrice").value);
+    let classStartDate = document.getElementById("classStartDate");
+    let classStartDate_value = classStartDate.value;
+    let voucher_no = document.getElementById("voucher_no").textContent;
+    let classid = document.getElementById("classid").value;
+
+    let totalPrice = parseFloat(document.getElementById("totalPrice").value) || 0;
+    let discount = parseFloat(document.getElementById("discount").value) || 0;
+    let subtotal = parseFloat(document.getElementById("subtotal").value) || 0;
+    let balance = parseFloat(document.getElementById("balance").value) || 0;
+
+    // Gather table data
+    let tableRows = document.getElementById("myTable").getElementsByTagName('tr');
+    let tableData = [];
+
+    for (let i = 1; i < tableRows.length; i++) { // start from 1 to skip the header row
+        let currentRow = tableRows[i];
+        let cells = currentRow.getElementsByTagName('td');
+
+        let studentName = cells[0].textContent.trim();
+        let classStartDate = cells[1].textContent.trim();
+        let className = cells[2].textContent.trim();
+        let classPrice = parseFloat(cells[3].textContent.trim());
+
+        // Add the data for the current row to the array
+        tableData.push({
+            studentName: studentName,
+            classStartDate: classStartDate,
+            className: className,
+            classPrice: classPrice.toFixed(2),
+            classid: classid,
+        });
+    }
+
+    // Include table data in formData
+    let formData = {
+        studentNames: studentNames,
+        classStartDate: classStartDate_value,
+        voucher_no: voucher_no,
+        className: classSelect.options[classSelect.selectedIndex].value,
+        classPrice: classPrice.toFixed(2),
+        totalPrice: totalPrice.toFixed(2),
+        discount: discount.toFixed(2),
+        subtotal: subtotal.toFixed(2),
+        balance: balance.toFixed(2),
+        tableData: tableData,
+        classid: classid
+    };
+
+    
+
+    let jsonData = JSON.stringify(formData);
+
+    $.ajax({
+        url: '/insertdata',
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        data: jsonData,
+        contentType: 'application/json', // Set the content type to JSON
+        success: function (response) {
+            console.log("Response Data:", response);
+        },
+        error: function (xhr) {
+            console.log("XHR Object:", xhr);
+            if (xhr.responseJSON && xhr.responseJSON.errors) {
+                // Handle validation errors
+                let errors = xhr.responseJSON.errors;
+                for (let field in errors) {
+                    let errorMessages = errors[field];
+                    console.log("Validation error for field '" + field + "': " + errorMessages.join(", "));
+                }
+            } else {
+                console.error("An unexpected error occurred.");
+            }
+        }
+    });
+    alert("Data Saved");
+});
+
+
+const currentDate = new Date();
+const options = {
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric',
+};
+const formattedDate = currentDate.toLocaleDateString(undefined, options);
+let vouc_date = document.querySelector(".vouc_date");
+vouc_date.textContent = formattedDate;
+
+
+
+</script>
+

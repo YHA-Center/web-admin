@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
-{ 
+{  
     // direct login page
     public function login(){
         return view('login');
@@ -14,7 +14,7 @@ class AuthController extends Controller
 
     // direct register page
     public function register(){
-        return view('register');
+        return view('register'); 
     }
 
     public function dashboard(){
@@ -26,5 +26,6 @@ class AuthController extends Controller
         if(Auth::user()->role == 'user'){
             return redirect()->route('user.home');
         }
+        return redirect()->route('login');
     }
 }

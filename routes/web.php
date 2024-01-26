@@ -170,12 +170,13 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('ajax')->group(function() {
             Route::get('/course/list', [AjaxController::class, 'courseList'])->name('ajax.courseList');
         });
-
+ 
         // pos
-        Route::prefix('system')->group(function() {
-            Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
-            Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
-        });
+        // Route::prefix('system')->group(function() {
+        //     Route::post('/insert-data', [FrontendSectionController::class, 'insertData'])->name('insertData');
+        //     Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
+        //     Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
+        // });
     });
 
     // user
@@ -196,7 +197,7 @@ Route::prefix('yha')->group(function() {
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('user.event');
     Route::get('/course', [FrontendSectionController::class, 'course'])->name('user.course');
     
-    // admin register and login middleware
+    // admin register and login middleware 
     Route::middleware(['admin_auth'])->prefix('admin')->group(function(){
         Route::redirect('/', 'loginPage');
         Route::get('loginPage', [AuthController::class, 'login'])->name('loginPage');
@@ -216,3 +217,16 @@ Route::prefix('yha')->group(function() {
 Route::any('/invoice', [PrinterController::class, 'invoice'])->name('invoice');
 Route::get('/print_form', [PrinterController::class, 'print_form'])->name('print_form');
 Route::post('/datasend', [PrinterController::class, 'datasend'])->name('datasend');
+
+Route::prefix('system')->group(function() {
+    Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
+    Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
+
+    Route::get('/income_list', [FrontendSectionController::class, 'income_list'])->name('income_list');
+    Route::get('/final_pay', [FrontendSectionController::class, 'final_pay'])->name('final_pay');
+    Route::get('/final_pay_print/{voucher_no}', [FrontendSectionController::class, 'final_pay_print'])->name('final_pay_print');
+    Route::post('/process_final_pay', [FrontendSectionController::class, 'process_final_pay'])->name('process_final_pay');
+
+});
+
+Route::post('/insertdata', [FrontendSectionController::class, 'insertData'])->name('insertData');

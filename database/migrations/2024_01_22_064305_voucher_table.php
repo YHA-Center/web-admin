@@ -9,20 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('voucher', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->string('voucher_no');
             $table->string('stu_name');
-            $table->unsignedBigInteger('course_id');
+            $table->bigInteger('course_id')->unsigned();
             $table->date('enroll_date');
             $table->decimal('fees', 10, 2);
-            $table->timestamp('vou_date')->primary();
-            
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->timestamp('vou_date');
+            $table->timestamps();
+    
+            $table->index('course_id');
+    
+            // Remove the following line as 'id' is already a primary key
+            // $table->primary('vou_date');
         });
     }
+    
 
     /**
      * Reverse the migrations.
