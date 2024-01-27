@@ -239,7 +239,5 @@ const options = {
 const formattedDate = currentDate.toLocaleString(undefined, options);
 let date_no = document.querySelector("#date_no");
 date_no.textContent = formattedDate;
-
-
 </script>
 

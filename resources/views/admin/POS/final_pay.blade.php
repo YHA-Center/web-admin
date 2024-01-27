@@ -65,10 +65,7 @@
             
             <input id="change_Ui" required type="submit" class="btn" value="Save">
         </form>
-    
-
     </div>
-
 
     <script>
         let f_paid = document.querySelector('#f_paid');

@@ -136,40 +136,8 @@
     }
 </style>
 
-{{-- @if(isset($voucherNo))
-    <p>Voucher Number: {{ $voucherNo }}</p>
-    <p>Voucher Number: {{ $payment }}</p>
-    <p>Voucher Number: {{ $voucher }}</p>
-@endif  --}}
-
-
-{{-- @if(isset($payment))
-    @php
-        $paymentArray = json_decode($payment, true);
-    @endphp
-
-    @if(is_array($paymentArray))
-        @foreach($paymentArray as $paymentDetails)
-            <p>Voucher Number: {{ $paymentDetails['voucher_no'] }}</p>
-            @if(isset($paymentDetails['total_amu']))
-                <p>Total Amount: {{ $paymentDetails['total_amu'] }}</p>
-            @endif
-            @if(isset($paymentDetails['stu_name']))
-                <p>Student Name: {{ $paymentDetails['stu_name'] }}</p>
-            @endif
-        @endforeach
-    @endif
-@endif
- --}}
-
     <center>
         <div class="container-fluid" id="dataContainer">
-            {{-- @if(session()->has('tableData_' . request('token')))
-            @php
-                $tableDataJson = session('tableData_' . request('token'));
-                $tableData = json_decode($tableDataJson, true);
-            @endphp --}}
-
             <div class="print">
                 <img style="display: inline-block;" width="90px" src="{{ asset('image/logo/logo2.jpg') }}" alt="">
                 <span id="heading_test">YHA Computer Training Center</span>
@@ -298,7 +266,6 @@ const options = {
 const formattedDate = currentDate.toLocaleString(undefined, options);
 let date_no = document.querySelector("#date_no");
 date_no.textContent = formattedDate;
-
 
 </script>
 

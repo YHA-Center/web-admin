@@ -138,7 +138,7 @@ class FrontendSectionController extends Controller
             ]);
            
             $tableData = $request->input('tableData');
-            
+
             $voucherDataTableData = [];
             foreach ($tableData as $row) {
                 $voucherDataTableData[] = [
@@ -177,11 +177,8 @@ class FrontendSectionController extends Controller
         }
     }
 
- 
-
     public function income_list(){
         $payment = Payment::paginate(10);
-        
         return view('admin.POS.income_list', ['payment' => $payment]);
     }
 

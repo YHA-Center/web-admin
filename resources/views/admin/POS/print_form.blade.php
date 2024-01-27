@@ -198,8 +198,6 @@
             <div style="float: right;" class="form-group">
                 <a id="change_Ui" href="{{route('invoice')}}" class="btnpri btn">Print</a>
             </div>
-            {{-- <button type="button" style="background:#ff6c0f; color:white; float: right;" class="btn" onclick="sendTableDataToController()">Send Table Data</button> --}}
-
         </form>
 
         </div>

@@ -1,7 +1,6 @@
-@extends('admin.master.master')
+@extends('admin.master.master') 
 
 @section('content')
-
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <style>
@@ -46,14 +45,26 @@
       border: none;
       outline: none;
     }
-    option:nth-child(1):hover{
-      background-color: red;
-    }
+    /* Override Bootstrap Pagination Styles */
+.pagination {
+    /* background-color: rgb(43, 255, 0); */
+}
+
+.pagination li a {
+    color: #ff6c0f;
+}
+
+.pagination li.active a{
+    background: none;
+    border-color: blue;
+    color: white;
+}
+
   </style>
 </head>
 <body>
 
-<input type="text" id="searchBar" placeholder="Search by Name">
+<input type="text" id="searchBar" placeholder="Search by Voucher No">
 
 <label style="color: #ff6c0f;" for="startDate">Start Date:</label>
 <input type="date" id="startDate">
@@ -64,11 +75,10 @@
 <button class="btn" id="clearFilters">Clear Date</button>
 
 <select id="statusFilter">
-  <option id="op1" value="all">All Records</option>
+  <option value="all">All Records</option>
   <option value="remaining">Remain Balance</option>
   <option value="paid">Paid Records</option>
 </select>
-
 
 <table id="myTable">
   <thead>
@@ -97,7 +107,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <th colspan="2">Totals</th>
+      <th colspan="2">Total Amounts</th>
       <th id="paidTotal">0.00</th>
       <th id="totalAmountTotal">0.00</th>
       <th id="balanceTotal">0.00</th>
@@ -177,33 +187,23 @@
   $("#statusFilter").on("change", function () {
         var selectedValue = $(this).val();
 
-        // Reset other filters
         $("#searchBar, #startDate, #endDate").val("");
 
-        // Reset table visibility
         $("#myTable tbody tr").show();
 
-        // Filter based on the selected value
         if (selectedValue === "remaining") {
             $("#myTable tbody tr").filter(function () {
-                return $(this).find("td:eq(5)").text() == 0; // Assuming status is in the 3rd column
+                return $(this).find("td:eq(5)").text() == 0;
             }).hide();
         } else if (selectedValue === "paid") {
             $("#myTable tbody tr").filter(function () {
-                return $(this).find("td:eq(5)").text() == 1; // Assuming status is in the 3rd column
+                return $(this).find("td:eq(5)").text() == 1;
             }).hide();
         }
-        // For "all" value, no need to hide any rows
-
-        // Recalculate totals after filtering
         calculateTotals();
     });
 
   });
 
-
 </script>
-
-
-
 @endsection
