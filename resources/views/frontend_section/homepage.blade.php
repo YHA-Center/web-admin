@@ -2,22 +2,17 @@
 
 @section('content')
 
-    
+     
     <section id="home">
       <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
           
-          <div class="carousel-item active">
-            <img src="{{ asset('image/pic/slider/slider1.JPG') }}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item active">
-            <img src="{{ asset('image/pic/slider/slider2.JPG') }}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item active">
-            <img src="{{ asset('image/pic/slider/slider3.JPG') }}" class="d-block w-100" alt="...">
-          </div>
+          @foreach($sliders as $slider)
+            <div class="carousel-item active">
+              <img src="{{ asset('image/pic/slider/' . $slider->image) }}" class="d-block w-100" alt="...">
+            </div>
+          @endforeach
          
-          
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -36,20 +31,34 @@
       <div class="container">
         <h3 class="text-white" style="font-variant: small-caps; font-size: 25px; letter-spacing: 1px;"> Build Your Future With <br> TECHNOLOGY</h3>
         <div class="row">
-        
+        @if($abouts->isNotEmpty())
           <div id="ab_left" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
-            <img class="ab_img1 hidden1" src="{{ asset('image/pic/photo6.jpg') }}">
-            <img class="ab_img2 hidden2" src="{{ asset('image/pic/photo5.jpg') }}">
-            <img class="ab_img3 hidden3" src="{{ asset('image/pic/photo3.jpg') }}">
-          </div>
+            @php
+                $about = $abouts->first();
+                $imagePath = asset('storage/' . $about->image);
+                print($imagePath); // Print for debugging
+            @endphp
+              <img class="ab_img1 hidden1" src="{{ asset($imagePath)}}">
+              <img class="ab_img2 hidden2" src="{{ asset($imagePath)}}">
+              <img class="ab_img3 hidden3" src="{{ asset($imagePath)}}">
+            </div>
+            @else{
+              <p>image are empty</p>
+            }
+            @endif
+
+          @if($aboutDesc->isNotEmpty())
+          @php
+            $aboutdesc = $aboutDesc->first();
+          @endphp
           <div id="ab_right" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="ab_text">
               <h2>About Us</h2>
               <p class="section"> 
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae nihil consectetur fuga. Minima distinctio quae magnam? Corrupti, fugiat debitis ad in quo sit sunt eius recusandae aperiam quod. Sunt, sint?    
-                </p>
-             
-              <button id="btn1"><a href="">View More</a></button>
+                {{$aboutdesc->desc}}
+              </p>
+          @endif
+              <button class="d-none" id="btn1"><a href="">View More</a></button>
             </div>
           </div>
         </div>
@@ -93,49 +102,26 @@
           <p>We held project presentations end of the Batches to make sure that our students receive knowledge and truly understand the fields they are taking</p>
         </div>
         <div class="row">
-        
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-            <img class="hidden1" src="{{ asset('image/pic/photo3.jpg') }}" alt="">
-            <div class="text">
+          @if(isset($project) && $project->isNotEmpty())
+              @foreach([11, 8, 6, 7] as $courseId)
+                  @php
+                      $latestProject = $project->where('course_id', $courseId)->sortByDesc('created_at')->first();
+                  @endphp
+      
+                  @if($latestProject)
+                      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                          <img class="hidden1" src="{{ asset('storage/' . $latestProject->image) }}" alt="">
+                          <div class="text">
+                              <span>{{ $latestProject->title }}</span>
+                              <p>{{ $latestProject->title }}</p>
+                          </div>
+                      </div>
+                  @endif
+              @endforeach
+          @endif
+      </div>
             
-              <span>Webdesign and development</span>
-              <p>Webdesign and development projects</p>
-            
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="text">
-              <span>Photoshop Beginner</span>
-              <p>Photoshop Beginner Project paragraph</p>
-              
-            </div>
-            <img class="hidden3" src="{{ asset('image/pic/photo5.jpg') }}" alt="">
-            
-          </div>
-          
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-            <img class="hidden1" src="{{ asset('image/pic/photo3.jpg') }}" alt="">
-            <div class="text">
-            
-              <span>Webdesign and development</span>
-              <p>Webdesign and development projects</p>
-            
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="text">
-              <span>Photoshop Beginner</span>
-              <p>Photoshop Beginner Project paragraph</p>
-              
-            </div>
-            <img class="hidden3" src="{{ asset('image/pic/photo5.jpg') }}" alt="">
-            
-          </div>
-          
-          
-          
-          
-        </div>
+      
       </div>
     </section>
 
@@ -145,50 +131,25 @@
           <h2 style="text-align: center;">Teacher section</h2>
         </div>
         <div class="row">
-        
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="cards hidden1">
-              <div class="img">
-                <img src="{{ asset('image/pic/photo3.jpg') }}" alt="">
-              </div>
-
-              <div class="text">
-                  <h4 style="text-align: center;">Ko Ye Htut Aung</h4>
-                  <span> Age: <span style="color: #ff6f00"> 20 </span> </span>
-                  <span>Position: <span style="color: #ff6f00"> Admin </span> </span>
-              </div>
-            </div>
+          @if($teacher->isNotEmpty())
+          <div class="row">
+              @foreach($teacher->take(3) as $singleTeacher)
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                      <div class="cards hidden1">
+                          <div class="img">
+                              <img src="{{ asset('image/pic/photo3.jpg') }}" alt="">
+                          </div>
+                          <div class="text">
+                              <h4 style="text-align: center;">{{ $singleTeacher->name }}</h4>
+                              <span> Age: <span style="color: #ff6f00">{{ $singleTeacher->age }}</span> </span>
+                              <span> Position: <span style="color: #ff6f00">{{ $singleTeacher->position_id }}</span> </span>
+                          </div>
+                      </div>
+                  </div>
+              @endforeach
           </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="cards hidden1">
-              <div class="img">
-                <img src="{{ asset('image/pic/photo3.jpg') }}" alt="">
-              </div>
-
-              <div class="text">
-                  <h4 style="text-align: center;">Ko Ye Htut Aung</h4>
-                  <span> Age: <span style="color: #ff6f00"> 20 </span> </span>
-                  <span>Position: <span style="color: #ff6f00"> Admin </span> </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="cards hidden1">
-              <div class="img">
-                <img src="{{ asset('image/pic/photo3.jpg') }}" alt="">
-              </div>
-
-              <div class="text">
-                  <h4 style="text-align: center;">Ko Ye Htut Aung</h4>
-                  <span> Age: <span style="color: #ff6f00"> 20 </span> </span>
-                  <span>Position: <span style="color: #ff6f00"> Admin </span> </span>
-              </div>
-            </div>
-          </div>
-         
-           
+      @endif
+      
         </div>
         <div class="footer">
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, cumque expedita? Fugiat perferendis dolore ipsa omnis, magni harum libero fugit ex aperiam, ut vitae.</p>
@@ -205,13 +166,17 @@
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 right">
             <div class="text">
 
-        
+          @if($address->isNotEmpty())
+              @php
+                $address = $address->first();
+          @endphp
             <h2>Address And Location</h2>
             <div class="address">
-              <p>Address - Yangon</p>
+              <p>Address - {{$address->address}}</p>
             </div>
-            <p>8:00am - 9:00pm</p> 
+            <p> {{$address->OpenClose}} </p> 
            
+          @endif
           </div>
         </div>
         </div>
@@ -221,7 +186,6 @@
         
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            console.log(entry);
             if(entry.isIntersecting){
                 entry.target.classList.add('show');
             } //else{

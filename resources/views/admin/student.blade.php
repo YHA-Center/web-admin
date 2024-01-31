@@ -77,7 +77,7 @@
                     {{-- <div class="fs-6 text-uppercase text-center my-4">No Record!</div> --}}
                 {{-- @endif --}}
                 {{-- {{ $courseSections->appends(['section' => $sections->currentPage()])->links() }} --}}
-                <a href="{{ route('student.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('student.createPage') }}" class="btn mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Register Student</a>
             </div>
 

@@ -22,7 +22,7 @@
                                 <textarea style="resize: none;" class="form-control" rows="10" name="desc">{{ $data->desc }}</textarea>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary"> <i class="bx bx-up-arrow-alt"></i> Update</button>
+                                <button style="background-color: #ff6c0f; color:white;" type="submit" class="btn"> <i class="bx bx-up-arrow-alt"></i> Update</button>
                             </div>
                         </div>
                     </form>

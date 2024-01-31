@@ -196,8 +196,10 @@ Route::prefix('yha')->group(function() {
     Route::get('/gallery', [FrontendSectionController::class, 'gallery'])->name('user.gallery');
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('user.event');
     Route::get('/course', [FrontendSectionController::class, 'course'])->name('user.course');
+    Route::get('/projects/{id}', [FrontendSectionController::class, 'projects'])->name('user.projects');
+
     
-    // admin register and login middleware 
+    // admin register and login middleware  
     Route::middleware(['admin_auth'])->prefix('admin')->group(function(){
         Route::redirect('/', 'loginPage');
         Route::get('loginPage', [AuthController::class, 'login'])->name('loginPage');

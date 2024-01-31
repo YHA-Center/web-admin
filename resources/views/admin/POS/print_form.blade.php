@@ -78,7 +78,7 @@
                         <div class="form-group mb-3">
                             <label for="studentNames">Student Names</label>
                             <input required type="text" id="studentNames" class="form-control">
-                        </div>
+                        </div> 
 
                         <!-- Class Selection -->
                         <div class="form-group mb-3">
@@ -193,7 +193,7 @@
                 </div>
             </div>
             <div style="float: left;" class="form-group">
-                <button id="change_Ui" type="button" id="submitButton" class="btn">Save To Database</button>
+                <button style="background-color:#ff6c0f; color:white;" type="button" id="submitButton" class="btn">Save To Database</button>
             </div>
             <div style="float: right;" class="form-group">
                 <a id="change_Ui" href="{{route('invoice')}}" class="btnpri btn">Print</a>

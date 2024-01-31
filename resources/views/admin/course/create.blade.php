@@ -91,7 +91,7 @@
                                 @enderror
                             </div>
                             
-                            <button class="btn btn-primary mt-3"> <i class="bx bx-down-arrow-alt"></i> Save</button>
+                            <button style="background-color: #ff6c0f; color:white;" class="btn mt-3"> <i class="bx bx-down-arrow-alt"></i> Save</button>
 
                         </form>
                     </div>

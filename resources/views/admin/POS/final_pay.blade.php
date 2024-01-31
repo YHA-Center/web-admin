@@ -58,7 +58,7 @@
                 <input required type="text" class="form-control" id="f_paid" name="f_paid" value="" >
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="display:none;">
                 <label for="status">Status</label>
                 <input required type="text" class="form-control" id="status" name="status" value="">
             </div>

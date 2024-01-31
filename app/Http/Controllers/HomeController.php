@@ -17,20 +17,28 @@ class HomeController extends Controller
         return view('admin.user_interface.welcome.create');
     }
     // create welcome image
-    public function postWelcome(Request $request){
-        $rule = [
-            'image' => 'required|image|mimes:png,jpeg,jpg'
-        ];
-        Validator::make($request->all(), $rule)->validate();
-        if($request->hasfile('image')){
-            $filename = uniqid() .'_'. $request->file('image')->getClientOriginalName(); // filename with unique
-            $request->file('image')->storeas('public', $filename);
-            $data["image"] = $filename;
-        }
-        // dd($data); 
-        Welcome::create($data);
-        return redirect()->route('admin.home')->with(['success' => '✅ Added Image Successfully!']);
+    public function postWelcome(Request $request)
+{
+    $rule = [
+        'image' => 'required|image|mimes:png,jpeg,jpg'
+    ];
+    Validator::make($request->all(), $rule)->validate();
+
+    $data = [];
+
+    if ($request->hasFile('image')) {
+        $filename = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->storeAs('public', $filename);
+
+        // Save the relative path to the image in the database
+        $data["image"] = $filename;
     }
+
+    Welcome::create($data);
+
+    return redirect()->route('admin.home')->with(['success' => '✅ Added Image Successfully!']);
+}
+
     // delete welcome image
     public function deleteWelcome($id){
         $old = Welcome::select('image')->where('id', $id)->first()->toArray();

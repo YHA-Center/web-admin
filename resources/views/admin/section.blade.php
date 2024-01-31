@@ -67,7 +67,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{ $courseSections->appends(['section' => $sections->currentPage()])->links() }}
-                <a href="{{ route('course.section.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('course.section.createPage') }}" class="btn mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Class Section</a>
             </div>
 
@@ -126,7 +126,7 @@
                 {{-- Pagination  --}}
                 {{ $sections->appends(['course_section' => $courseSections->currentPage()])->links() }}
                 {{-- Button  --}}
-                <a href="{{ route('section.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('section.createPage') }}" class="btn mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Section</a>
             </div>
 

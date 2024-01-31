@@ -130,11 +130,11 @@
      <section class="main">
          <div class="container">
             <div class="row">
- 
+                @foreach ($events as $event)
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 left">
                     <div class="heading">
-                        <h5>Event 1</h5>
-                        <p>12/5/2023</p>
+                        <h5>{{ $event->title }}</h5>
+                        <p>{{ $event->edate }}</p>
                     </div>
                     <div class="img img1">
                         <img src="{{asset("image/pic/java.png")}}" alt="">
@@ -142,46 +142,14 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 right">
                     <div class="content-container">
-                        <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, porro voluptatem assumenda modi ad rerum eius ducimus voluptates? Placeat, voluptatibus.</p>         
-                        <button id="btn" class="read-more-btn">Read More...</button>
-                        <!-- <button id="btn2" style="display: none;">Read Less...</button> -->
+                        <p class="content">{{ $event->aboute }}</p>         
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 left">
-                    <div class="heading">
-                        <h5>Event 1</h5>
-                        <p>12/5/2023</p>
-                    </div>
-                    <div class="img img1">
-                        <img src="{{asset("image/pic/java.png")}}" alt="">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 right">
-                    <div class="content-container">
-                        <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, porro voluptatem assumenda modi ad rerum eius ducimus voluptates? Placeat, voluptatibus.</p>         
-                        <button id="btn" class="read-more-btn">Read More...</button>
-                        <!-- <button id="btn2" style="display: none;">Read Less...</button> -->
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 left">
-                    <div class="heading">
-                        <h5>Event 1</h5>
-                        <p>12/5/2023</p>
-                    </div>
-                    <div class="img img1">
-                        <img src="{{asset("image/pic/java.png")}}" alt="">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 right">
-                    <div class="content-container">
-                        <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, porro voluptatem assumenda modi ad rerum eius ducimus voluptates? Placeat, voluptatibus.</p>         
-                        <button id="btn" class="read-more-btn">Read More...</button>
-                        <!-- <button id="btn2" style="display: none;">Read Less...</button> -->
-                    </div>
-                </div>
-             
+                @endforeach
+
             </div>
  
+            {{ $events->links() }}
      </section>
 
      <script>

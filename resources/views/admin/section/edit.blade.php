@@ -62,7 +62,7 @@
                                 </div>
                             </div>
     
-                            <button class="btn btn-primary"><i class="bx bx-save"></i>&nbsp; Save</button>
+                            <button style="background-color: #ff6c0f; color:white;" class="btn"><i class="bx bx-save"></i>&nbsp; Save</button>
                         </form>
     
                     </div>

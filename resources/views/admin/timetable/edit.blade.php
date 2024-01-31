@@ -184,7 +184,7 @@
                                             @enderror
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><i class="bx bx-up-arrow-alt"></i> &nbsp;
+                                <button style="background-color: #ff6c0f; color:white;" type="submit" class="btn"><i class="bx bx-up-arrow-alt"></i> &nbsp;
                                     Update</button>
                             </form>
                         </div>

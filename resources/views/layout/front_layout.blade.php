@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset("css/f_home.css")}}">
     <link rel="stylesheet" href="{{asset("css/f_course_menu.css")}}">
     <link rel="stylesheet" href="{{asset("css/f_footer.css")}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
    
 
 </head>
@@ -24,11 +26,11 @@
         <div class="container-fluid">
         
             <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-evenly align-items-center">
-                    <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-phone"></i>Ph - 09698026526 </span>
-                    <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-envelope"></i>Email - yhacomputer@gmail.com</span>
-                   
-            
+             
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-evenly align-items-center">
+                      <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-phone"></i>Ph - 09882328992 </span>
+                      <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-envelope"></i>Email - yhacomputer@gmail.com</span>
+              
                 </div> 
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-end align-items-center">
                     <!-- <div class="search">
@@ -52,9 +54,11 @@
                 </div>
                 <div class="col-xl-7 col-lg-7 col-md-2 col-sm-2 col-2"> 
                     <a id="disp" href="{{ route("user.home")}}">Home</a>
-                    <a class="disp" href="{{ route("user.course")}}" id="courses">Courses</a>
+                    <a href="">Computer ICT</a>  
+                    <a href="">Programming</a>
+                    <a href="">Graphic Design</a>
+                    {{-- <a class="disp" href="{{ route("user.course")}}" id="courses">Courses</a> --}}
                     <a id="disp" href="{{ route("user.project")}}">Projects</a>
-                    <a id="disp" href="gallery">Photo-Gallery</a>
                     <a id="disp" href="{{ route("user.event")}}">Events</a>
                     <a id="disp" href="{{ route("user.signup")}}">
                         <div class="login">

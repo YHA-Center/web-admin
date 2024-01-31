@@ -33,7 +33,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <button class="btn btn-primary" type="submit"> <i class="bx bx-up-arrow-alt"></i> Update</button>
+                                <button style="background-color: #ff6c0f; color:white;" class="btn" type="submit"> <i class="bx bx-up-arrow-alt"></i> Update</button>
                             </form>
 
                         </div>

@@ -107,7 +107,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <button class="btn btn-primary mt-3"> <i class="bx bx-up-arrow-alt"></i> Update</button>
+                            <button style="background-color: #ff6c0f; color:white;" class="btn mt-3"> <i class="bx bx-up-arrow-alt"></i> Update</button>
 
                         </form>
                     </div>

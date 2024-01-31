@@ -5,12 +5,12 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <style>
     table {
-      border-collapse: collapse;
+      /* border-collapse: collapse; */
       width: 100%; 
     }
 
     th, td {
-      border: 1px solid #ddd;
+      /* border: 1px solid #ddd; */
       padding: 8px;
       text-align: left;
     }
@@ -58,6 +58,12 @@
     background: none;
     border-color: blue;
     color: white;
+}
+tr th{
+  color: #ff6c0f;
+}
+tr:nth-child(odd){
+  background-color: #cecece;
 }
 
   </style>

@@ -75,7 +75,7 @@
                 {{-- Pagination  --}}
                 {{ $welcome->appends(request()->query())->links() }}
                 {{-- Button  --}}
-                <a href="{{ route('welcome.create') }}" class="btn btn-primary btn-sm-sm"> <i class="bx bx-plus"></i>Add
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('welcome.create') }}" class="btn btn-sm-sm"> <i class="bx bx-plus"></i>Add
                     Image</a>
             </div>
         </div>
@@ -144,7 +144,7 @@
                 </div>
                 {{-- Button  --}}
                 @if (count($about) < 3)
-                    <a href="{{ route('about.post') }}" class="btn btn-primary btn-sm-sm"> <i class="bx bx-plus "></i>Add
+                    <a style="background-color: #ff6c0f; color:white;" href="{{ route('about.post') }}" class="btn btn-sm-sm"> <i class="bx bx-plus "></i>Add
                         Image</a>
                 @endif
             </div>
@@ -158,7 +158,7 @@
                         <textarea style="resize: none;" class="form-control" rows="10" readonly>{{ $about_desc->desc }}</textarea>
                     </div>
                 </div>
-                <a href="{{ route('about.desc.edit', $about_desc->id) }}" class="btn btn-primary w-25 mb-4">
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('about.desc.edit', $about_desc->id) }}" class="btn w-25 mb-4">
                     <i class="bx bx-edit-alt"></i> Edit
                 </a>
             </div>

@@ -46,7 +46,7 @@ class AdminController extends Controller
             $query->select('subjects.*')->distinct();
         }])
         ->paginate(5, ['*'], 'teach');
-
+ 
         return view('admin.teacher', compact('teachers', 'positions', 'teaches'));
     }
 

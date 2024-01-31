@@ -67,7 +67,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{-- {{ $timetables->links() }} --}}
-                <a href="{{ route('timetable.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('timetable.createPage') }}" class="btn mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Add TimeTable</a>
             </div>
 

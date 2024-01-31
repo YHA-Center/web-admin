@@ -107,7 +107,7 @@
             </div>
             {{-- Pagination  --}}
             {{ $classes->appends(['course' => $courses->currentPage(), 'subject' => $subjects->currentPage()])->links() }}
-            <a href="{{ route('class.createPage') }}" class="btn btn-primary mb-5"> <i class="bx bx-plus"></i>Class</a>
+            <a style="background-color: #ff6c0f; color:white;" href="{{ route('class.createPage') }}" class="btn mb-5"> <i class="bx bx-plus"></i>Class</a>
 
 
 
@@ -166,7 +166,7 @@
                     @endif
                     {{-- Pagination  --}}
                     {{ $courses->appends(['subject' => $subjects->currentPage(), 'class' => $classes->currentPage()])->links() }}
-                    <a href="{{ route('course.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Course</a>
+                    <a style="background-color: #ff6c0f; color:white;" href="{{ route('course.createPage') }}" class="btn mb-4"> <i class="bx bx-plus"></i>Course</a>
                 </div>
 
 
@@ -215,7 +215,7 @@
                     @endif
                     {{-- Pagination  --}}
                     {{ $subjects->appends(['course' => $courses->currentPage(), 'class' => $classes->currentPage()])->links() }}
-                    <a href="{{ route('subject.createPage') }}" class="btn btn-primary mb-4"> <i class="bx bx-plus"></i>Subject</a>
+                    <a style="background-color: #ff6c0f; color:white;" href="{{ route('subject.createPage') }}" class="btn mb-4"> <i class="bx bx-plus"></i>Subject</a>
                 </div>
 
 

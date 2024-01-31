@@ -12,13 +12,33 @@ use App\Models\finalPay;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Welcome;
+use App\Models\About;
+use App\Models\AboutDesc;
+use App\Models\Project;
+use App\Models\Teacher;
+use App\Models\Address;
+use App\Models\Event;
 
 class FrontendSectionController extends Controller
 {
 
     public function fronthome(){
-        return view("frontend_section.homepage"); 
+        $sliders = Welcome::all();
+        $abouts = About::all();
+        $aboutDesc = AboutDesc::all();
+        $project = Project::all();
+        $teacher = Teacher::all();
+        $address = Address::all();
+        
+        return view("frontend_section.homepage", [
+            'sliders' => $sliders,
+            'abouts' => $abouts,
+            'aboutDesc' => $aboutDesc,
+            'project' => $project,
+            'teacher' => $teacher,
+            'address' => $address
+        ]); 
     }
     public function courses(){
         return view("frontend_section.courses");
@@ -27,13 +47,23 @@ class FrontendSectionController extends Controller
         return view("frontend_section.gallery");
     }
     public function project(){
-        return view("frontend_section.project");
+        $courses = Course::whereNotIn('id', [2, 3, 4])->get();
+
+        return view("frontend_section.project", ['courses' => $courses]);
     }
     public function event(){
-        return view("frontend_section.event");
+
+        $events = DB::table('events')->paginate(3);
+
+        return view("frontend_section.event", ['events' => $events]);
     }
     public function course(){
         return view("frontend_section.course");
+    }
+
+    public function projects(Request $request){
+        $courses = Course::whereNotIn('id', [2, 3, 4])->get();
+        return view("projects.wdd_proj", ['courses' => $courses]);
     }
 
     // public function datasend(Request $request){
@@ -175,7 +205,7 @@ class FrontendSectionController extends Controller
         } else {
             return redirect()->route('signup.student_signup_process')->with('error', 'Invalid phone number or password');
         }
-    }
+    } 
 
     public function income_list(){
         $payment = Payment::paginate(10);

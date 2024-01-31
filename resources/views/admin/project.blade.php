@@ -47,7 +47,7 @@
                                                     <a href="{{ $data->github }}" class="btn btn-sm btn-secondary" target="_blank"> <i class="bx bxl-github me-1 fs-3"></i> Code </a>
                                                 @endif
                                                 @if($data->demo)
-                                                    <a href="{{ $data->demo }}" class="btn btn-sm btn-primary" target="_blank"> <i class="bx bx-play-circle me-1 fs-3" title="Demo"></i> Demo </a>
+                                                    <a style="background-color: #ff6c0f; color:white;" href="{{ $data->demo }}" class="btn btn-sm" target="_blank"> <i class="bx bx-play-circle me-1 fs-3" title="Demo"></i> Demo </a>
                                                 @endif
                                             @else
                                                 <span class="text-muted">None</span>
@@ -78,7 +78,7 @@
                     <div class="fs-6 text-uppercase text-center my-4">No Record!</div>
                 @endif
                 {{ $projects->links() }}
-                <a href="{{ route('project.createPage') }}" class="btn btn-primary mb-5 d-inline"> <i
+                <a style="background-color: #ff6c0f; color:white;" href="{{ route('project.createPage') }}" class="btn mb-5 d-inline"> <i
                         class="bx bx-plus"></i> Add Project</a>
             </div>
 

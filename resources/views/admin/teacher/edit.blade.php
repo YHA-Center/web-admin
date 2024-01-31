@@ -100,7 +100,7 @@
 
                                 <div class="row">
                                     <div class="col-12 d-flex justify-content-end">
-                                        <button class="btn btn-primary mt-3"><i class="bx bx-up-arrow-alt"></i> Update</button>
+                                        <button style="background-color: #ff6c0f; color:white;" class="btn mt-3"><i class="bx bx-up-arrow-alt"></i> Update</button>
                                         <span class="mx-1"></span>
                                         <a href="{{ route('teacher.delete', $teacher->id) }}"
                                             class="btn  btn-danger mt-3"><i class="bx bx-trash"></i> Delete</a>
