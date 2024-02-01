@@ -6,13 +6,11 @@
 
     <!-- Add this meta tag to include the CSRF token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-
+    
     <!-- Add this to your layout file -->
     <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -48,18 +46,23 @@
                                 <div class="title">
                                     <h4>Login Account</h4>
                                 </div>
-                                {{-- Back Button  --}}
-                                <a href="{{ route('user.home') }}" class="">
-                                    <button class="btn text-warning btn-sm">
-                                        <i class="fas fa-arrow-left"></i> Home
-                                    </button>
-                                </a>
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                <form action="{{ route('user.signup.process') }}" method="post">
+                                @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                                <form action="{{route('login.process')}}" method="post">
                                     @csrf
                                     <div class="input-group">
                                         <div class="inputgp">
@@ -78,11 +81,10 @@
                                         </div>
                                     </div>
                                     <input type="submit" class="login" name="login" value="Login" id="login_btn">
-
                                 </form>
 
                                 <div class="turn d-flex">
-                                    <a href="index.php"> <abbr title="Back To Home Page"><i
+                                    <a href="{{ route('user.home') }}"> <abbr title="Back To Home Page"><i
                                                 class="fa-solid fa-arrow-left"></i></abbr> </a>
                                     <span>Doesn't have account?</span>
                                     <button id="turnon">Sign Up</button>
@@ -94,53 +96,66 @@
                                     <h4>Sign-up Account</h4>
                                 </div>
                                 {{-- Back Button  --}}
-                                <a href="{{ route('user.home') }}" class="">
+                                {{-- <a href="{{ route('user.home') }}" class="">
                                     <button class="btn text-warning btn-sm">
                                         <i class="fas fa-arrow-left"></i> Home
                                     </button>
-                                </a>
-                                <form action="{{ route('user.signup.process') }}" method="post" id="signupForm">
+                                </a> --}}
+                                
+                                <form action="{{ route('user.signup.process') }}" method="post">
                                     @csrf
+
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    
                                     <div class="input-group">
                                         <div class="inputgp">
-                                            <input required="" type="text" name="ph" id="phoneNumber"
-                                                autocomplete="off" class="input">
+                                            <input required="" type="text" name="ph" id="phoneNumber" autocomplete="off" class="input">
                                             <label class="user-label">Phone Number</label>
                                         </div>
                                     </div>
-
+                                
                                     <div class="input-group">
                                         <div class="inputgp">
-                                            <input required="" type="text" name="nam" id="userName"
-                                                autocomplete="off" class="input">
+                                            <input required="" type="text" name="name" id="userName" autocomplete="off" class="input">
                                             <label class="user-label">User Name</label>
                                         </div>
                                     </div>
-
+                                
                                     <div class="input-group">
                                         <div class="inputgp">
-                                            <input required id="password" type="password" name="password"
-                                                autocomplete="off" class="input">
+                                            <input required id="password" type="password" name="password" autocomplete="off" class="input">
                                             <label class="user-label">Password</label>
                                             <span id="showPassword"></span>
                                         </div>
                                     </div>
-
+                                
                                     <div class="input-group">
                                         <div class="inputgp">
-                                            <input required id="cpassword" type="password" name="cpassword"
-                                                autocomplete="off" class="input">
+                                            <input required id="cpassword" type="password" name="password_confirmation" autocomplete="off" class="input">
                                             <label class="user-label">Confirm Password</label>
                                             <span id="showConfirmPassword"></span>
                                         </div>
                                     </div>
-
-                                    <input type="submit" name="signup" value="SignUp" id="signupButton"
-                                        class="login">
+                                
+                                    <input type="submit" name="signup" value="SignUp" class="login">
                                 </form>
-
+                                
                                 <div class="turn d-flex">
-                                    <a href="index.php"> <abbr title="Back To Home Page"><i
+                                    <a href="{{ route('user.home') }}"> <abbr title="Back To Home Page"><i
                                                 class="fa-solid fa-arrow-left"></i></abbr> </a>
                                     <span>Already have an account?</span>
                                     <button id="turnoff">Login</button>
@@ -202,7 +217,7 @@
                     var phoneNumber = $(this).val();
 
                     $.ajax({
-                        url: '{{ route('user.signup.process') }}',
+                        url: '{{ route('user.signup.getPhone') }}',
                         method: 'POST',
                         data: {
                             ph: phoneNumber,

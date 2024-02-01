@@ -42,13 +42,28 @@
             <div class="col-xl-3 col-lg-4 col-0 p-2 d-none d-lg-block" id="left">
                 <div class="menulist p-2 d-none d-lg-block">
                     @foreach($courses as $courses)
-                        <a class="my-1 px-3 py-1 d-none d-lg-block nav-link" href="{{ url('yha/projects', $courses->id) }}">{{$courses->name}}</a>
+                        <a class="my-1 px-3 py-1 d-none d-lg-block nav-link" href="">{{$courses->name}}</a>
                     @endforeach
                 </div>
 
             </div>
-            <div class="col-xl-9 col-lg-8 col-12 bg-success" id="right">
-                @yield('content')
+            <div class="col-xl-9 col-lg-8 col-12 mt-3" id="right">
+               <div class="row">
+
+                <div class="col-xl-6">
+                    <div class="card">
+                        <img src="path/to/your/image.jpg" class="card-img-top" alt="Course Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Your Course Name</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Course Title</h6>
+                            <p class="card-text">Course Description goes here. Provide a brief overview of your course.</p>
+                            <a href="https://github.com/yourusername/your-repo" class="card-link" target="_blank">GitHub Repo</a>
+                            <a href="https://www.example.com" class="card-link" target="_blank">Demo</a>
+                        </div>
+                     </div>
+                </div>
+
+               </div>
             </div>
         </div>
     </div>

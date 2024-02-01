@@ -170,13 +170,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('ajax')->group(function() {
             Route::get('/course/list', [AjaxController::class, 'courseList'])->name('ajax.courseList');
         });
- 
-        // pos
-        // Route::prefix('system')->group(function() {
-        //     Route::post('/insert-data', [FrontendSectionController::class, 'insertData'])->name('insertData');
-        //     Route::get('/pos', [FrontendSectionController::class, 'pos'])->name('pos');
-        //     Route::get('/invoice', [FrontendSectionController::class, 'invoice'])->name('invoice');
-        // });
+
     });
 
     // user
@@ -207,13 +201,16 @@ Route::prefix('yha')->group(function() {
     }); 
     
     // user register and login middleware
-    Route::middleware(['user_auth'])->prefix('user')->group(function(){
-        Route::redirect('/', 'loginPage');
-        Route::get('/loginPage', [FrontendSectionController::class, 'student_signup'])->name('user.signup');
-        Route::post('/loginPage', [FrontendSectionController::class, 'student_signup_process'])->name('user.signup.process');
-    });
+   
 });
  
+Route::prefix('user')->group(function(){
+    Route::redirect('/', 'loginPage');
+    Route::get('/loginPage', [FrontendSectionController::class, 'student_signup'])->name('user.signup');
+    Route::post('/loginPage', [FrontendSectionController::class, 'student_signup_process'])->name('user.signup.process');
+    Route::post('/getPhone', [FrontendSectionController::class, 'getPhone'])->name('user.signup.getPhone');
+    Route::post('/loginPage/login', [FrontendSectionController::class, 'student_login_process'])->name('login.process');
+});
 
 // for printer pos-----------------------------------
 Route::any('/invoice', [PrinterController::class, 'invoice'])->name('invoice');

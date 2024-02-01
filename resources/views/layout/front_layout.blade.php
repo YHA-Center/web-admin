@@ -179,7 +179,7 @@
       {{-- ------------------------------------ top ------------------------ --}}
 
       @yield('content')
-
+ 
        {{-- include ('footer.php') ?>  --}}
     <div style="overflow: hidden; margin-top: 150px;">
       <svg

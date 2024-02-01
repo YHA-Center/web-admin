@@ -46,7 +46,8 @@ class SectionController extends Controller
     // validation 
     private function validation($request){
         return $validatedData = $request->validate([
-            'name' => 'required|string|max:255|unique:sections,name,'.$request->id,
+            //'name' => 'required|string|max:255|unique:sections,name,'.$request->id,
+            'name' => 'required|string|max:255'.$request->id,
             'start' => [
                 'required',
                 'date_format:H:i',

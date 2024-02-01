@@ -7,7 +7,7 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PositionController extends Controller
+class PositionController extends Controller 
 {
     // direct create new subject page
     public function createPage(){

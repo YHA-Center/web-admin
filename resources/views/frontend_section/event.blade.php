@@ -119,7 +119,9 @@
 }
 
 </style>
-  
+<h1>Welcome, {{ $name }}!</h1>
+<p>Your phone number: {{ $phone }}</p>
+
      <section class="home">
          <div class="bg-text">
                  <h2>Event Heading</h2>

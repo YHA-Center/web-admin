@@ -51,11 +51,13 @@ class FrontendSectionController extends Controller
 
         return view("frontend_section.project", ['courses' => $courses]);
     }
-    public function event(){
+    public function event(Request $request){
+        $name = session('name');
+        $phone = session('phone');
 
         $events = DB::table('events')->paginate(3);
 
-        return view("frontend_section.event", ['events' => $events]);
+        return view("frontend_section.event", ['events' => $events,'name' => $name, 'phone' => $phone]);
     }
     public function course(){
         return view("frontend_section.course");
@@ -65,19 +67,6 @@ class FrontendSectionController extends Controller
         $courses = Course::whereNotIn('id', [2, 3, 4])->get();
         return view("projects.wdd_proj", ['courses' => $courses]);
     }
-
-    // public function datasend(Request $request){
-    //     $tableData = $request->input('tableData');
-    //     $tableDataJson = json_encode($tableData); 
-
-    //     $token = md5(uniqid());
-    //     Session::put('tableData_' . $token, $tableDataJson);
-
-    //     // Return the token in the response
-    //     return response()->json(['token' => $token]);
-    // }
-
-
 
     // pos
     public function pos(){
@@ -95,43 +84,45 @@ class FrontendSectionController extends Controller
         return view('frontend_section.stu_signup');
     }
 
-    public function student_signup_process(Request $request)
-    {
+    public function getPhone(Request $request){
         $phoneNumber = $request->input('ph');
         $user = Register::where('phone', $phoneNumber)->first();
 
         if ($user) {
             return response()->json(['name' => $user->name]);
         } else {
-            return response()->json(['name' => 'Name not found']); // Return an empty name if not found
+            return response()->json(['name' => 'Name not found']);
         }
-
         
+    }
 
-        $validator = $request->validate([ 
+    public function student_signup_process(Request $request)
+    {
+        $request->validate([ 
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255|unique:users,phone',
+            'ph' => 'required|string|max:255',
             'password' => 'required|string|min:2|confirmed',
-            'email' => 'nullable|email|unique:users,email',
+            'email' => 'nullable|email|max:255'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
-        $user = new User;
-        $user->name = $request->input('name');
-        $user->phone = $request->input('phone');
-        $user->password = bcrypt($request->input('password'));
-        $user->role = 'user';
-        $user->email = $request->filled('email') ? $request->input('email') : 'no email';
+        $user = User::create([
+            'name' => $request->input('name'),
+            'phone' => $request->input('ph'),
+            'password' => $request->input('password'),
+            'role' => 'user',
+            'email' => 'noemail@gmail.com'
+        ]);
 
-        try {
-            $user->save();
-            return response()->json(['message' => 'User registered successfully']);
-        } catch (\Exception $e) {
-            \Log::error('Error saving user: ' . $e->getMessage());
-            return response()->json(['error' => 'Error saving user.'], 500);
+        //dd($user);
+
+        if($user->save()){
+            return redirect()->route('user.signup')->with('success', 'User registered successfully');
+        } else{
+            return redirect()->back()->with('error', 'Error saving user.');
         }
     }
 
@@ -192,18 +183,20 @@ class FrontendSectionController extends Controller
     }
     // 
 
-
     public function student_login_process(Request $request){
         $phoneNumber = $request->input('phno');
         $password = $request->input('pass');
 
-        $user = User::select('name', 'password', 'phone')->where('phone', $phoneNumber)->first();
+        $user = User::select('name', 'password', 'phone')
+        ->where('phone', $phoneNumber)
+        ->where('password', $password)
+        ->first();
         //dd($user);
-        if ($user && password_verify($password, $user->password)) {
+        if($user) {
             session(['name' => $user->name, 'phone' => $user->phone]);
-            return redirect()->route('fronthome');
+            return redirect()->route('user.event');
         } else {
-            return redirect()->route('signup.student_signup_process')->with('error', 'Invalid phone number or password');
+            return redirect()->route('user.signup')->with('error', 'Invalid phone number or password');
         }
     } 
 
