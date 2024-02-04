@@ -229,3 +229,4 @@ Route::prefix('system')->group(function() {
 });
 
 Route::post('/insertdata', [FrontendSectionController::class, 'insertData'])->name('insertData');
+Route::get('/fetch-projects/{courseId}', [FrontendSectionController::class, 'fetchProjects']);

@@ -68,6 +68,15 @@ class FrontendSectionController extends Controller
         return view("projects.wdd_proj", ['courses' => $courses]);
     }
 
+    public function fetchProjects($courseId)
+    {
+        // Fetch projects related to the selected course
+        $projects = Project::where('course_id', $courseId)->get();
+
+        // Return projects as JSON response
+        return response()->json($projects);
+    }
+
     // pos
     public function pos(){
         $courses = Course::all();
@@ -108,7 +117,7 @@ class FrontendSectionController extends Controller
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
         // }
-
+                
         $user = User::create([
             'name' => $request->input('name'),
             'phone' => $request->input('ph'),

@@ -1,9 +1,9 @@
 @extends('layout.master')
 
 @section("title", 'Register')
-
+ 
 @section('content')
-
+ 
     <div class="container mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-7">
