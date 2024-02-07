@@ -78,6 +78,24 @@
                                     </div>
                                 @enderror
                             </div>
+                            <!-- Course type -->
+                            <div class="mb-3 form-group">
+                                <label for="course_type" class="form-label h6 my-2">Course Type</label>
+                                <select name="course_type" class="form-control @error('course_type') is-invalid @enderror" id="course_type">
+                                    <option value="" selected disabled>Select Course Type</option>
+                                    @foreach($courseTypes as $courseType)
+                                        <option value="{{ $courseType->id }}" {{ old('course_type') == $courseType->id ? 'selected' : '' }}>
+                                            {{ $courseType->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('course_type')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
 
                             {{-- Image  --}}
                             <div class="mb-3 form-group">

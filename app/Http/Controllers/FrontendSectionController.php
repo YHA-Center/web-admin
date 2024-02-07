@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use App\Models\Register; 
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Payment;
 use App\Models\Voucher;
 use App\Models\finalPay;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use App\Models\Welcome;
 use App\Models\About;
 use App\Models\AboutDesc;
@@ -30,14 +31,22 @@ class FrontendSectionController extends Controller
         $project = Project::all();
         $teacher = Teacher::all();
         $address = Address::all();
-        
+
+        $ict = Course::where('course_type', 1)->get();
+        $prog = Course::where('course_type', 2)->get();
+        $graph = Course::where('course_type', 3)->get();
+        View::share('ict', $ict);
+        View::share('prog', $prog);
+        View::share('graph', $graph);
+
         return view("frontend_section.homepage", [
             'sliders' => $sliders,
             'abouts' => $abouts,
             'aboutDesc' => $aboutDesc,
             'project' => $project,
             'teacher' => $teacher,
-            'address' => $address
+            'address' => $address,
+            'ict' => $ict
         ]); 
     }
     public function courses(){
@@ -59,7 +68,19 @@ class FrontendSectionController extends Controller
 
         return view("frontend_section.event", ['events' => $events,'name' => $name, 'phone' => $phone]);
     }
-    public function course(){
+    public function course(Request $request){
+        // $ict = Course::where('course_type', 1)->get();
+        // $prog = Course::where('course_type', 2)->get();
+        // $graph = Course::where('course_type', 3)->get();
+        // View::share('ict', $ict);
+        // View::share('prog', $prog);
+        // View::share('graph', $graph);
+
+        // $course = Course_detail::where('id', $id)->first();
+        // return view("frontend_section.course", [
+        //     'ict' => $ict
+        // ]);
+
         return view("frontend_section.course");
     }
 
@@ -71,7 +92,7 @@ class FrontendSectionController extends Controller
     public function fetchProjects($courseId)
     {
         // Fetch projects related to the selected course
-        $projects = Project::where('course_id', $courseId)->get();
+        $projects = Project::where('course_id', $courseId)->with('course')->get();
 
         // Return projects as JSON response
         return response()->json($projects);

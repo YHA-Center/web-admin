@@ -18,29 +18,61 @@
 
 </head>
 
+<style>
+  /* .dropdown-content{
+      box-shadow: 1px 1px 10px 1px #bababa;
+  } */
+  /* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 20vw;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    color: #ff6c0f;
+}
+
+</style>
+
 
 
 <body>
-    <!-- top section --> 
-    <section class="top">
-        <div class="container-fluid">
-        
-            <div class="row">
-             
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-evenly align-items-center">
-                      <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-phone"></i>Ph - 09882328992 </span>
-                      <span><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-envelope"></i>Email - yhacomputer@gmail.com</span>
-              
-                </div> 
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-end align-items-center">
-                    <!-- <div class="search">
-                      <input type="search" id="searchInput" class="search-input" placeholder="Search">
-                      <button><i style="color: orangered; margin-right: 5px;" class="fa-solid fa-magnifying-glass"></i></button>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- nav section --> 
     <section class="nav"> 
@@ -52,11 +84,34 @@
                     </div>
                     <h4>YHA <br> Computer Training Center</h4>
                 </div>
-                <div class="col-xl-7 col-lg-7 col-md-2 col-sm-2 col-2"> 
+                <div class="justify-content-end col-xl-7 col-lg-7 col-md-2 col-sm-2 col-2"> 
                     <a id="disp" href="{{ route("user.home")}}">Home</a>
-                    <a href="">Computer ICT</a>  
-                    <a href="">Programming</a>
-                    <a href="">Graphic Design</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Computer ICT</button>
+                        <div class="dropdown-content">
+                          @foreach($ict as $icts)
+                            <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$icts->name}}</a>
+                           @endforeach
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                      <button class="dropbtn">Programming</button>
+                      <div class="dropdown-content">
+                        @foreach($prog as $program)
+                          <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$program->name}}</a>
+                         @endforeach
+                      </div>
+                  </div>
+                  <div class="dropdown">
+                    <button class="dropbtn">Graphic Design</button>
+                    <div class="dropdown-content">
+                      @foreach($graph as $graphic)
+                        <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$graphic->name}}</a>
+                       @endforeach
+                    </div>
+                </div>
+                  
+                  
                     {{-- <a class="disp" href="{{ route("user.course")}}" id="courses">Courses</a> --}}
                     <a id="disp" href="{{ route("user.project")}}">Projects</a>
                     <a id="disp" href="{{ route("user.event")}}">Events</a>
@@ -70,11 +125,6 @@
                   {{-- include('src/responsive_menu.php') --}}
 
                   
-<style>
-    .dropdown-content{
-        box-shadow: 1px 1px 10px 1px #bababa;
-    }
-</style>
 
 <div class="rightmenu">
     <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
@@ -96,11 +146,7 @@
             <div class="dropdown-content">
                 <div class="listes d-flex flex-column">
                     <a href="courses.php" style="color: orangered;">View All Courses</a>
-
                     <a href="course.php?id=">java</a>
-                    
-                    
-                
                 </div>
             </div>
             </div>

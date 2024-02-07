@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\course_type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,8 @@ class CourseController extends Controller
 
     // course create page
     public function createPage(){
-        return view('admin.course.create');
+        $courseTypes = course_type::select('id', 'name')->get();
+        return view('admin.course.create', ['courseTypes' => $courseTypes]);
     }
     // edit course page
     public function edit($id){
@@ -20,18 +22,20 @@ class CourseController extends Controller
         return view('admin.course.edit', compact('data'));
     }
     // create course
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $this->validation($request, "create");
-        // dd($request->all());
         $data = $this->get_request_data($request);
-        if($request->hasfile('image')){
-            $filename = uniqid() .'_'. $request->file('image')->getClientOriginalName(); // filename with unique
-            $request->file('image')->storeas('public', $filename);
+        $data['course_type'] = $request->input('course_type');
+        if ($request->hasfile('image')) {
+            $filename = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public', $filename);
             $data["image"] = $filename;
         }
         Course::create($data);
-        return redirect()->route('admin.course')->with(['success' => 'Added course '.$data['name']]);
+        return redirect()->route('admin.course')->with(['success' => 'Added course ' . $data['name']]);
     }
+
     // update course
     public function update(Request $request){
         $this->validation($request, "update");

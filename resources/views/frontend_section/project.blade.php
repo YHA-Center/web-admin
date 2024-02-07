@@ -21,6 +21,10 @@
         color: white;
         border-radius: 5px;
     }
+    .links{
+      background: rgb(223, 223, 223);
+      padding: 5px 0px;
+    }
 </style>
 <section id="proj">
     <div class="container-fluid">
@@ -53,6 +57,7 @@
               @endforeach
             </ul>
           </div>
+
             {{-- <div class="col-xl-3 col-lg-4 col-0 p-2 d-none d-lg-block" id="left">
                 <div class="menulist p-2 d-none d-lg-block">
                     @foreach($courses as $courses)
@@ -61,6 +66,7 @@
                 </div>
 
             </div> --}}
+
             <div class="col-12" id="right">
                <div class="w-100 row m-auto" id="projects-container">
 
@@ -124,23 +130,28 @@
       }
 
       data.forEach(function (project) {
-        var projectHtml = `
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center text-md-start">
-            <div class="card">
-              <img src="{{ asset('storage/65b747c41b99e_slider3.JPG') }}" class="card-img-top" alt="${project.title}">
-              <div class="card-body">
-                <h5 class="card-title">${project.title}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${project.desc}</h6>
-                <p class="card-text">${project.desc}</p>
-                <a href="${project.github}" class="card-link" target="_blank">GitHub Repo</a>
-                <a href="${project.demo}" class="card-link" target="_blank">Demo</a>
-              </div>
-            </div>
-          </div>
-        `;
+  var courseName = project.course ? project.course.name : 'Unknown Course';
 
-        projectsContainer.append(projectHtml);
-      });
+  var projectHtml = `
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center text-md-start">
+      <div class="card">
+        <img src="{{ asset('storage/65b747c41b99e_slider3.JPG') }}" class="card-img-top" alt="${project.title}">
+        <div class="card-body">
+          <h5 class="card-title">${project.title}</h5>
+          <span style="color: #ff6c0f;">${courseName}</span>
+          <p class="card-text">${project.desc}</p>
+          <div class="links d-flex justify-content-evenly">
+            ${project.github !== null ? `<a href="${project.github}" class="card-link" target="_blank"><i class="fa-brands fa-github"></i> GitHub Source</a>` : ''}
+            ${project.demo !== null ? `<a href="${project.demo}" class="card-link" target="_blank"><i class="fa-solid fa-play"></i> Live Demo</a>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  projectsContainer.append(projectHtml);
+});
+
     }
   });
 </script>

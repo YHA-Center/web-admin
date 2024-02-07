@@ -189,7 +189,7 @@ Route::prefix('yha')->group(function() {
     Route::get('/project', [FrontendSectionController::class, 'project'])->name('user.project');
     Route::get('/gallery', [FrontendSectionController::class, 'gallery'])->name('user.gallery');
     Route::get('/event', [FrontendSectionController::class, 'event'])->name('user.event');
-    Route::get('/course', [FrontendSectionController::class, 'course'])->name('user.course');
+    Route::get('/course/{id}', [FrontendSectionController::class, 'course'])->name('user.course');
     Route::get('/projects/{id}', [FrontendSectionController::class, 'projects'])->name('user.projects');
 
     
@@ -230,3 +230,6 @@ Route::prefix('system')->group(function() {
 
 Route::post('/insertdata', [FrontendSectionController::class, 'insertData'])->name('insertData');
 Route::get('/fetch-projects/{courseId}', [FrontendSectionController::class, 'fetchProjects']);
+
+// for course type in navbar
+Route::get('user', 'UserController@index')->name('user');

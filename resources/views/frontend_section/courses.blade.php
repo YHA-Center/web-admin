@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="main w-100 mt-5">
+<div class="main w-100 mt-5"> 
     <div class="container">
         <h5 style="margin-bottom: 30px;">Courses Section</h5>
         <div class="row w-100">

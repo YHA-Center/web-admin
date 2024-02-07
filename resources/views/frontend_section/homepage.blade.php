@@ -143,7 +143,7 @@
                               <h4 style="text-align: center;">{{ $singleTeacher->name }}</h4>
                               <span> Age: <span style="color: #ff6f00">{{ $singleTeacher->age }}</span> </span>
                               <span> Position: <span style="color: #ff6f00">{{ $singleTeacher->position_id }}</span> </span>
-                          </div>
+                          </div> 
                       </div>
                   </div>
               @endforeach

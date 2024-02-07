@@ -1,6 +1,9 @@
 @extends('admin.master.master')
 
 @section('content')
+
+
+
     <main>
         <div class="container-fluid p-2 p-md-4">
 

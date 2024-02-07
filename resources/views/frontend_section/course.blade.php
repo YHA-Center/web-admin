@@ -1,5 +1,5 @@
-@extends("layout.front_layout")
-@section('content')
+{{-- @extends("layout.front_layout") --}}
+{{-- @section('content') --}}
 
 
 <style>
@@ -63,7 +63,7 @@
     background-size: cover;
 }
 .main img{
-    padding: 30px 0px;
+    padding: 30px 0px; 
     width: 100%;
     border-radius: 20px;
     background:transparent;
@@ -75,9 +75,6 @@
 #what h3{
     letter-spacing: 1px;
     font-weight: 500;
-}
-#what span{
-    color: var(--maincolor);
 }
 #what p{
     line-height: 170%;
@@ -178,7 +175,7 @@
         <div class="row">
             <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
                 <div class="text">
-                    <h1>JavaScript full course</h1>
+                    <h1>ICT Foundation Course</h1>
                     <span>In this course, you will learn JavaScript from Beginner. You don't need any programming knowledge to enroll this course</span>
                         <a href="#">
                             <Button id="btn1">Enroll Now</Button>
@@ -209,7 +206,8 @@
 <section id="what">
   <div class="container">
     <div class="row what">
-      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12"><h3>What is JAVA</span>?</h3>
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        {{-- <h3>Course Outline</span>?</h3> --}}
         <p> <span>⊳ JavaScript is a scripting or programming language that allows you to implement complex features on web pages. Every time a web page does more than just sit there and display static information for you to look at. Displaying timely content updates, interactive maps, animated 2D/3D graphics, scrolling video jukeboxes, etc. You can bet that JavaScript is probably involved. It is the third layer of the layer cake of standard web technologies, two of which (php and CSS) we have covered in much more d</p>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -218,10 +216,7 @@
         </div>
       </div>
       </div>
-    <div class="row why">
-      <h3>Why should you learn?</h3>
-      <p><span>⊳ Learning JavaScript (JS) is highly beneficial in today's digital landscape. JavaScript is a versatile programming language that finds extensive use in web development, making it an essential skill for aspiring developers. One compelling reason to learn JS is its versatility. It is the de facto language of the web, allowing developers to create interactive and dynamic web pages. By mastering JavaScript, you gain the power to enhance user interfaces, create animations, handle form submissions, and</p>
-    </div>
+
   </div>
  
 </section>
@@ -231,7 +226,7 @@
         <div class="row w-100">
             <div class="col-12">
                 <div class="outline w-100">
-                    <h3>Course Outline</h3>
+                    <h3>Subjects</h3>
                     <div class="uls w-100 h-100 d-flex">
                     <ul>
                            
@@ -246,20 +241,8 @@
                     </div>
                     
                 </div>
-                
             </div>
-            <div class="col-12 content w-100">
-              <h3>Course Content</h3>
-              <span class="text-secondary"> .4 sections .2 projects .total 12 hours (2 Hours a Day)  <i class="fa-solid fa-paperclip"></i> Assigiments</span>
-              <ul>
-                <li>Day 1 - JavaScript Introduction</li>
-                <li>Day 2 - Operators</li>
-                <li>Day 3 - Object datatype and Array datatype</li>
-                <li>Day 4 - Statements in JavaScript</li>
-                <li>Day 5 - Document Object Model (DOM)</li>
-                <li>Day 6 - Projects</li>
-              </ul>
-            </div>
+            
             <div class="col-12 w-100">
               <div class="times">
                 <h3><i class="fa-solid fa-calendar-days"></i> TimeTable</h3>
@@ -273,4 +256,4 @@
     </div>
 </section>
 
-@endsection
+{{-- @endsection --}}
