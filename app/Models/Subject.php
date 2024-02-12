@@ -23,4 +23,10 @@ class Subject extends Model
     {
         return $this->belongsToMany(Course::class, 'class_models', 'subject_id', 'course_id');
     }
+    
+    public function classModels()
+{
+    return $this->hasMany(ClassModel::class, 'subject_id');
+
+}
 }

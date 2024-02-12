@@ -21,7 +21,9 @@ class Course extends Model
         'normal_price',
         'special_price',
         'duration',
-        'course_type'
+        'course_type',
+        'about',
+        'links'
     ];
 
     public function subjects()

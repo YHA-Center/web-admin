@@ -1,6 +1,6 @@
 @extends('layout.front_layout');
 
-@section('content')
+@section('content') 
 <!-- Add this in your HTML head section -->
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,23 +29,6 @@
 <section id="proj">
     <div class="container-fluid">
 
-        {{-- <div id="menubar" class="d-block d-lg-none mt-3">
-            <button id="menu_btn" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions">Course Lists <i class="fa-solid fa-bars"></i></button>
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions2" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="menulist p-3 d-block d-lg-none">
-                    @foreach($courses as $courses1)
-                        <a class="my-1 px-3 py-1 d-block d-lg-none nav-link" href="">{{$courses1->name}}</a>
-                    @endforeach                
-                </div>
-            </div>
-            </div>
-        </div> --}}
-           
         <div class="row m-auto">
           <div class="dropdown my-3 ms-5">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,16 +41,10 @@
             </ul>
           </div>
 
-            {{-- <div class="col-xl-3 col-lg-4 col-0 p-2 d-none d-lg-block" id="left">
-                <div class="menulist p-2 d-none d-lg-block">
-                    @foreach($courses as $courses)
-                      <a class="my-1 px-3 py-1 d-none d-lg-block nav-link course-link" data-course-id="{{$courses->id}}" href="">{{$courses->name}}</a>                    
-                    @endforeach
-                </div>
-
-            </div> --}}
-
             <div class="col-12" id="right">
+              <div id="h" class="w-100 text-center mt-2 mb-3" style="padding: 10px; margin: 0;">
+
+              </div>
                <div class="w-100 row m-auto" id="projects-container">
 
                </div>
@@ -114,7 +91,9 @@
     // Function to update UI with projects data
     function updateProjectsUI(data) {
       var projectsContainer = $('#projects-container');
-
+      var h = $('#h');
+      
+      h.empty();
       projectsContainer.empty();
 
       if (data.length === 0) {
@@ -129,28 +108,41 @@
         return;
       }
 
-      data.forEach(function (project) {
-  var courseName = project.course ? project.course.name : 'Unknown Course';
+      var currentCourseName = null;
 
-  var projectHtml = `
-    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center text-md-start">
-      <div class="card">
-        <img src="{{ asset('storage/65b747c41b99e_slider3.JPG') }}" class="card-img-top" alt="${project.title}">
-        <div class="card-body">
-          <h5 class="card-title">${project.title}</h5>
-          <span style="color: #ff6c0f;">${courseName}</span>
-          <p class="card-text">${project.desc}</p>
-          <div class="links d-flex justify-content-evenly">
-            ${project.github !== null ? `<a href="${project.github}" class="card-link" target="_blank"><i class="fa-brands fa-github"></i> GitHub Source</a>` : ''}
-            ${project.demo !== null ? `<a href="${project.demo}" class="card-link" target="_blank"><i class="fa-solid fa-play"></i> Live Demo</a>` : ''}
+      data.forEach(function (project) {
+      var courseName = project.course ? project.course.name : 'Unknown Course';
+
+      if (courseName !== currentCourseName) {
+            var courseHeading = `
+                
+                    <h3>${courseName}</h3>
+
+            `;
+            h.append(courseHeading);
+            currentCourseName = courseName;
+        }
+
+      var projectHtml = `
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center text-md-start">
+          <div class="card">
+            <img src="{{ asset('storage/65b747c41b99e_slider3.JPG') }}" class="card-img-top" alt="${project.title}">
+            <div class="card-body">
+              <h5 class="card-title">${project.title}</h5>
+              <span style="color: #ff6c0f;">${courseName}</span>
+              <p class="card-text">${project.desc}</p>
+              <div class="links d-flex justify-content-evenly">
+                ${project.github !== null ? `<a href="${project.github}" class="card-link" target="_blank"><i class="fa-brands fa-github"></i> GitHub Source</a>` : ''}
+                ${project.demo !== null ? `<a href="${project.demo}" class="card-link" target="_blank"><i class="fa-solid fa-play"></i> Live Demo</a>` : ''}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  `;
+      `;
 
-  projectsContainer.append(projectHtml);
-});
+      projectsContainer.append(projectHtml);
+      
+    });
 
     }
   });

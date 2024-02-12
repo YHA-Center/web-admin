@@ -53,7 +53,7 @@
             
         @endif
 
-            <div class="form-group">
+            <div class="form-group"> 
                 <label for="f_paid">Final Paid:</label>
                 <input required type="text" class="form-control" id="f_paid" name="f_paid" value="" >
             </div>

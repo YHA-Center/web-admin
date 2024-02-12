@@ -198,7 +198,7 @@ tr:nth-child(odd){
         $("#myTable tbody tr").show();
 
         if (selectedValue === "remaining") {
-            $("#myTable tbody tr").filter(function () {
+            $("#myTable tbody tr").filter(function () { 
                 return $(this).find("td:eq(5)").text() == 0;
             }).hide();
         } else if (selectedValue === "paid") {

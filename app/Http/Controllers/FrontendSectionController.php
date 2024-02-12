@@ -20,6 +20,7 @@ use App\Models\Project;
 use App\Models\Teacher;
 use App\Models\Address;
 use App\Models\Event;
+use App\Models\ClassModel;
 
 class FrontendSectionController extends Controller
 {
@@ -56,37 +57,66 @@ class FrontendSectionController extends Controller
         return view("frontend_section.gallery");
     }
     public function project(){
+        $ict = Course::where('course_type', 1)->get();
+        $prog = Course::where('course_type', 2)->get();
+        $graph = Course::where('course_type', 3)->get();
+
+        View::share('ict', $ict);
+        View::share('prog', $prog);
+        View::share('graph', $graph);
         $courses = Course::whereNotIn('id', [2, 3, 4])->get();
 
-        return view("frontend_section.project", ['courses' => $courses]);
+        return view("frontend_section.project", [
+            'courses' => $courses,
+        ]);
     }
     public function event(Request $request){
+        $ict = Course::where('course_type', 1)->get();
+        $prog = Course::where('course_type', 2)->get();
+        $graph = Course::where('course_type', 3)->get();
+
+        View::share('ict', $ict);
+        View::share('prog', $prog);
+        View::share('graph', $graph);
         $name = session('name');
         $phone = session('phone');
 
         $events = DB::table('events')->paginate(3);
 
-        return view("frontend_section.event", ['events' => $events,'name' => $name, 'phone' => $phone]);
+        return view("frontend_section.event", [
+            'events' => $events,
+            'name' => $name, 
+            'phone' => $phone,
+            'ict' => $ict
+        ]);
     }
-    public function course(Request $request){
-        // $ict = Course::where('course_type', 1)->get();
-        // $prog = Course::where('course_type', 2)->get();
-        // $graph = Course::where('course_type', 3)->get();
-        // View::share('ict', $ict);
-        // View::share('prog', $prog);
-        // View::share('graph', $graph);
+    public function course(Request $request, $id){
+        $ict = Course::where('course_type', 1)->get();
+        $prog = Course::where('course_type', 2)->get();
+        $graph = Course::where('course_type', 3)->get();
 
-        // $course = Course_detail::where('id', $id)->first();
-        // return view("frontend_section.course", [
-        //     'ict' => $ict
-        // ]);
+        View::share('ict', $ict);
+        View::share('prog', $prog);
+        View::share('graph', $graph);
 
-        return view("frontend_section.course");
+        $subjects = ClassModel::where('course_id', $id)->get();
+        $course = Course::where('id', $id)->first();
+        return view("frontend_section.course", [
+            'ict' => $ict,
+            'course' => $course,
+            'subjects' => $subjects
+        ]);
+
+        
     }
+//return view("frontend_section.course");
 
     public function projects(Request $request){
+        
         $courses = Course::whereNotIn('id', [2, 3, 4])->get();
-        return view("projects.wdd_proj", ['courses' => $courses]);
+        return view("projects.wdd_proj", [
+            'courses' => $courses
+        ]);
     }
 
     public function fetchProjects($courseId)
@@ -242,9 +272,9 @@ class FrontendSectionController extends Controller
     public function final_pay(Request $request){
         $voucherNo = $request->input('voucher_no');
 
-        $payment = Payment::where('voucher_no', $voucherNo)->first();
+        $payment = Product::where('voucher_no', $voucherNo)->first();
 
-        if ($payment) {
+        if($payment) {
             return view('admin.POS.final_pay', ['payment' => $payment]);
         } else {
             return view('admin.POS.final_pay')->with('error', 'Payment not found for Voucher No: ' . $voucherNo);

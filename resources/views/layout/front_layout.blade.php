@@ -42,7 +42,7 @@
     position: absolute;
     min-width: 20vw;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 999;
 }
 
 /* Links inside the dropdown */
@@ -90,7 +90,7 @@
                         <button class="dropbtn">Computer ICT</button>
                         <div class="dropdown-content">
                           @foreach($ict as $icts)
-                            <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$icts->name}}</a>
+                            <a style="background-color: white;" href="{{ route('user.course', ['id' => $icts->id]) }}">{{$icts->name}}</a>
                            @endforeach
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                       <button class="dropbtn">Programming</button>
                       <div class="dropdown-content">
                         @foreach($prog as $program)
-                          <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$program->name}}</a>
+                          <a style="background-color: white;" href="{{ route('user.course', ['id' => $program->id]) }}">{{$program->name}}</a>
                          @endforeach
                       </div>
                   </div>
@@ -106,7 +106,7 @@
                     <button class="dropbtn">Graphic Design</button>
                     <div class="dropdown-content">
                       @foreach($graph as $graphic)
-                        <a href="{{ route('user.course', ['id' => $icts->id]) }}">{{$graphic->name}}</a>
+                        <a style="background-color: white;" href="{{ route('user.course', ['id' => $graphic->id]) }}">{{$graphic->name}}</a>
                        @endforeach
                     </div>
                 </div>
