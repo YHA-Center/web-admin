@@ -8,8 +8,11 @@
         <div class="carousel-inner">
           
           @foreach($sliders as $slider)
+          <?php
+            $slide = asset('storage/' . $slider->image)
+          ?>
             <div class="carousel-item active">
-              <img src="{{ asset('image/pic/slider/' . $slider->image) }}" class="d-block w-100" alt="...">
+              <img src="{{  $slide }}" class="d-block w-100" alt="...">
             </div>
           @endforeach
          
@@ -31,21 +34,21 @@
       <div class="container">
         <h3 class="text-white" style="font-variant: small-caps; font-size: 25px; letter-spacing: 1px;"> Build Your Future With <br> TECHNOLOGY</h3>
         <div class="row">
-        @if($abouts->isNotEmpty())
-          <div id="ab_left" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
-            @php
-                $about = $abouts->first();
-                $imagePath = asset('storage/' . $about->image);
-                print($imagePath); // Print for debugging
-            @endphp
-              <img class="ab_img1 hidden1" src="{{ asset($imagePath)}}">
-              <img class="ab_img2 hidden2" src="{{ asset($imagePath)}}">
-              <img class="ab_img3 hidden3" src="{{ asset($imagePath)}}">
-            </div>
-            @else{
-              <p>image are empty</p>
-            }
-            @endif
+          @if($abouts->isNotEmpty())
+          <div id="ab_left" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+              @php
+                  $about = $abouts->first();
+                  $imagePath = asset('storage/' . $about->image);
+              @endphp
+      
+              <img class="ab_img1 hidden1" src="{{ $imagePath }}">
+              <img class="ab_img2 hidden2" src="{{ $imagePath }}">
+              <img class="ab_img3 hidden3" src="{{ $imagePath }}">
+          </div>
+      @else
+          <p>Images are empty</p>
+      @endif
+      
 
           @if($aboutDesc->isNotEmpty())
           @php
